@@ -20,15 +20,15 @@
       "required": false,
       "unique": true
     },
-    "targets": {
-      "type": "text",
-      "required": true
-    },
     "author": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "score_systems"
+    },
+    "targets": {
+      "type": "json",
+      "required": true
     }
   }
 }

@@ -1,0 +1,32 @@
+## Main ROUTES
+
+- 1 SPLASH screen
+- 2 REGISTER/LOGIN 
+- 3 NEW SESSION SETUP (solo/group)
+- 4 NEW SCORESYSTEM SETUP
+- 5 MYSESSIONS
+- 6 ACTIVESESSION
+
+
+## COMPONENTS
+
+- LOGO (used by 1)
+- SYNC (used by 5)
+- NAVBAR (used by 3, 4, 5, 6)
+- REGISTER_OR_LOGIN (used by 2)
+- INPUT_LOGIN (used by 2)
+- INPUT_REGISTER (used by 2)
+- SOLO_OR_GROUP (used by 3)
+- GROUP_USERS_INPUT (used by 3)
+- SS_SELECT_OR_CREATE (used by 3)
+- SS_CREATE_EASY_OR_ADV (used by 3, 4)
+- SS_EASY_DEFINE (used by 3, 4)
+- SS_ADV_DEFINE (used by 3, 4)
+- SESSION_INFO (used by 3)
+- SESSION_END_SETUP (used by 3)
+- SESSION_TARGET_NAV (used by 6)
+- SESSION_TARGET_USERS_SCORES (used by 6)
+- SESSION_TARGET_USER_SCORE_INPUT (used by 6)
+- SESSION_END (used by 6)
+- SESSIONS_LIST (used by 5)
+- SESSION_DETAIL (used by 5)

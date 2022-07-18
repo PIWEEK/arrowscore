@@ -2,6 +2,7 @@
   import { Router, Link, Route } from "svelte-navigator";
   import MySessions from "./routes/MySessions.svelte";
   import RegisterOrLogin from './routes/RegisterOrLogin.svelte';
+  import LoginTest from './routes/logintest.svelte';
 
   import svelteLogo from './assets/svelte.svg'
   import Counter from './components/Counter.svelte'
@@ -26,10 +27,13 @@
     <div>
       <Link to="my-sessions">My Sessions</Link>
       <Link to="auth">Register or Login</Link>
+      <Link to="login">Login Test</Link>
+
     </div>
 
 	<Route path="my-sessions" component={MySessions} />
 	<Route path="auth" component={RegisterOrLogin} />
+  <Route path="login" component={LoginTest} />
   </Router>
 
   <p>

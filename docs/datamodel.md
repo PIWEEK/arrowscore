@@ -16,6 +16,9 @@
 - users (m-to-n user) [1]
 - scoresystem (1-to-n scoresystem)
 - tournament (1-to-n tournament)
+- userscores
+
+userscores is list of tuples user/score where score starts as a blank replica of the session's scoresystem
 
 ## tournament
 - name
@@ -48,3 +51,5 @@ ADVANCED example
 
 name = Dragon challenge
 [[[10,0]], [[10,5,0],[10,0]], [[-20.-10,0],[-20.-10,0],[-20.-10,0]]]
+
+Alternatively, this can be a dictionary of targets instead of an ordered list of targets. Also, a dictionary of arrows pero target instead of an orderes list of arrows

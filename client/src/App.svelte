@@ -1,14 +1,18 @@
 <script>
+  import { Router, Link, Route } from "svelte-navigator";
+  import MySessions from "./routes/MySessions.svelte";
+  import RegisterOrLogin from './routes/RegisterOrLogin.svelte';
+
   import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+  import Counter from './components/Counter.svelte'
 </script>
 
 <main>
   <div>
-    <a href="https://vitejs.dev" target="_blank"> 
+    <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite Logo" />
     </a>
-    <a href="https://svelte.dev" target="_blank"> 
+    <a href="https://svelte.dev" target="_blank">
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
   </div>
@@ -17,6 +21,16 @@
   <div class="card">
     <Counter />
   </div>
+
+  <Router>
+    <div>
+      <Link to="my-sessions">My Sessions</Link>
+      <Link to="auth">Register or Login</Link>
+    </div>
+
+	<Route path="my-sessions" component={MySessions} />
+	<Route path="auth" component={RegisterOrLogin} />
+  </Router>
 
   <p>
     Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank">SvelteKit</a>, the official Svelte app framework powered by Vite!

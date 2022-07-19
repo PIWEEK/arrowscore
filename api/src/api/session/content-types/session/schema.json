@@ -4,7 +4,8 @@
   "info": {
     "singularName": "session",
     "pluralName": "sessions",
-    "displayName": "Session"
+    "displayName": "Session",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,6 +26,21 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "sessions"
+    },
+    "score_system": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::score-system.score-system",
+      "inversedBy": "sessions"
+    },
+    "scores": {
+      "type": "json"
+    },
+    "finished": {
+      "type": "boolean"
+    },
+    "apiid": {
+      "type": "uid"
     }
   }
 }

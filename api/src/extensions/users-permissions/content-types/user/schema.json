@@ -74,6 +74,9 @@
       "relation": "oneToMany",
       "target": "api::score-system.score-system",
       "mappedBy": "author"
+    },
+    "Name": {
+      "type": "string"
     }
   }
 }

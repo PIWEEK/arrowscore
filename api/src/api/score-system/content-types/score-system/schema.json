@@ -29,6 +29,15 @@
     "targets": {
       "type": "json",
       "required": true
+    },
+    "sessions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::session.session",
+      "mappedBy": "score_system"
+    },
+    "apiid": {
+      "type": "uid"
     }
   }
 }

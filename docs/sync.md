@@ -33,6 +33,51 @@ ScoreSystems with no APIID (also, CODE=null)
 ScoreSystems with APIID (CODE!=null)
 - putScoreSystem() returns OK/APIID
 
+Pseudocode...
+
+currentsyncdate = now();
+lastsyncdate = webappstore["lastsyncdate"];
+
+sessions = webappstore["sessions"];
+sessions_to_be_synced = {"APIID":[], "NOAPIID":[]}
+for s in sessions:
+    if (s.authored_by == me && s.updatedAt > lastsyncdate){
+        if (s.APIID) {
+            sessions_to_be_synced["APIID"].add(s);
+            
+        }
+        else {
+            sessions_to_be_synced["NOAPIID"].add(s);
+            
+        }
+    }
+for s in sessions_to_be_synced["NOAPIID"]:
+    res = createSession(s);
+    s["APIID"] = res.data["APIID"];
+for s in sessions_to_be_synced["APIID"]:
+    res = putSession(s)
+
+scoresystems = webappstore["scoresystems"];
+ss_to_be_synced = {"APIID":[], "NOAPIID":[]}
+for ss in scoresystems:
+    if (ss.authored_by == me && s.updatedAt > lastsyncdate){
+        if (ss.APIID) {
+            ss_to_be_synced["APIID"].add(ss);
+            
+        }
+        else {
+            ss_to_be_synced["NOAPIID"].add(ss);
+            
+        }
+    }
+for ss in ss_to_be_synced["NOAPIID"]:
+    res = createScoreSystem(ss);
+    ss["APIID"] = res.data["APIID"];
+    ss["CODE"] = res.data["CODE"];
+
+for ss in ss_to_be_synced["APIID"]:
+    res = putScoreSystem(ss)
+
 
 ## GET DATA FROM API
 

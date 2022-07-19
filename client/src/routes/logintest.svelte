@@ -7,6 +7,7 @@
     let message = '';
 
     let scoresystems = [];
+    let sessions = [];
 	
 	async function login() {
 		const res = await fetch('http://localhost:1337/api/auth/local', {
@@ -28,13 +29,13 @@
 	}
     async function showScoreSystems() {
 
-        const res = await fetch('http://localhost:1337/api/score-systems', {
+        const res = await fetch('http://localhost:1337/api/sessions?populate=*', {
 		    method: 'GET',
 		    headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
 	    });
-	    scoresystems = await res.json();
-        console.log(scoresystems["data"]);
-  	    return { body: scoresystems["data"] };
+	    sessions = await res.json();
+        console.log(sessions["data"]);
+  	    return { body: sessions["data"] };
 }
 </script>
 

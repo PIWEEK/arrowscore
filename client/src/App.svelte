@@ -1,5 +1,4 @@
 <script>
-  import 'normalize.css'
   import { Router, Route } from "svelte-navigator";
   import MySessions from "./routes/MySessions.svelte";
   import RegisterOrLogin from './routes/RegisterOrLogin.svelte';

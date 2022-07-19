@@ -1,10 +1,19 @@
 <script>
+  import { useNavigate } from "svelte-navigator";
   import IconArrow from "../assets/svgs/icon-arrow.svg"
+
+  const navigate = useNavigate();
 </script>
 
 
 <header class="section-header">
-  <IconArrow width="20" height="18" />
+  <button
+    class="go-back"
+    title="Go back"
+    on:click={() => navigate(-1)}>
+    <IconArrow width="20" height="18" />
+  </button>
+
   <div class="title">
     <slot></slot>
   <div>
@@ -29,6 +38,11 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  & .go-back {
+    border: none;
+    background: none;
   }
 
   & :global(svg) {

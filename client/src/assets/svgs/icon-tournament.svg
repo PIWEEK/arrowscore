@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="132.49313mm"
+   height="132.29166mm"
+   viewBox="0 0 132.49313 132.29166"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="icon-tournament.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.56630543"
+     inkscape:cx="489.13534"
+     inkscape:cy="256.04557"
+     inkscape:window-width="3840"
+     inkscape:window-height="2066"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-38.753431,-82.354168)">
+    <path
+       id="path1512"
+       style="fill:#000000;stroke-width:0.170189"
+       d="m 38.753431,82.354169 v 10.89231 10.891761 h 2.72069 2.7212 l 0.0446,-6.225911 0.0446,-6.22645 7.63886,7.58519 49.262389,49.210861 -29.755469,29.68906 h -6.80861 -6.80864 l -9.52932,9.53038 -9.52983,9.5309 h 8.72034 8.719789 l 0.0441,8.70652 0.0441,8.70704 9.5787,-9.51496 9.57871,-9.5155 -0.005,-6.89202 -0.005,-6.89202 29.5701,-29.5398 29.57059,29.5398 -0.005,6.89202 -0.005,6.89202 9.5787,9.5155 9.57871,9.51496 0.0441,-8.70704 0.0441,-8.70652 h 8.71979 8.72032 l -9.52983,-9.5309 -9.52929,-9.53038 h -6.80864 -6.80863 l -29.75544,-29.68906 49.26238,-49.210861 7.63885,-7.585189 0.0446,6.22645 0.0446,6.22591 h 2.72123 2.72069 V 93.246479 82.354169 H 160.26434 149.2828 l 0.0468,2.68031 0.0473,2.68085 6.16909,0.0446 6.16959,0.17104 -7.54056,7.66541 -7.5406,7.538981 -41.63468,41.54172 -41.634159,-41.54172 -7.54059,-7.538982 -7.54059,-7.66541 6.16963,-0.17104 6.16909,-0.0446 0.0473,-2.68085 0.0468,-2.68031 H 49.735681 Z M 60.364882,183.27664 h 4.89425 4.89427 l -0.026,4.89269 -0.0265,4.8932 -4.22814,4.16549 -4.22871,4.166 v -4.88893 -4.88951 h -4.68018 l -4.68021,-0.1264 4.04067,-4.16921 z m 79.481008,0 h 4.89427 4.89426 l 4.04066,4.04333 4.04065,4.16921 -4.68017,0.1264 h -4.6802 v 4.88951 4.88893 l -4.2287,-4.166 -4.22817,-4.16549 -0.0265,-4.8932 z" />
+  </g>
+</svg>

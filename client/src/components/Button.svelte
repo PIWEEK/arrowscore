@@ -1,12 +1,19 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
+
   /* types: 'primary' (default) | 'secondary' */
   export let type = "primary"
-
   /* disabled: bool */
   export let disabled = false
+
+	const dispatch = createEventDispatcher()
+
+  const handleOnClick = (event) => {
+    dispatch("click", event)
+  }
 </script>
 
-<button class={type} disabled={ disabled }>
+<button class={type} disabled={disabled} on:click={handleOnClick}>
   <slot></slot>
 </button>
 

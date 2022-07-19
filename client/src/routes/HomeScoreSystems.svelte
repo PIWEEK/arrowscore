@@ -1,18 +1,35 @@
 <script>
+  import { navigate } from "svelte-navigator";
   import Button from '../components/Button.svelte'
   import img from '../assets/imgs/img-score.png'
+
+
+  const navigateToNewScoreSystem = () => {
+    navigate("/score-systems/new")
+  }
+
+  const navigateToNewAdvanceScoreSystem = () => {
+    console.log("TODO")
+  }
 </script>
+
 
 <div class="score-systems">
   <h1>Score System</h1>
   <img src="{img}" alt="target board">
-  <Button type="secondary">create advanced score system</Button>
-  <Button>create score system</Button>
+  <Button
+    type="secondary"
+    on:click|once={navigateToNewAdvanceScoreSystem}>
+    create advanced score system
+  </Button>
+  <Button
+    on:click|once={navigateToNewScoreSystem}>
+    create score system
+  </Button>
 </div>
 
 
 <style lang="postcss">
-
 .score-systems{
   display: flex;
   flex-direction: column;

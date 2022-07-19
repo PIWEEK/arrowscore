@@ -50,6 +50,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding: 1.25rem;
 }
 header {
   height: 2rem;

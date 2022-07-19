@@ -5,6 +5,8 @@
 
     let user = '';
     let message = '';
+
+    let scoresystems = [];
 	
 	async function login() {
 		const res = await fetch('http://localhost:1337/api/auth/local', {
@@ -24,6 +26,16 @@
 			
 		}
 	}
+    async function showScoreSystems() {
+
+        const res = await fetch('http://localhost:1337/api/score-systems', {
+		    method: 'GET',
+		    headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+	    });
+	    scoresystems = await res.json();
+        console.log(scoresystems["data"]);
+  	    return { body: scoresystems["data"] };
+}
 </script>
 
 <div>
@@ -43,6 +55,18 @@
 	</div>
 </form>
 
+
+{#if user!=""}
 user is: {user}
+{showScoreSystems()}
+{#await scoresystems}
+await
+{#each scoresystems["data"] as s, idx}
+la s
+{s}
+{/each}
+{/await}
+{/if}
 </div>
+
 

@@ -14,8 +14,12 @@ module.exports = {
       event.params.data.code = code
       event.params.data.apiid = code
 
-      event.params.data.createdAt = event.params.data.localcreatedAt
-      event.params.data.updatedAt = event.params.data.localupdatedAt
+      if (event.params.data.localcreatedAt){
+        event.params.data.createdAt = event.params.data.localcreatedAt
+      }
 
+      if (event.params.data.localupdatedAt){
+        event.params.data.updatedAt = event.params.data.localupdatedAt
+      }
     },
   };

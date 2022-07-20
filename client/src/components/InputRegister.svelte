@@ -1,2 +1,0 @@
-<p>Imput register</p>
-

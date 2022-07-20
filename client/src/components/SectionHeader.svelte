@@ -1,8 +1,6 @@
 <script>
-  import { useNavigate } from "svelte-navigator"
+  import { navigate } from "svelte-navigator"
   import IconArrow from "../assets/svgs/icon-arrow.svg"
-
-  const navigate = useNavigate()
 </script>
 
 

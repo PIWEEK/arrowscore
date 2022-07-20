@@ -1,5 +1,5 @@
 <script>
-  import { useNavigate } from "svelte-navigator";
+  import { navigate } from "svelte-navigator";
 
   import SectionHeader from "../components/SectionHeader.svelte"
   import Button from "../components/Button.svelte"
@@ -8,7 +8,7 @@
 
   const ARROWS_OPTIONS = range(10)
   const SCORES_OPTIONS = range(21, 0)
-  const navigate = useNavigate()
+  const user = localStorage.get("user")
 
   let steps = {
     1: false,
@@ -61,7 +61,7 @@
       code: null,
       localcreatedAt: new Date().toISOString(),
       localupdatedAt: new Date().toISOString(),
-      author: 1, // TODO: Get user ID
+      author: user.id,
       targets: range(data.totalRounds)
         .map(i => range(data.totalArrows)
             .map(j => Object.assign([], data.validScores)))

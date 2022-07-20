@@ -19,7 +19,8 @@
   <img src="{img}" alt="target board">
   <Button
     type="secondary"
-    on:click|once={navigateToNewAdvanceScoreSystem}>
+    on:click|once={navigateToNewAdvanceScoreSystem}
+    disabled={true}>
     create advanced score system
   </Button>
   <Button

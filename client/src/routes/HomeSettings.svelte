@@ -1,5 +1,4 @@
 <script>
-  import { navigate } from "svelte-navigator";
   import { localStorage } from "../services/storages"
   import { apiClient } from "../services/api"
   import Button from "../components/Button.svelte"
@@ -33,7 +32,8 @@
   <h1>Settings</h1>
   <Button
     type="secondary"
-    on:click|once={navigateToChangePassword}>
+    on:click|once={navigateToChangePassword}
+    disabled={true}>
     Change password
   </Button>
   <Button

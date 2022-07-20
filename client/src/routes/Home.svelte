@@ -2,23 +2,27 @@
   import { Router, Route } from "svelte-navigator"
   import NavLink from "../components/NavLink.svelte"
 
-  import HomeSessions from './HomeSessions.svelte'
-  import HomeScoreSystmes from './HomeScoreSystems.svelte'
-  import HomeTournaments from './HomeTournaments.svelte'
-  import HomeSettings from './HomeSettings.svelte'
+  import HomeSessions from "./HomeSessions.svelte"
+  import HomeScoreSystmes from "./HomeScoreSystems.svelte"
+  import HomeTournaments from "./HomeTournaments.svelte"
+  import HomeSettings from "./HomeSettings.svelte"
 
   import ACLogo from "../assets/svgs/ac-icon-white.svg"
-  import SessionIcon from '../assets/svgs/icon-session.svg'
-  import ScoreSystemsIcon from '../assets/svgs/icon-score.svg'
-  import TournamentsIcon from '../assets/svgs/icon-tournament.svg'
-  import SettingsIcon from '../assets/svgs/icon-profile.svg'
+  import SessionIcon from "../assets/svgs/icon-session.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
+  import SettingsIcon from "../assets/svgs/icon-profile.svg"
+
+  import { localStorage } from "../services/storages"
+
+  const user = localStorage.get("user")
 </script>
 
 <div class="home">
   <header>
     <ACLogo height="30" width="30" />
     <div class="user">
-      Hi, Yamila Moreno
+      Hi, {user? user.Name || user.username : "unknown"}
     </div>
   </header>
   <main>

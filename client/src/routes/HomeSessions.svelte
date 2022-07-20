@@ -6,8 +6,8 @@
 <div class="sessions">
   <h1>Session</h1>
   <img src="{img}" alt="bows">
-  <Button type="secondary">join session</Button>
-  <Button>create session</Button>
+  <Button type="secondary" disabled={true}>join session</Button>
+  <Button disabled={true}>create session</Button>
 </div>
 
 

@@ -2,6 +2,16 @@
 
 @import "normalize.css";
 
+/****************************
+ * FONTS
+ ****************************/
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
+
+/****************************
+ * GENERIC
+ ****************************/
+
 :root{
   /****************************
    * COLORS
@@ -10,12 +20,8 @@
   --color-white: #ffffff;
   --color-gray: #979797;
   --color-gray-light: #e5e2e2;
+  --color-red: #cc1100;
 
-  /****************************
-   * FONTS
-   ****************************/
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
 }
 
 * {

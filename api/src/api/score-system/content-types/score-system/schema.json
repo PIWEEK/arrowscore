@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "code": {
       "type": "string",
@@ -37,7 +38,10 @@
       "mappedBy": "score_system"
     },
     "apiid": {
-      "type": "uid"
+      "type": "uid",
+      "required": false,
+      "maxLength": 4,
+      "minLength": 4
     }
   }
 }

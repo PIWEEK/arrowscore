@@ -20,7 +20,7 @@
         "POST", "score-systems?populate=*",
         { data: scoreSystem }
       )
-      newScoreSystems.append(data.attributes)
+      newScoreSystems.push(data.attributes)
     }
 
     localStorage.set("scoreSystems", newScoreSystems)

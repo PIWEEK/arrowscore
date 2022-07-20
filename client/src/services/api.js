@@ -1,6 +1,10 @@
 import { localStorage } from "../services/storages"
 
-const base = "http://10.10.105.95:1337/api"
+const base = import.meta.env.VITE_API_URL
+
+if (!base) {
+  console.error("Please, define VITE_API_URL in `.env.local`")
+}
 
 const baseHeaders = {
   "content-type": "application/json",

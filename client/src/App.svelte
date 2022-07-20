@@ -14,7 +14,7 @@
       navigate("/home/sessions")
     }
     else {
-      navigate("/login")
+      navigate("/auth")
     }
 	})
 

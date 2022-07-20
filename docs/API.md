@@ -322,4 +322,19 @@ body
 {
   "data": {
     "name": "a simple string",
-    "code": null,
+    "place": "a simple string",
+    "when": "2022-07-18T17:32:39.824Z",
+    "users": [1,2],
+    "score_system": [1],
+    "scores": JSON with an entry per user,
+    "finished": true #we don't actually sync unfinished sessions, they are kept unsynced
+    "apiid": null
+    }
+}
+
+### getSessions (only the ones we're listed as users)
+
+
+GET http://localhost:1337/api/sessions?filters\[users\][username][$eq]=$username&populate=*
+
+$username is the one for this user in the API

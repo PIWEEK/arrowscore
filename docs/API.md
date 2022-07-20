@@ -28,7 +28,7 @@ returns
     }
 }
 
-## createScoreSystem
+### createScoreSystem
 
 POST http://localhost:1337/api/score-systems
 
@@ -43,6 +43,9 @@ body
   "data": {
     "name": "a simple string",
     "code": null,
+    "apiid": null,
+    "localcreatedAt": "2022-07-20T11:55:16.518Z",
+    "localupdatedAt": "2022-07-20T11:55:16.518Z",
     "targets": [
   [
     10,
@@ -104,7 +107,7 @@ returns:
     "meta": {}
 }
 
-## getScoreSystem
+### getScoreSystem
 
 We need to ask for $CODE in the webapp
 
@@ -304,3 +307,19 @@ body
         }
     }
 }
+
+### createSession
+
+POST http://localhost:1337/api/sessions
+
+headers
+    - Content-Type: 'application/json'
+    - Accept: 'application/json'
+    - Authorization: "Bearer " + jwt
+
+body
+
+{
+  "data": {
+    "name": "a simple string",
+    "code": null,

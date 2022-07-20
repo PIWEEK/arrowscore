@@ -25,6 +25,7 @@
 
 img {
   flex-grow: 1;
-  height: 170px;
+  height: 210px;
+  padding-bottom: 2.5rem;
 }
 </style>

@@ -5,13 +5,13 @@
   import HomeSessions from './HomeSessions.svelte'
   import HomeScoreSystmes from './HomeScoreSystems.svelte'
   import HomeTournaments from './HomeTournaments.svelte'
-  import HomeProfile from './HomeProfile.svelte'
+  import HomeSettings from './HomeSettings.svelte'
 
   import ACLogo from "../assets/svgs/ac-icon-white.svg"
   import SessionIcon from '../assets/svgs/icon-session.svg'
   import ScoreSystemsIcon from '../assets/svgs/icon-score.svg'
   import TournamentsIcon from '../assets/svgs/icon-tournament.svg'
-  import ProfileIcon from '../assets/svgs/icon-profile.svg'
+  import SettingsIcon from '../assets/svgs/icon-profile.svg'
 </script>
 
 <div class="home">
@@ -25,7 +25,7 @@
     <Route path="sessions" component={HomeSessions} />
     <Route path="score-systems" component={HomeScoreSystmes} />
     <Route path="tournaments" component={HomeTournaments} />
-    <Route path="profile" component={HomeProfile} />
+    <Route path="settings" component={HomeSettings} />
   </main>
   <nav>
     <NavLink to="/home/sessions">
@@ -37,8 +37,8 @@
     <NavLink to="/home/tournaments">
       <TournamentsIcon class="icon" height="30" width="30" />
     </NavLink>
-    <NavLink to="/home/profile">
-      <ProfileIcon class="icon" height="30" width="30" />
+    <NavLink to="/home/settings">
+      <SettingsIcon class="icon" height="30" width="30" />
     </NavLink>
   </nav>
 </div>

@@ -1,5 +1,5 @@
 <script>
-	
+
 	let email = '';
 	let password = '';
 
@@ -8,7 +8,7 @@
 
     let scoresystems = [];
     let sessions = [];
-	
+
 	async function login() {
 		const res = await fetch('http://10.10.105.95:1337/api/auth/local', {
 			method: 'POST',
@@ -20,11 +20,11 @@
 			localStorage.setItem('token', data.jwt);
 			if (data) {
 				user = data.user.username;
-	
+
 			}
 		} else {
 			const message = await res.json();
-			
+
 		}
 	}
     async function showScoreSystems() {

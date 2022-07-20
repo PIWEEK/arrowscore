@@ -1,8 +1,8 @@
 <script>
-  import { useNavigate } from "svelte-navigator";
+  import { useNavigate } from "svelte-navigator"
   import IconArrow from "../assets/svgs/icon-arrow.svg"
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 </script>
 
 
@@ -26,7 +26,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 1.25rem;
+  padding: .25rem 1.25rem;
   gap: 1.25rem;
 
   color: var(--color-white);

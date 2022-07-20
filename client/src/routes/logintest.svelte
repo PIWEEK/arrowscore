@@ -10,7 +10,7 @@
     let sessions = [];
 	
 	async function login() {
-		const res = await fetch('http://localhost:1337/api/auth/local', {
+		const res = await fetch('http://10.10.105.95:1337/api/auth/local', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 			body: JSON.stringify({ identifier: email, password })
@@ -29,7 +29,7 @@
 	}
     async function showScoreSystems() {
 
-        const res = await fetch('http://localhost:1337/api/sessions?populate=*', {
+        const res = await fetch('http://10.10.105.95:1337/api/sessions?populate=*', {
 		    method: 'GET',
 		    headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
 	    });

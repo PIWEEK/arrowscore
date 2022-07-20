@@ -36,6 +36,7 @@ headers
     - Content-Type: 'application/json'
     - Accept: 'application/json'
     - Authorization: "Bearer " + jwt
+
 body
 
 {
@@ -101,4 +102,205 @@ returns:
         }
     },
     "meta": {}
+}
+
+## getScoreSystem
+
+We need to ask for $CODE in the webapp
+
+GET http://localhost:1337/api/score-systems?filters[code][$eq]=$CODE
+
+headers
+    - Content-Type: 'application/json'
+    - Accept: 'application/json'
+    - Authorization: "Bearer " + jwt
+
+body
+
+{
+    "data": [
+        {
+            "id": 2,
+            "attributes": {
+                "name": "IFAA 3D STD",
+                "code": "I3DS",
+                "targets": [
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ],
+                    [
+                        10,
+                        8,
+                        5,
+                        0
+                    ]
+                ],
+                "createdAt": "2022-07-19T11:00:03.268Z",
+                "updatedAt": "2022-07-20T08:43:56.596Z",
+                "publishedAt": "2022-07-19T11:50:14.129Z",
+                "apiid": "123456",
+                "author": {
+                    "data": {
+                        "id": 1,
+                        "attributes": {
+                            "username": "diacritica",
+                            "email": "p@p.es",
+                            "provider": "local",
+                            "confirmed": true,
+                            "blocked": false,
+                            "createdAt": "2022-07-18T17:32:39.824Z",
+                            "updatedAt": "2022-07-20T08:42:23.831Z",
+                            "Name": null
+                        }
+                    }
+                },
+                "sessions": {
+                    "data": []
+                }
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
 }

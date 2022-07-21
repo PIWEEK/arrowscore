@@ -18,7 +18,7 @@
     create session
   </Button>
   <Button
-    on:click|once={() => navigate("/sessions/annotations/5")}>
+    on:click|once={() => navigate("/sessions/annotations/0")}>
     go to sesion
   </Button>
 </div>

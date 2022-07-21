@@ -1,13 +1,22 @@
 <script>
+  import { navigate } from "svelte-navigator";
   import Button from '../components/Button.svelte'
   import img from '../assets/imgs/img-session.png'
+
+  const navigateToNewSession = () => {
+    navigate("/sessions/new")
+  }
+
 </script>
 
 <div class="sessions">
   <h1>Session</h1>
   <img src="{img}" alt="bows">
   <Button type="secondary" disabled={true}>join session</Button>
-  <Button disabled={true}>create session</Button>
+  <Button
+    on:click|once={navigateToNewSession}>
+    create session
+  </Button>
 </div>
 
 

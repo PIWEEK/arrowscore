@@ -49,6 +49,10 @@
     _openNextStep()
   }
 
+  const navigateToScoreSystems = (event) => {
+    navigate("/home/score-systems")
+  }
+
   const selectName = (event) => {
     steps[3] = true
     _openNextStep()
@@ -60,22 +64,23 @@
   }
 
   const onSubmit = () => {
-    console.log("!! Submit", data)
-    // const newScoreSystem = {
-    //   apiid: null,
-    //   name: data.name,
-    //   code: null,
-    //   localcreatedAt: new Date().toISOString(),
-    //   localupdatedAt: new Date().toISOString(),
-    //   author: user.id,
-    //   targets: range(data.totalRounds)
-    //     .map(i => range(data.totalArrows)
-    //         .map(j => Object.assign([], data.validScores)))
-    // }
-    // // Update the scoreSystems list in the local storage
-    // const scoreSystems = localStorage.get("scoreSystems") || []
-    // localStorage.set("scoreSystems", [...scoreSystems, newScoreSystem])
-    // navigate(-1)
+    const newSession = {
+      apiid: null,
+      name: data.name,
+      place: data.place,
+      when: new Date().toISOString(),
+      finished: false,
+      users: data.archers,
+      scoreSystem: [data.selectedScoreSystem],
+      scores: data.archers
+        .map(arc => data.selectedScoreSystem.targets  // archers
+          .map(tr => tr                               // targets
+            .map(arr => null)))                       // arrows
+    }
+    const localSessions = localStorage.get("sessions") || []
+    localSessions.push(newSession)
+    localStorage.set("sessions", localSsessions)
+    navigate(`/sessions/play/${localSessions.length - 1}`)
   }
 </script>
 
@@ -162,6 +167,10 @@
               <div class="empty">
                 You need to create one score system first
               </div>
+              <Button type="secondary"
+                on:click={navigateToScoreSystems}>
+                Create a score system
+              </Button>
               {/each}
             </div>
           </div>

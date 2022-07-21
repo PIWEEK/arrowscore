@@ -7,6 +7,7 @@
   import Login from "./routes/Login.svelte"
   import Home from "./routes/Home.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
+  import SessionsPlay from "./routes/SessionsPlay.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
 
   onMount(async () => {
@@ -25,6 +26,7 @@
 	<Route path="/home/*" component={Home} />
 	<Route path="/score-systems/new" component={ScoreSystemsNew} />
 	<Route path="/sessions/new" component={SessionsNew} />
+	<Route path="/sessions/play/:sessionPos" component={SessionsPlay} />
 	<Route path="/my-sessions" component={MySessions} />
 	<Route path="/auth" component={RegisterOrLogin} />
 	<Route path="/auth/login" component={Login} />

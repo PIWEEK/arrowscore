@@ -6,6 +6,7 @@
   import StatsIcon from "../assets/svgs/icon-stats.svg"
   import GoBackIcon from "../assets/svgs/go-back.svg"
   import GoNextIcon from "../assets/svgs/go-next.svg"
+  import BottomSheet from "../components/BottomSheet.svelte"
 
  	export let sessionPos = 0
 
@@ -16,7 +17,18 @@
   $: currentTargetDisplay = currentTarget + 1
   $: totalTargets = session.scores[0].length
 
-  let currentArcher = 0
+  let selectedArcherPos = null
+  $: selectedArcher = session.users[selectedArcherPos]
+
+  const calculateTotalScores = (targetScores) => targetScores
+    .reduce((total, score) => total + score ? score : 0, 0)
+
+  const hasAnnotations = (targetScores) => !targetScores
+    .every((score) => score === null)
+
+  const closeBottomSheet = () => {
+    selectedArcherPos = null
+  }
 
 </script>
 
@@ -46,27 +58,66 @@
       {/if}
     </div>
     <div class="archers-list">
-      <div class="archer">
-        <h2 class="name">Yami</h2>
-        <div class="action">Annotate</div>
+      {#each session.users as user, u}
+      <div class="archer" on:click|stopPropagation={() => selectedArcherPos = u}>
+        <h2 class="name">{user.Name}</h2>
+        <div class="action">
+          {#if !hasAnnotations(session.scores[u][currentTarget])}
+            Annotate
+          {:else}
+            Edit
+          {/if}
+        </div>
         <div class="scores">
-          <div class="arrow">
-            #1 <span class="score">2</span>
-          </div>
-          <div class="arrow">
-            #2 <span class="score">6</span>
-          </div>
-          <div class="arrow">
-            #3 <span class="score">7</span>
-          </div>
+          {#each session.scores[u][currentTarget] as score, i}
+            {#if score !== null}
+            <div class="arrow">
+              #{i+1} <span class="score">{score}</span>
+            </div>
+            {/if}
+          {/each}
           <div class="total">
-            T <span class="score">15</span>
+            {#if hasAnnotations(session.scores[u][currentTarget])}
+              T&nbsp;
+              <span class="score">
+                {calculateTotalScores(session.scores[u][currentTarget])}
+              </span>
+            {/if}
           </div>
         </div>
       </div>
+      {/each}
     </div>
   </main>
 </div>
+
+<BottomSheet open={selectedArcherPos !== null} on:close={closeBottomSheet}>
+{#if selectedArcher}
+<div class="bottom-sheet">
+  <div class="header">
+    <button class="close" on:click={closeBottomSheet}>X</button>
+    <h1 class="name">{selectedArcher.Name}</h1>
+  </div>
+  <form class="main">
+    <div class="arrows">
+      # Arrow
+    </div>
+    <div class="score-values">
+      Score value
+    </div>
+    <div class="actions">
+      <Button type="secondary" on:click={closeBottomSheet}>
+        Cancel
+      </Button>
+      <Button>
+        Next archer
+      </Button>
+    </div>
+  </form>
+</div>
+{/if}
+</BottomSheet>
+
 
 <style lang="postcss">
 .sessions-annotations {
@@ -158,6 +209,50 @@
         background: var(--color-black);
         color: var(--color-white);
       }
+    }
+  }
+}
+.bottom-sheet{
+  & .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-bottom: 1px solid var(--color-gray-light);
+    padding: 20px;
+
+    & .close {
+      border: none;
+      background: none;
+      font-family: 'Manrope', serif;
+      text-align: right;
+      font-size: 20px;
+      line-height: 20px;
+    }
+
+    & .name {
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+  }
+  & form {
+
+
+    & .arrows,
+    & .score-values,
+    & .actions {
+      padding: 20px;
+    }
+
+    & .arrows {}
+
+    & .score-values {}
+
+    & .actions {
+      border-top: 1px solid var(--color-gray-light);
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
     }
   }
 }

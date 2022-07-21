@@ -5,6 +5,8 @@
   import Button from "../components/Button.svelte"
   import { localStorage } from "../services/storages"
   import { range } from "../utils"
+  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import CheckIcon from "../assets/svgs/icon-check.svg"
 
   const user = localStorage.get("user")
   const scoreSystems = localStorage.get("scoreSystems")
@@ -22,6 +24,7 @@
   let data = {
     archers: [],
     scoreSystem: null,
+    selectedScoreSystem: null,
     name: "",
     place: ""
   }
@@ -38,7 +41,10 @@
     _openNextStep()
   }
 
-  const selectTotalRounds = (event) => {
+  const selectScoreSystem = (event) => {
+    data.scoreSystem = parseInt(event.currentTarget.value)
+    data.selectedScoreSystem = scoreSystems[data.scoreSystem]
+
     steps[2] = true
     _openNextStep()
   }
@@ -130,21 +136,28 @@
             <div class="edit" class:show={steps[2] && openStep != 2}>
               <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
             </div>
-            <div class="values"></div>
+            <div class="values">{data.selectedScoreSystem ? data.selectedScoreSystem.name : ""}</div>
           </div>
           {#if openStep == 2}
           <div class="fields">
-            <div class="score-systmes-selector">
-              {#each scoreSystems as sc}
-              <input
-                type="radio"
-                name="{sc.name}"
-                id="sc-{sc.name}"
-                on:change={selectScoreSystem}
-                value={num}>
-              <label for="sc-{sc.name}">
-              {num}
-              </label>
+            <div class="score-systems-selector">
+              {#each scoreSystems as sc, i}
+              <div class="score-systems-option">
+                {#if i === data.scoreSystem}
+                <CheckIcon class="icon" height="11" width="16" />
+                {:else}
+                <ScoreSystemsIcon class="icon" height="16" width="16" />
+                {/if}
+                <input
+                  type="radio"
+                  name="{sc.name}"
+                  id="sc-{sc.name}"
+                  on:change={selectScoreSystem}
+                  value={i}>
+                <label for="sc-{sc.name}">
+                {sc.name}
+                </label>
+              </div>
               {/each}
             </div>
           </div>
@@ -162,7 +175,6 @@
           </div>
           {#if openStep == 3}
           <div class="fields">
-          <div class="fields">
             <input
               type="text"
               name="name"
@@ -171,7 +183,6 @@
               on:click={selectName}>
               Ok, continue
             </Button>
-          </div>
           </div>
           {/if}
         </div>
@@ -336,10 +347,21 @@ form {
     gap: .5rem;
   }
 
-  & .score-system-selector {
+  & .score-systems-selector {
     display: flex;
     flex-direction: column;
     gap: .3rem;
+
+    & input[type=radio] {
+      display: none;
+    }
+    & .score-systems-option {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      gap: .1rem;
+    }
   }
 }
 

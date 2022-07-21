@@ -294,7 +294,7 @@ form {
       text-align: right;
       font-family: 'Manrope', serif;
       font-weight: 400;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       text-decoration: underline;
       display: none;
       margin-left: auto;

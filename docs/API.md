@@ -332,9 +332,12 @@ body
     }
 }
 
-### getSessions (only the ones we're listed as users)
+### getSessions (internal filter will return only the ones you have participed in)
 
 
-GET http://localhost:1337/api/sessions?filters\[users\][username][$eq]=$username&populate=*
+GET http://localhost:1337/api/sessions&populate=*
 
-$username is the one for this user in the API
+### getSession (internal filter will return a session only if you have participed in)
+
+
+GET http://localhost:1337/api/sessions/$id&populate=*

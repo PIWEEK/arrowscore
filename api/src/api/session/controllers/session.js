@@ -12,8 +12,8 @@ async find(ctx) {
     const {user } = ctx.state;
     ctx.query = { ...ctx.query, filters: {
         users: {
-            username: {
-                $eq: user.username
+            email: {
+                $eq: user.email
             }
         } }
     }
@@ -30,8 +30,8 @@ async find(ctx) {
 
     ctx.query = { ...ctx.query, filters: {
         users: {
-            username: {
-                $eq: user.username
+            email: {
+                $eq: user.email
             }
         } }
     }

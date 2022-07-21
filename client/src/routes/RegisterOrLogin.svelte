@@ -9,7 +9,7 @@
   }
 
   const navigateToRegister = () => {
-    console.log("TODO")
+    navigate("/auth/register")
   }
 </script>
 
@@ -21,7 +21,7 @@
   </header>
   <main>
     <Button
-      disabled={true}
+      disabled={false}
       on:click|once={navigateToRegister}>
       Create account
     </Button>

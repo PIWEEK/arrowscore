@@ -5,6 +5,7 @@
   import MySessions from "./routes/MySessions.svelte"
   import RegisterOrLogin from "./routes/RegisterOrLogin.svelte"
   import Login from "./routes/Login.svelte"
+  import Register from "./routes/Register.svelte"
   import Home from "./routes/Home.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
   import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
@@ -42,4 +43,8 @@
   <Route path="/auth/login">
     <Login />
   </Route>
+  <Route path="/auth/register">
+    <Register />
+  </Route>
+
 </Router>

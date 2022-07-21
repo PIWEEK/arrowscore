@@ -1,4 +1,5 @@
 module.exports = {
+
     
     beforeCreate(event) {
       const { result, params } = event;
@@ -8,19 +9,18 @@ module.exports = {
       };
 
       id = S4().toUpperCase();
-      const entries =  strapi.entityService.findMany('api::score-system.score-system', {
+      const entries =  strapi.entityService.findMany('api::session.session', {
         fields: ['name'],
         filters: { apiid: id },
       });
       // we make sure there is no collision
       while (entries.length >0){
         id = S4().toUpperCase();
-        const entries = strapi.entityService.findMany('api::score-system.score-system', {
+        const entries = strapi.entityService.findMany('api::session.session', {
           fields: ['name'],
           filters: { apiid: id },
       });
       }
-      event.params.data.code = id
       event.params.data.apiid = id
 
       if (event.params.data.localcreatedAt){

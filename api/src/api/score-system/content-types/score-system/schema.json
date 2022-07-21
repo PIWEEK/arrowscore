@@ -19,7 +19,7 @@
     "code": {
       "type": "string",
       "required": false,
-      "unique": true
+      "unique": false
     },
     "author": {
       "type": "relation",
@@ -39,9 +39,7 @@
     },
     "apiid": {
       "type": "uid",
-      "required": false,
-      "maxLength": 4,
-      "minLength": 4
+      "required": false
     }
   }
 }

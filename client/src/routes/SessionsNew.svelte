@@ -165,7 +165,7 @@
               </div>
               {:else}
               <div class="empty">
-                You need to create one score system first
+                You need to create one score system first.
               </div>
               <Button type="secondary"
                 on:click={navigateToScoreSystems}>
@@ -274,6 +274,12 @@ form {
   & .actions {
     padding: 1.25rem;
   }
+}
+
+.empty {
+  font-family: 'Manrope', serif;
+  font-weight: 400;
+  margin-bottom: 1rem;
 }
 
 .step {

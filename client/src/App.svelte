@@ -7,6 +7,7 @@
   import Login from "./routes/Login.svelte"
   import Home from "./routes/Home.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
+  import SessionsNew from "./routes/SessionsNew.svelte"
 
   onMount(async () => {
     const authToken = localStorage.get("token")
@@ -23,6 +24,7 @@
 <Router>
 	<Route path="/home/*" component={Home} />
 	<Route path="/score-systems/new" component={ScoreSystemsNew} />
+	<Route path="/sessions/new" component={SessionsNew} />
 	<Route path="/my-sessions" component={MySessions} />
 	<Route path="/auth" component={RegisterOrLogin} />
 	<Route path="/auth/login" component={Login} />

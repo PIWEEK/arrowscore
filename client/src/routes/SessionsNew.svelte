@@ -9,7 +9,7 @@
   import CheckIcon from "../assets/svgs/icon-check.svg"
 
   const user = localStorage.get("user")
-  const scoreSystems = localStorage.get("scoreSystems")
+  const scoreSystems = localStorage.get("scoreSystems") || []
 
   let steps = {
     1: false,
@@ -157,6 +157,10 @@
                 <label for="sc-{sc.name}">
                 {sc.name}
                 </label>
+              </div>
+              {:else}
+              <div class="empty">
+                You need to create one score system first
               </div>
               {/each}
             </div>

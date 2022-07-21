@@ -44,7 +44,7 @@ INSERT INTO public.up_users(username, name, email, provider, confirmed, blocked,
 VALUES ('arrowscore', 'ArrowScore', 'arrowscore@arrowscore.app', 'local', 't', 'f', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid', 1, 1);
 
 INSERT INTO public.score_systems(name, code, apiid, created_at, updated_at, published_at, created_by_id, updated_by_id, targets)
-VALUES ('WA3D 4Z', '3FAF', '3FAF', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid', 1, 1,
+VALUES ('WA3D 4Z', '3FAF', '4b3ca0511e30b836', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid', 1, 1,
         '[[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]],[[11,10,8,5,0],[11,10,8,5,0]]]');
 
 INSERT INTO public.score_systems_author_links(score_system_id, user_id)

@@ -121,15 +121,6 @@
         font-size: 1.1rem;
         padding-left: .5rem;
       }
-      & input {
-        font-family: 'Manrope', serif;
-        font-weight: 400;
-        font-size: 1rem;
-        height: 2.3rem;
-        line-height: 2.3rem;
-        padding: 2px;
-
-      }
     }
   }
 }

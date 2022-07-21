@@ -26,6 +26,7 @@
   align-items: center;
   padding: .25rem 1.25rem;
   gap: 1.25rem;
+  height: 60px;
 
   color: var(--color-white);
   background-color: var(--color-black);

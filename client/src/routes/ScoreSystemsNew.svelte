@@ -83,7 +83,7 @@
       <div class="steps">
         <div class="step step-1" class:open={openStep == 1}>
           <div class="summary">
-            <div class="number">1</div>
+            <div class="number">1.</div>
             <div class="title"># of arrows per target/round</div>
             <div class="edit" class:show={steps[1] && openStep != 1}>
               <a on:click|stopPropagation={() => { openStep=1 }}>Edit</a>
@@ -111,7 +111,7 @@
 
         <div class="step step-2" class:open={openStep == 2}>
           <div class="summary">
-            <div class="number">2</div>
+            <div class="number">2.</div>
             <div class="title"># of targets/rounds</div>
             <div class="edit" class:show={steps[2] && openStep != 2}>
               <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
@@ -124,6 +124,7 @@
               type="number"
               name="total-rounds"
               min=1
+              placeholder="Enter a number"
               bind:value={data.totalRounds} />
             <Button type="secondary" disabled={data.totalRounds <= 0}
               on:click={selectTotalRounds}>
@@ -135,7 +136,7 @@
 
         <div class="step step-3" class:open={openStep == 3}>
           <div class="summary">
-            <div class="number">3</div>
+            <div class="number">3.</div>
             <div class="title">Valid score</div>
             <div class="edit" class:show={steps[3] && openStep != 3}>
               <a on:click|stopPropagation={() => { openStep=3 }}>Edit</a>
@@ -167,7 +168,7 @@
 
         <div class="step step-4" class:open={openStep == 4}>
           <div class="summary">
-            <div class="number">4</div>
+            <div class="number">4.</div>
             <div class="title">System name</div>
             <div class="edit" class:show={steps[4] && openStep !=4}>
               <a on:click|stopPropagation={() => { openStep=4 }}>Edit</a>
@@ -179,6 +180,7 @@
             <input
               type="text"
               name="name"
+              placeholder="Type a name"
               bind:value={data.name} />
             <Button type="secondary" disabled={data.name == ""}
               on:click={selectName}>
@@ -206,6 +208,9 @@
 
   & h1 {
     line-height: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-left: -20px;
   }
 
   & main {
@@ -244,17 +249,19 @@ form {
     display: grid;
     grid-template-areas: "number title edit"
                          ". values values";
-    grid-template-columns: 20px 1fr 40px;
+    grid-template-columns: 23px 1fr 40px;
     background-color: var(--color-gray-light);
-    padding: .75rem 1.25rem;
+    padding: 1rem 1.25rem;
 
     & > .number {
       grid-area: number;
+      font-size: 1.3rem;
     }
     & > .title {
       grid-area: title;
       text-align: left;
       width: 100%;
+      font-size: 1.1rem;
     }
     & > .edit {
       grid-area: edit;
@@ -264,6 +271,7 @@ form {
       font-size: 0.75rem;
       text-decoration: underline;
       display: none;
+      margin-left: auto;
 
       &.show {
         display: flex;
@@ -274,6 +282,7 @@ form {
       font-family: 'Manrope', serif;
       font-weight: 400;
       font-size: 1rem;
+      line-height: 2;
     }
   }
   & .fields {
@@ -293,6 +302,8 @@ form {
         display: none;
       }
       & label {
+        font-family: 'Manrope', serif;
+        font-weight: 400;
         display: flex;
         justify-content: center;
         align-items: center;

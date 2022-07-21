@@ -63,8 +63,7 @@ h1 {
   font-family: 'DM Serif Display', serif;
   font-weight: 400;
   font-variant: normal;
-  font-size: 1.5rem;
-  line-height: 1.8rem;
+  font-size: 1.4rem;
 }
 
 /* Heading 2 */
@@ -74,4 +73,17 @@ h2 {
   font-variant: normal;
   font-size: 1.125rem;
   line-height: 1.35rem;
+}
+
+/****************************
+ * ELEMENTS
+ ****************************/
+/* Input text */
+input {
+  font-family: 'Manrope', serif;
+  font-weight: 400;
+  font-size: 1rem;
+  height: 2.3rem;
+  line-height: 2.3rem;
+  padding: 2px 6px;
 }

@@ -6,9 +6,8 @@
   import { localStorage } from "../services/storages"
   import { range } from "../utils"
 
-  const ARROWS_OPTIONS = range(10)
-  const SCORES_OPTIONS = range(21, 0)
   const user = localStorage.get("user")
+  const scoreSystems = localStorage.get("scoreSystems")
 
   let steps = {
     1: false,
@@ -21,7 +20,7 @@
   $: isComplete = steps[1] && steps[2] && steps[3] && steps[4]
 
   let data = {
-    arrows: [],
+    archers: [],
     scoreSystem: null,
     name: "",
     place: ""
@@ -33,8 +32,8 @@
     console.log("! Open step", openStep)
   }
 
-  const selectTotalArrows = (event) => {
-    data.totalArrows = parseInt(event.currentTarget.value) || 0
+  const selectSolo = (event) => {
+    data.archers = [user]
     steps[1] = true
     _openNextStep()
   }
@@ -89,10 +88,37 @@
             <div class="edit" class:show={steps[1] && openStep != 1}>
               <a on:click|stopPropagation={() => { openStep=1 }}>Edit</a>
             </div>
-            <div class="values"></div>
+            <div class="values">{data.archers? "Solo": ""}</div>
           </div>
           {#if openStep == 1}
           <div class="fields">
+            <div class="archer-options">
+              <Button type="secondary"}
+                on:click={selectSolo}>
+                Solo
+              </Button>
+              <Button type="secondary" disabled={true}>
+                Group
+              </Button>
+            </div>
+            <!-- TODO Group
+            <ul class="archers">
+              <li>
+                <ProfileIcon class="icon" height="30" width="30" />
+                <span>Yami</span>
+                <a>Remove</a>
+              </li>
+            <ul/>
+            <input
+              type="text"
+              name="archer"
+              placeholder="Email, username or name"
+              bind:value={newArcher} />
+            <Button type="secondary" disabled={newArcher == ""}
+              on:click={addArcher}>
+              Ok, continue
+              </Button>
+            -->
           </div>
           {/if}
         </div>
@@ -108,6 +134,19 @@
           </div>
           {#if openStep == 2}
           <div class="fields">
+            <div class="score-systmes-selector">
+              {#each scoreSystems as sc}
+              <input
+                type="radio"
+                name="{sc.name}"
+                id="sc-{sc.name}"
+                on:change={selectScoreSystem}
+                value={num}>
+              <label for="sc-{sc.name}">
+              {num}
+              </label>
+              {/each}
+            </div>
           </div>
           {/if}
         </div>
@@ -288,6 +327,19 @@ form {
         display: none;
       }
     }
+  }
+
+  /* Specific fileds */
+  & .archer-options {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+  }
+
+  & .score-system-selector {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
   }
 }
 

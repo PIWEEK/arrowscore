@@ -1,4 +1,5 @@
 <script>
+  import { navigate } from "svelte-navigator"
   import { localStorage } from "../services/storages"
   import { apiClient } from "../services/api"
   import Button from "../components/Button.svelte"
@@ -25,6 +26,11 @@
 
     localStorage.set("scoreSystems", newScoreSystems)
   }
+
+  const logout = () => {
+    localStorage.clear()
+    navigate("/auth")
+  }
 </script>
 
 
@@ -39,6 +45,11 @@
   <Button
     on:click|once={syncData}>
     Sync on demand
+  </Button>
+  <Button
+    type="secondary"
+    on:click|once={logout}>
+    Logout
   </Button>
 </div>
 

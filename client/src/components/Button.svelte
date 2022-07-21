@@ -21,7 +21,7 @@
   button {
     border: 2px solid var(--color-black);
     padding: 9px 11px;
-    height: 40px;
+    height: 50px;
     width: 100%;
 
     font-family: 'Manrope', sans-serif;

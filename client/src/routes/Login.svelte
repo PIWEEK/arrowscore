@@ -86,6 +86,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    & h1 {
+      font-size: 2rem;
+      margin-top: 2rem;
+    }
   }
   & main {
     display: flex;

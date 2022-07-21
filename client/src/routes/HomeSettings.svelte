@@ -52,5 +52,9 @@
   gap: 20px;
   height: 100%;
   padding: 45px 0;
+
+  & h1 {
+    font-size: 2rem;
+  }
 }
 </style>

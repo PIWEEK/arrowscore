@@ -89,7 +89,7 @@
       <div class="steps">
         <div class="step step-1" class:open={openStep == 1}>
           <div class="summary">
-            <div class="number">1</div>
+            <div class="number">1.</div>
             <div class="title">Archers</div>
             <div class="edit" class:show={steps[1] && openStep != 1}>
               <a on:click|stopPropagation={() => { openStep=1 }}>Edit</a>
@@ -131,7 +131,7 @@
 
         <div class="step step-2" class:open={openStep == 2}>
           <div class="summary">
-            <div class="number">2</div>
+            <div class="number">2.</div>
             <div class="title">Score system</div>
             <div class="edit" class:show={steps[2] && openStep != 2}>
               <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
@@ -170,7 +170,7 @@
 
         <div class="step step-3" class:open={openStep == 3}>
           <div class="summary">
-            <div class="number">3</div>
+            <div class="number">3.</div>
             <div class="title">Session name</div>
             <div class="edit" class:show={steps[3] && openStep != 3}>
               <a on:click|stopPropagation={() => { openStep=3 }}>Edit</a>
@@ -182,6 +182,7 @@
             <input
               type="text"
               name="name"
+              placeholder="Enter a name"
               bind:value={data.name} />
             <Button type="secondary" disabled={data.name == ""}
               on:click={selectName}>
@@ -193,7 +194,7 @@
 
         <div class="step step-4" class:open={openStep == 4}>
           <div class="summary">
-            <div class="number">4</div>
+            <div class="number">4.</div>
             <div class="title">Session place</div>
             <div class="edit" class:show={steps[4] && openStep !=4}>
               <a on:click|stopPropagation={() => { openStep=4 }}>Edit</a>
@@ -205,6 +206,7 @@
             <input
               type="text"
               name="place"
+              placeholder="Enter a place"
               bind:value={data.place} />
             <Button type="secondary" disabled={data.place == ""}
               on:click={selectPlace}>
@@ -232,6 +234,9 @@
 
   & h1 {
     line-height: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-left: -20px;
   }
 
   & main {
@@ -270,17 +275,19 @@ form {
     display: grid;
     grid-template-areas: "number title edit"
                          ". values values";
-    grid-template-columns: 20px 1fr 40px;
+    grid-template-columns: 23px 1fr 40px;
     background-color: var(--color-gray-light);
-    padding: .75rem 1.25rem;
+    padding: 1rem 1.25rem;
 
     & > .number {
       grid-area: number;
+      font-size: 1.3rem;
     }
     & > .title {
       grid-area: title;
       text-align: left;
       width: 100%;
+      font-size: 1.1rem;
     }
     & > .edit {
       grid-area: edit;
@@ -290,6 +297,7 @@ form {
       font-size: 0.75rem;
       text-decoration: underline;
       display: none;
+      margin-left: auto;
 
       &.show {
         display: flex;
@@ -300,6 +308,7 @@ form {
       font-family: 'Manrope', serif;
       font-weight: 400;
       font-size: 1rem;
+      line-height: 2;
     }
   }
   & .fields {
@@ -354,7 +363,7 @@ form {
   & .score-systems-selector {
     display: flex;
     flex-direction: column;
-    gap: .3rem;
+    gap: .5rem;
 
     & input[type=radio] {
       display: none;
@@ -364,7 +373,7 @@ form {
       flex-direction: row;
       align-items: center;
       align-content: center;
-      gap: .1rem;
+      gap: .5rem;
     }
   }
 }

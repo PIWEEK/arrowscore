@@ -192,7 +192,7 @@
       </div>
       <div class="actions">
         <Button disabled={!isComplete}>
-          Create scope system
+          Create score system
         </Button>
       </div>
     </form>

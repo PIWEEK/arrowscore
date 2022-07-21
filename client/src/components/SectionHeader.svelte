@@ -13,8 +13,13 @@
   </button>
 
   <div class="title">
-    <slot></slot>
-  <div>
+    <slot name="title"></slot>
+  </div>
+  {#if $$slots.action}
+  <div class="action">
+    <slot name="action"></slot>
+  </div>
+  {/if}
 </header>
 
 
@@ -37,6 +42,10 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  & .action {
+    align-self: flex-end
   }
 
   & .go-back {

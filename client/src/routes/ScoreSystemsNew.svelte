@@ -76,7 +76,7 @@
 
 <div class="score-systems-new">
   <SectionHeader>
-    <h1>Create Score System</h1>
+    <h1 slot="title">Create Score System</h1>
   </SectionHeader>
   <main>
     <form on:submit|preventDefault={onSubmit}>

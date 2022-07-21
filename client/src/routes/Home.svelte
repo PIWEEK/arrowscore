@@ -26,10 +26,18 @@
     </div>
   </header>
   <main>
-    <Route path="sessions" component={HomeSessions} />
-    <Route path="score-systems" component={HomeScoreSystmes} />
-    <Route path="tournaments" component={HomeTournaments} />
-    <Route path="settings" component={HomeSettings} />
+    <Route path="sessions">
+      <HomeSessions />
+    </Route>
+    <Route path="score-systems">
+      <HomeScoreSystmes />
+    </Route>
+    <Route path="tournaments">
+      <HomeTournaments />
+    </Route>
+    <Route path="settings">
+      <HomeSettings />
+    </Route>
   </main>
   <nav>
     <NavLink to="/home/sessions">

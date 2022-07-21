@@ -79,15 +79,15 @@
     }
     const localSessions = localStorage.get("sessions") || []
     localSessions.push(newSession)
-    localStorage.set("sessions", localSsessions)
-    navigate(`/sessions/play/${localSessions.length - 1}`)
+    localStorage.set("sessions", localSessions)
+    navigate(`/sessions/annotations/${localSessions.length - 1}`)
   }
 </script>
 
 
 <div class="sessions-new">
   <SectionHeader>
-    <h1>Create Session</h1>
+    <h1 slot="title">Create Session</h1>
   </SectionHeader>
   <main>
     <form on:submit|preventDefault={onSubmit}>

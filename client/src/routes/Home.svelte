@@ -63,9 +63,14 @@ header {
   align-items: center;
 
   & .user{
+    font-family: 'Manrope', serif;
     flex-grow: 1;
+    font-size: 1.2rem;
     display: flex;
     justify-content: center;
+    width: 100%;
+    text-align: center;
+    margin-left: -30px;
   }
 }
 

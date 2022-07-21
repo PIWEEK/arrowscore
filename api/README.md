@@ -8,11 +8,10 @@ Create a super-admin (change with your data):
 npm run strapi -- admin:create-user --firstname=Super --lastname=Admin --email=admin@email.com --password=Admin1234
 ```
 
-## Load config
+## Load config and initial data
 ```
-psql -U arrowscore -h localhost arrowscore < initial_data/config.sql
+./initial_data/load.sh
 ```
-
 
 
 # 🚀 Getting started with Strapi

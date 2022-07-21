@@ -16,7 +16,7 @@ export default defineConfig({
         name: 'ArrowScore',
         short_name: 'ArrowScore',
         description: 'ArrowScore',
-        display: 'fullscreen',
+        display: 'standalone',
         orientation: 'portrait',
         start_url: '/index.html',
         scope: '/',

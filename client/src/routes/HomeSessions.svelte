@@ -13,14 +13,16 @@
   <h1>Session</h1>
   <img src="{img}" alt="bows">
   <Button type="secondary" disabled={true}>join session</Button>
-  <Button
-    on:click|once={navigateToNewSession}>
-    create session
-  </Button>
-  <Button
-    on:click|once={() => navigate("/sessions/annotations/0")}>
-    go to sesion
-  </Button>
+  <div class="btn-row">
+    <Button type="secondary"
+      on:click|once={() => navigate("/sessions/annotations/0")}>
+      go to sesion
+    </Button>
+    <Button
+      on:click|once={navigateToNewSession}>
+      create session
+    </Button>
+  </div>
 </div>
 
 
@@ -37,6 +39,14 @@
 
   & h1 {
     font-size: 2rem;
+  }
+  
+  & .btn-row {
+    border-top: 1px solid var(--color-gray-light);
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 1rem;
   }
 }
 

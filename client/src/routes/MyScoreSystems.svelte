@@ -57,7 +57,8 @@
 
       & .code {
         color: var(--color-gray);
-        font-size: .8rem;
+        font-size: .9rem;
+        margin-left: auto;
       }
     }
   }

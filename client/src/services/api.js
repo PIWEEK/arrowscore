@@ -20,11 +20,15 @@ export const apiClient = (method, resource, data) => {
   const authToken = localStorage.get("token")
   const authHeaders = authToken ? {"Authorization": `Bearer ${authToken}`} : {}
 
-	return fetch(`${base}/${resource}`, {
+  const content = {
 		method,
     headers: {...baseHeaders, ...authHeaders},
-		body: data && JSON.stringify(data)
-  })
+  }
+  if (data) {
+    content.body = data && JSON.stringify(data)
+  }
+
+	return fetch(`${base}/${resource}`, content)
     .then(response => response.json()) //review how data is sent back
     .catch(console.error)
 }

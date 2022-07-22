@@ -17,6 +17,7 @@
 <div class="score-systems">
   <h1>Score System</h1>
   <img src="{img}" alt="target board">
+<<<<<<< HEAD
   <div class="btn-row">
     <input
     type="text"
@@ -41,6 +42,19 @@
       create basic
     </Button>
   </div>
+=======
+  <Button
+    type="secondary"
+    on:click|once={navigateToNewAdvanceScoreSystem}
+    disabled={true}>
+    create advanced score system
+  </Button>
+
+  <Button
+    on:click|once={navigateToNewScoreSystem}>
+    create score system
+  </Button>
+>>>>>>> 8f916c52a9c1bd4c5c303fcc3189e86e46a04fe1
 </div>
 
 

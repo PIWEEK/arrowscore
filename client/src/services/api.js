@@ -25,6 +25,6 @@ export const apiClient = (method, resource, data) => {
     headers: {...baseHeaders, ...authHeaders},
 		body: data && JSON.stringify(data)
   })
-    .then(response => response.json())
+    .then(response => response.json()) //review how data is sent back
     .catch(console.error)
 }

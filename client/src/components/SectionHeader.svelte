@@ -1,10 +1,13 @@
 <script>
   import { navigate } from "svelte-navigator"
   import IconArrow from "../assets/svgs/icon-arrow.svg"
+
+  export let theme = "dark"  // dark / light
 </script>
 
 
-<header class="section-header">
+<header
+  class="section-header {theme}">
   <button
     class="go-back"
     title="Go back"
@@ -56,6 +59,17 @@
 
   & :global(svg) {
     fill: var(--color-white);
+  }
+
+  /* light theme */
+  &.light {
+    border-bottom: 1px solid var(--color-gray-light);
+    color: var(--color-black);
+    background-color: var(--color-white);
+
+    & :global(svg) {
+      fill: var(--color-black);
+    }
   }
 }
 </style>

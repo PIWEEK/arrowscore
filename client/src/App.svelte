@@ -2,14 +2,15 @@
 	import { onMount } from 'svelte';
   import { Router, Route, navigate } from "svelte-navigator"
   import { localStorage } from "./services/storages"
-  import MySessions from "./routes/MySessions.svelte"
   import RegisterOrLogin from "./routes/RegisterOrLogin.svelte"
   import Login from "./routes/Login.svelte"
   import Register from "./routes/Register.svelte"
   import Home from "./routes/Home.svelte"
-  import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
-  import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
+  import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
+  import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
+  import MySessions from "./routes/MySessions.svelte"
+  import MyScoreSystems from "./routes/MyScoreSystems.svelte"
 
   onMount(async () => {
     const authToken = localStorage.get("token")
@@ -34,8 +35,11 @@
   <Route path="/sessions/annotations/:sessionPos" let:params>
     <SessionsAnnotations sessionPos="{params.sessionPos}"/>
   </Route>
-  <Route path="/my-sessions">
+  <Route path="/my/sessions">
     <MySessions />
+  </Route>
+  <Route path="/my/score-systems">
+    <MyScoreSystems />
   </Route>
   <Route path="/auth">
     <RegisterOrLogin />

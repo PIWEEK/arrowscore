@@ -88,15 +88,17 @@
     disabled={true}>
     Change password
   </Button>
-  <Button
-    on:click|once={syncData}>
-    Initiate sync
-  </Button>
-  <Button
-    type="secondary"
-    on:click|once={logout}>
-    Logout
-  </Button>
+  <div class="btn-row">
+    <Button
+      on:click|once={syncData}>
+      Initiate sync
+    </Button>
+    <Button
+      type="secondary"
+      on:click|once={logout}>
+      Logout
+    </Button>
+  </div>
 </div>
 
 
@@ -112,6 +114,14 @@
 
   & h1 {
     font-size: 2rem;
+  }
+
+  & .btn-row {
+    border-top: 1px solid var(--color-gray-light);
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 1rem;
   }
 
   & .menu {

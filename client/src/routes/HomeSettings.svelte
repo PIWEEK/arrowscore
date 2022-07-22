@@ -68,7 +68,7 @@
       <SessionIcon class="icon" height="20" width="20" />
       My Sessions
     </div>
-    <div class="menu-item" on:click={() => navigate("/my/scores")}>
+    <div class="menu-item" on:click={() => navigate("/my/score-systems")}>
       <TournamentsIcon class="icon" height="20" width="20" />
       My Score Systems
     </div>

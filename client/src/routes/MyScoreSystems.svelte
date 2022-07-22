@@ -13,7 +13,10 @@
   </SectionHeader>
   <main class="menu">
     {#each scoreSystems as score, i}
+    <!--
     <div class="menu-item" on:click={() => navigate(`/my/score-systems/${i}`)}>
+    -->
+    <div class="menu-item" >
       <ScoreSystemsIcon class="icon" height="20" width="20" />
       {score.name}
       {#if score.code}

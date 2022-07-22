@@ -60,6 +60,13 @@
     closeBottomSheetTargetScores()
   }
 
+  const finishSession = () => {
+    session.finished = true
+    sessions[sessionPos] = session
+    localStorage.set("sessions", sessions)
+    navigate(`/sessions/annotations/${sessionPos}/resumen`)
+  }
+
 </script>
 
 <div class="sessions-annotations">
@@ -127,7 +134,7 @@
         Next target
       </Button>
       {:else}
-      <Button>
+        <Button on:click={finishSession}>
         Finish
       </Button>
       {/if}

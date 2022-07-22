@@ -51,6 +51,18 @@
   justify-content: flex-start;
   height: 100%;
 
+  & h1 {
+    width: 100%;
+    margin-left: -20px;
+    text-align: center;
+  }
+
+  & main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   & .subtitle {
     display: flex;
     justify-content: center;

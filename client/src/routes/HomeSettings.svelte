@@ -3,7 +3,12 @@
   import { localStorage } from "../services/storages"
   import { apiClient } from "../services/api"
   import Button from "../components/Button.svelte"
-  import img from "../assets/imgs/img-score.png"
+
+  import SessionIcon from "../assets/svgs/icon-session.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
+  import SettingsIcon from "../assets/svgs/icon-profile.svg"
+
 
   const navigateToChangePassword = () => {
     // TODO
@@ -38,6 +43,25 @@
 
 <div class="settings">
   <h1>Settings</h1>
+  <div class="menu">
+    <div class="menu-item" on:click={() => navigate("/my/sessions")}>
+      <SessionIcon class="icon" height="20" width="20" />
+      My Sessions
+    </div>
+    <div class="menu-item" on:click={() => navigate("/my/scores")}>
+      <TournamentsIcon class="icon" height="20" width="20" />
+      My Score Systems
+    </div>
+    <div class="menu-item" on:click={() => navigate("/my/tournaments")}>
+      <ScoreSystemsIcon class="icon" height="20" width="20" />
+      My Tournaments
+    </div>
+    <div class="menu-item" on:click={() => navigate("/my/contacts")}>
+      <SettingsIcon class="icon" height="20" width="20" />
+      My Contacts
+    </div>
+  </div>
+
   <Button
     type="secondary"
     on:click|once={navigateToChangePassword}
@@ -68,6 +92,22 @@
 
   & h1 {
     font-size: 2rem;
+  }
+
+  & .menu {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gray-light);
+    width: 100%;
+
+    & .menu-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 20px 0;
+      gap: 15px;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
   }
 }
 </style>

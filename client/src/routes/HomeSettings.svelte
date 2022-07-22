@@ -102,6 +102,7 @@
 
     & .menu-item {
       display: flex;
+      font-family: 'Manrope', serif;
       flex-direction: row;
       align-items: center;
       padding: 20px 0;

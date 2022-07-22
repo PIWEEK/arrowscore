@@ -17,16 +17,30 @@
 <div class="score-systems">
   <h1>Score System</h1>
   <img src="{img}" alt="target board">
-  <Button
-    type="secondary"
-    on:click|once={navigateToNewAdvanceScoreSystem}
-    disabled={true}>
-    create advanced score system
-  </Button>
-  <Button
-    on:click|once={navigateToNewScoreSystem}>
-    create score system
-  </Button>
+  <div class="btn-row">
+    <input
+    type="text"
+    name="name"
+    placeholder="Enter code" />
+    <Button
+      type="secondary"
+      on:click|once={navigateToNewAdvanceScoreSystem}
+      disabled={true}>
+      download
+    </Button>
+  </div>
+  <div class="btn-row">
+    <Button
+      type="secondary"
+      on:click|once={navigateToNewAdvanceScoreSystem}
+      disabled={true}>
+      create advanced
+    </Button>
+    <Button
+      on:click|once={navigateToNewScoreSystem}>
+      create basic
+    </Button>
+  </div>
 </div>
 
 
@@ -42,6 +56,15 @@
 
   & h1 {
     font-size: 2rem;
+  }
+
+  & .btn-row {
+    border-top: 1px solid var(--color-gray-light);
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
   }
 }
 

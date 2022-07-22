@@ -11,13 +11,12 @@ VALUES
     (16, 'api::session.session.create', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
     (17, 'api::session.session.update', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
     (18, 'api::session.session.delete', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (19, 'plugin::users-permissions.user.create', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (20, 'plugin::users-permissions.user.update', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (21, 'plugin::users-permissions.user.find', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (22, 'plugin::users-permissions.user.findOne', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (23, 'plugin::users-permissions.user.count', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
-    (24, 'plugin::users-permissions.user.destroy', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid')
+    (19, 'plugin::users-permissions.user.update', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
+    (20, 'plugin::users-permissions.auth.callback', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
+    (21, 'plugin::users-permissions.user.destroy', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid'),
+    (22, 'plugin::users-permissions.user.me', current_timestamp(3) at time zone 'Europe/Madrid', current_timestamp(3) at time zone 'Europe/Madrid')
 ;
+SELECT pg_catalog.setval('public.up_permissions_id_seq', 22, true);
 
 INSERT INTO public.up_permissions_role_links(permission_id, role_id)
 VALUES
@@ -34,9 +33,7 @@ VALUES
     (19, 1),
     (20, 1),
     (21, 1),
-    (22, 1),
-    (23, 1),
-    (24, 1)
+    (22, 2)
 ;
 
 -- INITIAL DATA

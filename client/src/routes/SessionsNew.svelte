@@ -384,6 +384,7 @@ form {
       display: none;
     }
     & .score-systems-option {
+      font-family: 'Manrope', serif;
       display: flex;
       flex-direction: row;
       align-items: center;

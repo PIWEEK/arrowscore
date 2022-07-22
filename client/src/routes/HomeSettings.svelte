@@ -21,6 +21,12 @@
     const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
     const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
 
+    // seed for the future download with code
+    const {newsscode} = await apiClient(
+        "GET", "score-systems?filters[code][$eq]=WA3D",
+        )
+    console.log(newsscode)
+
     for (const scoreSystem of unsyncScoreSystems) {
       const {data} = await apiClient(
         "POST", "score-systems?populate=*",

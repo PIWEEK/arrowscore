@@ -17,17 +17,47 @@
   $: currentTargetDisplay = currentTarget + 1
   $: totalTargets = session.scores[0].length
 
-  let selectedArcherPos = null
-  $: selectedArcher = session.users[selectedArcherPos]
+  $: arrows = session.scoreSystem[0].targets[currentTarget]
+  let currentArrow = 0
+  $: arrowScores = arrows[currentArrow]
+  let currentScores = []
+
+  let selectedArcher = null
+  $: archer = session.users[selectedArcher]
+
+  let openPartialScores = false
 
   const calculateTotalScores = (targetScores) => targetScores
     .reduce((total, score) => total + score ? score : 0, 0)
 
+  const calculatePartialScoreForUser = (scores) => scores
+    .reduce((total, targetScores) => total + calculateTotalScores(targetScores), 0)
+
   const hasAnnotations = (targetScores) => !targetScores
     .every((score) => score === null)
 
-  const closeBottomSheet = () => {
-    selectedArcherPos = null
+  const openBottomSheetTargetScores = (archerPos) => {
+    selectedArcher = archerPos
+    currentArrow = 0
+    currentScores = Object.assign([], session.scores[selectedArcher][currentTarget])
+  }
+
+  const closeBottomSheetTargetScores = () => {
+    selectedArcher = null
+    currentArrow = 0
+    currentScores = []
+  }
+
+  const saveScore = () => {
+    // Save score
+    session.scores[selectedArcher][currentTarget] = currentScores
+    session = session
+
+    // Persist data
+    sessions[sessionPos] = session
+    localStorage.set("sessions", sessions)
+
+    closeBottomSheetTargetScores()
   }
 
 </script>
@@ -35,7 +65,7 @@
 <div class="sessions-annotations">
   <SectionHeader>
     <h1 slot="title">{session.name}</h1>
-    <Button slot="action">
+    <Button slot="action" on:click={() => openPartialScores = true}>
       <StatsIcon class="icon" height="20" width="20" />
     </Button>
   </SectionHeader>
@@ -59,7 +89,7 @@
     </div>
     <div class="archers-list">
       {#each session.users as user, u}
-      <div class="archer" on:click|stopPropagation={() => selectedArcherPos = u}>
+      <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">{user.Name}</h2>
         <div class="action">
           {#if !hasAnnotations(session.scores[u][currentTarget])}
@@ -88,25 +118,66 @@
       </div>
       {/each}
     </div>
+    <div class="actions">
+      <Button type="secondary" disabled={true}>
+        Target picture
+      </Button>
+      {#if currentTargetDisplay < totalTargets }
+      <Button on:click={() => { currentTarget++ }}>
+        Next target
+      </Button>
+      {:else}
+      <Button>
+        Finish
+      </Button>
+      {/if}
+    </div>
   </main>
 </div>
 
-<BottomSheet open={selectedArcherPos !== null} on:close={closeBottomSheet}>
-{#if selectedArcher}
-<div class="bottom-sheet">
+<BottomSheet open={selectedArcher !== null} on:close={closeBottomSheetTargetScores}>
+{#if archer}
+<div class="bottom-sheet target-scores">
   <div class="header">
-    <button class="close" on:click={closeBottomSheet}>X</button>
-    <h1 class="name">{selectedArcher.Name}</h1>
+    <button class="close" on:click={closeBottomSheetTargetScores}>X</button>
+    <h1 class="name">{archer.Name}</h1>
   </div>
-  <form class="main">
+  <form class="main" on:submit|preventDefault={saveScore}>
     <div class="arrows">
       # Arrow
+      <div class="values">
+        {#each arrows as ar, i}
+        <input
+          type="radio"
+          name="num-arrow"
+          id="ar-{i}"
+          bind:group={currentArrow}
+          value={i}>
+        <label for="ar-{i}">
+         {i+1}
+        </label>
+        {/each}
+      </div>
     </div>
     <div class="score-values">
       Score value
+      <div class="values">
+        {#each arrowScores as sc, i}
+        <input
+          type="radio"
+          name="score"
+          id="sc-{i}"
+          bind:group={currentScores[currentArrow]}
+          value={sc}>
+        <label for="sc-{i}">
+         {sc}
+        </label>
+        {/each}
+
+      </div>
     </div>
     <div class="actions">
-      <Button type="secondary" on:click={closeBottomSheet}>
+      <Button type="secondary" on:click={closeBottomSheetTargetScores}>
         Cancel
       </Button>
       <Button>
@@ -118,13 +189,32 @@
 {/if}
 </BottomSheet>
 
+<BottomSheet bind:open={openPartialScores}>
+{#if openPartialScores}
+<div class="bottom-sheet partial-scores">
+  <div class="header">
+    <button class="close" on:click={() => openPartialScores = false}>X</button>
+    <h1 class="name">Partial Scores</h1>
+  </div>
+  <div class="main">
+    {#each session.users as user, u}
+    <div class="archer">
+      <span class="number">{u+1}.</span>
+      <span class="name">{user.Name}</span>
+      <span class="score">{calculatePartialScoreForUser(session.scores[u])}</span>
+    </div>
+    {/each}
+  </div>
+</div>
+{/if}
+</BottomSheet>
 
 <style lang="postcss">
 .sessions-annotations {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  flex-grow: 1;
+  height: 100%;
 
   & h1 {
     line-height: 1rem;
@@ -157,6 +247,12 @@
       text-align: center;
     }
   }
+
+  & main {
+    display: flex;
+    flex-direction: column;
+  }
+
   & .archer {
     display: grid;
     grid-template-areas: "name action"
@@ -211,6 +307,12 @@
       }
     }
   }
+  & .actions {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+  }
 }
 .bottom-sheet{
   & .header {
@@ -235,24 +337,95 @@
       margin: 0;
     }
   }
-  & form {
 
+  &.target-scores {
+    & form {
+      & .arrows {
+        padding: 20px 20px 10px 20px;
+      }
 
-    & .arrows,
-    & .score-values,
-    & .actions {
-      padding: 20px;
+      & .score-values {
+        padding: 10px 20px 20px 20px;
+      }
+
+      & .arrows,
+      & .score-values {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: .4rem;
+        font-family: 'Manrope', serif;
+        font-weight: 400;
+        font-size: 18px;
+
+        & .values {
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          flex-wrap: wrap;
+          gap: .3rem;
+
+          & input[type=radio],
+          & input[type=checkbox] {
+            display: none;
+          }
+          & label {
+            font-family: 'Manrope', serif;
+            font-weight: 400;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 40px;
+            padding: 2px;
+            border: 1px solid var(--color-black);
+          }
+          & input[type=radio]:checked + label,
+          & input[type=checkbox]:checked + label {
+            background-color: var(--color-black);
+            color: var(--color-white);
+          }
+        }
+      }
+
+      & .actions {
+        border-top: 1px solid var(--color-gray-light);
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        padding: 20px;
+      }
     }
+  }
 
-    & .arrows {}
-
-    & .score-values {}
-
-    & .actions {
-      border-top: 1px solid var(--color-gray-light);
+  &.partial-scores {
+    & .archer {
+      font-family: 'Manrope', serif;
+      font-weight: 400;
       display: flex;
       flex-direction: row;
-      gap: 30px;
+      align-items: center;
+      border-bottom: 1px solid var(--color-gray-light);
+      gap: .4rem;
+      padding: 20px;
+
+      & .number {
+        font-weight: 600;
+      }
+
+      & .name {
+        display: block;
+        width: 100%
+      }
+      & .score {
+        align-self: end;
+        border: 2px solid var(--color-black);
+        display: block;
+        text-align: center;
+        line-height: 1.3rem;
+        min-width: 1.5rem;
+        padding: 0 3px;
+      }
     }
   }
 }

@@ -75,11 +75,11 @@
       My Sessions
     </div>
     <div class="menu-item" on:click={() => navigate("/my/score-systems")}>
-      <TournamentsIcon class="icon" height="20" width="20" />
+      <ScoreSystemsIcon class="icon" height="20" width="20" />
       My Score Systems
     </div>
     <div class="menu-item" on:click={() => navigate("/my/tournaments")}>
-      <ScoreSystemsIcon class="icon" height="20" width="20" />
+      <TournamentsIcon class="icon" height="20" width="20" />
       My Tournaments
     </div>
     <div class="menu-item" on:click={() => navigate("/my/contacts")}>

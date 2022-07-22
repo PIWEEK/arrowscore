@@ -24,6 +24,7 @@
 
         localStorage.set("token", res.jwt)
         localStorage.set("user", res.user)
+        localStorage.set("scoreSystems", [])
         navigate("/home/sessions")
       }
       else {

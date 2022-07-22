@@ -19,6 +19,7 @@
     if (res.user) {
       localStorage.set("token", res.jwt)
       localStorage.set("user", res.user)
+
       navigate("/home/sessions")
     }
     else {

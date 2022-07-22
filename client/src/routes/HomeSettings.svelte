@@ -22,10 +22,27 @@
     const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
 
     // seed for the future download with code
-    const {newsscode} = await apiClient(
-        "GET", "score-systems?filters[code][$eq]=WA3D",
+    const {data} = await apiClient(
+        "GET", "score-systems?filters[author][username][$eq]=arrowscore",
         )
-    console.log(newsscode)
+    console.log(data)
+
+
+    let existingLocalScoreSystems = []
+    for (const i of localStorage.get("scoreSystems")){
+      existingLocalScoreSystems.push(i["apiid"])
+    
+
+    }
+    console.log(existingLocalScoreSystems)
+
+    for (const d of data){
+      if (! existingLocalScoreSystems.includes(d.attributes["apiid"])){
+        newScoreSystems.push(d.attributes)
+        console.log("YEAH!")
+      }
+    }
+    
 
     for (const scoreSystem of unsyncScoreSystems) {
       const {data} = await apiClient(

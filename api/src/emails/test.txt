@@ -1,0 +1,7 @@
+Hola, <%= name %>
+
+Vengo a contarte muchas cosas, mira:
+<%= things %>
+
+¡Hasta pronto!
+

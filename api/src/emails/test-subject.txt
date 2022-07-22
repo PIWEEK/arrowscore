@@ -1,0 +1,1 @@
+[ARROWSCORE] Email para <%= name %>

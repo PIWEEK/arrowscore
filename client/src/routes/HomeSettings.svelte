@@ -22,15 +22,35 @@
     const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
 
     for (const scoreSystem of unsyncScoreSystems) {
-      const data = await apiClient(
+      const {data} = await apiClient(
         "POST", "score-systems?populate=*",
         { data: scoreSystem }
       )
+      console.log(data)
       newScoreSystems.push(data.attributes)
     }
-
+    console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
   }
+  const getSSWithCODE = async () => {
+    // Sync score Systems
+    const localScoreSystems = localStorage.get("scoreSystems") || []
+    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
+    const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
+
+    for (const scoreSystem of unsyncScoreSystems) {
+      const {data} = await apiClient(
+        "POST", "score-systems?populate=*",
+        { data: scoreSystem }
+      )
+      console.log(data)
+      newScoreSystems.push(data.attributes)
+    }
+    console.log(newScoreSystems)
+    localStorage.set("scoreSystems", newScoreSystems)
+  }
+
+  let code = ""
 
   const logout = () => {
     //localStorage.clear()
@@ -70,7 +90,7 @@
   </Button>
   <Button
     on:click|once={syncData}>
-    Sync on demand
+    Initiate sync
   </Button>
   <Button
     type="secondary"

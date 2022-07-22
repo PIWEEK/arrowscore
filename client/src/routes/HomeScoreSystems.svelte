@@ -23,6 +23,7 @@
     disabled={true}>
     create advanced score system
   </Button>
+
   <Button
     on:click|once={navigateToNewScoreSystem}>
     create score system

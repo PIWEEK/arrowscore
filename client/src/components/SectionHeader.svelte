@@ -45,7 +45,8 @@
   }
 
   & .action {
-    align-self: flex-end
+    align-self: flex-end;
+    width: 35px;
   }
 
   & .go-back {

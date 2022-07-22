@@ -139,7 +139,7 @@
 {#if archer}
 <div class="bottom-sheet target-scores">
   <div class="header">
-    <button class="close" on:click={closeBottomSheetTargetScores}>X</button>
+    <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
     <h1 class="name">{archer.Name}</h1>
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
@@ -193,7 +193,7 @@
 {#if openPartialScores}
 <div class="bottom-sheet partial-scores">
   <div class="header">
-    <button class="close" on:click={() => openPartialScores = false}>X</button>
+    <button class="close" on:click={() => openPartialScores = false}>+</button>
     <h1 class="name">Partial Scores</h1>
   </div>
   <div class="main">
@@ -220,7 +220,6 @@
     line-height: 1rem;
     width: 100%;
     text-align: center;
-    margin-left: -20px;
   }
 
   & .target-manager {
@@ -243,6 +242,8 @@
     }
 
     & .current {
+      font-family: 'Manrope', serif;
+      font-weight: bolder;
       grid-area: current;
       text-align: center;
     }
@@ -251,6 +252,7 @@
   & main {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   & .archer {
@@ -262,10 +264,13 @@
     grid-gap: 8px;
     padding: 12px 20px;
     border-bottom: 1px solid var(--color-gray-light);
+    min-height: 60px;
 
     & .name {
       grid-area: name;
       margin: 0;
+      font-size: 1.3rem;
+      margin-top: .3rem;
     }
     & .action {
       grid-area: action;
@@ -274,6 +279,7 @@
       font-size: 14px;
       line-height: 17px;
       text-decoration: underline;
+      margin-top: .3rem;
     }
     & .scores {
       grid-area: scores;
@@ -283,6 +289,8 @@
       justify-content: flex-start;
       align-items: center;
       gap: .7rem;
+      font-family: 'Manrope', serif;
+
 
       & .arrow,
       & .total{
@@ -293,7 +301,7 @@
       }
 
       & .score {
-        border: 2px solid var(--color-black);
+        border: 1px solid var(--color-black);
         display: block;
         text-align: center;
         line-height: 1.3rem;
@@ -312,6 +320,7 @@
     display: flex;
     gap: 20px;
     width: 100%;
+    margin-top: auto;
   }
 }
 .bottom-sheet{
@@ -327,14 +336,16 @@
       background: none;
       font-family: 'Manrope', serif;
       text-align: right;
-      font-size: 20px;
+      font-size: 30px;
       line-height: 20px;
+      transform: rotate(45deg);
     }
 
     & .name {
       width: 100%;
       text-align: center;
       margin: 0;
+      margin-left: -20px;
     }
   }
 
@@ -353,7 +364,7 @@
         display: flex;
         flex-direction: column;
         justify-content: start;
-        gap: .4rem;
+        gap: .8rem;
         font-family: 'Manrope', serif;
         font-weight: 400;
         font-size: 18px;
@@ -363,7 +374,7 @@
           flex-direction: row;
           justify-content: start;
           flex-wrap: wrap;
-          gap: .3rem;
+          gap: .8rem;
 
           & input[type=radio],
           & input[type=checkbox] {
@@ -419,7 +430,7 @@
       }
       & .score {
         align-self: end;
-        border: 2px solid var(--color-black);
+        border: 1px solid var(--color-black);
         display: block;
         text-align: center;
         line-height: 1.3rem;

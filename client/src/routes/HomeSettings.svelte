@@ -28,7 +28,9 @@
   }
 
   const logout = () => {
-    localStorage.clear()
+    //localStorage.clear()
+    localStorage.remove("token")
+    localStorage.remove("user")
     navigate("/auth")
   }
 </script>

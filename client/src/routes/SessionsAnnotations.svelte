@@ -90,7 +90,7 @@
     <div class="archers-list">
       {#each session.users as user, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
-        <h2 class="name">{user.Name}</h2>
+        <h2 class="name">{user.username}</h2>
         <div class="action">
           {#if !hasAnnotations(session.scores[u][currentTarget])}
             Annotate
@@ -140,7 +140,7 @@
 <div class="bottom-sheet target-scores">
   <div class="header">
     <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
-    <h1 class="name">{archer.Name}</h1>
+    <h1 class="name">{archer.username}</h1>
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
     <div class="arrows">
@@ -200,7 +200,7 @@
     {#each session.users as user, u}
     <div class="archer">
       <span class="number">{u+1}.</span>
-      <span class="name">{user.Name}</span>
+      <span class="name">{user.username}</span>
       <span class="score">{calculatePartialScoreForUser(session.scores[u])}</span>
     </div>
     {/each}

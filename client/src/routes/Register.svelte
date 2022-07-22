@@ -9,17 +9,19 @@
     const data = {
       email: "",
       password: "",
-      username: ""
+      username: "",
     }
   
     let showError = false;
   
     const onSubmit = async () => {
-      data["username"] = data["email"];
       console.log(data);
       const res = await apiClient("POST", "auth/local/register", data)
   
       if (res.user) {
+        // PIWEEK hack to have Name set up
+        res.user["username"] = data["username"]
+
         localStorage.set("token", res.jwt)
         localStorage.set("user", res.user)
         navigate("/home/sessions")
@@ -43,6 +45,16 @@
     {/if}
     <main>
       <form on:submit|preventDefault={onSubmit}>
+        <div class="field">
+            <label for="email">Name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Merida"
+              bind:value={data.username} />
+        </div>
+  
         <div class="field">
           <label for="email">Email</label>
           <input

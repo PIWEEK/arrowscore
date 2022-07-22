@@ -22,7 +22,7 @@
   <header>
     <ACLogo height="30" width="30" />
     <div class="user">
-      Hi, {user? user.Name || user.username : "unknown"}
+      Hi, {user? user.username || user.email : "unknown"}
     </div>
   </header>
   <main>

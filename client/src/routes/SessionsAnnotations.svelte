@@ -28,7 +28,7 @@
   let openPartialScores = false
 
   const calculateTotalScores = (targetScores) => targetScores
-    .reduce((total, score) => total + score ? score : 0, 0)
+    .reduce((total, score) => total + (score ? score : 0), 0)
 
   const calculatePartialScoreForUser = (scores) => scores
     .reduce((total, targetScores) => total + calculateTotalScores(targetScores), 0)
@@ -304,8 +304,8 @@
         border: 1px solid var(--color-black);
         display: block;
         text-align: center;
-        line-height: 1.3rem;
-        min-width: 1.5rem;
+        line-height: 1.6rem;
+        min-width: 2rem;
         padding: 0 3px;
       }
 
@@ -433,8 +433,8 @@
         border: 1px solid var(--color-black);
         display: block;
         text-align: center;
-        line-height: 1.3rem;
-        min-width: 1.5rem;
+        line-height: 1.8rem;
+        min-width: 2.4rem;
         padding: 0 3px;
       }
     }

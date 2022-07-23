@@ -16,7 +16,7 @@
     .reduce((total, targetScores) => total + calculateTotalScores(targetScores), 0)
 </script>
 
-<div class="sessions-resumen">
+<div class="sessions-summary">
   <SectionHeader>
     <h1 slot="title">{session.name}</h1>
   </SectionHeader>
@@ -45,7 +45,7 @@
 </div>
 
 <style lang="postcss">
-.sessions-resumen {
+.sessions-summary {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

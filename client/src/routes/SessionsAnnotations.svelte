@@ -51,7 +51,6 @@
   const saveScore = () => {
     // Save score
     session.scores[selectedArcher][currentTarget] = currentScores
-    session = session
 
     // Persist data
     sessions[sessionPos] = session
@@ -64,7 +63,7 @@
     session.finished = true
     sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
-    navigate(`/sessions/annotations/${sessionPos}/resumen`)
+    navigate(`/sessions/annotations/${sessionPos}/summary`)
   }
 
 </script>

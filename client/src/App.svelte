@@ -8,7 +8,7 @@
   import Home from "./routes/Home.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
   import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
-  import SessionsResumen from "./routes/SessionsResumen.svelte"
+  import SessionsSummary from "./routes/SessionsSummary.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
   import MySessions from "./routes/MySessions.svelte"
   import MyScoreSystems from "./routes/MyScoreSystems.svelte"
@@ -36,8 +36,8 @@
   <Route path="/sessions/annotations/:sessionPos" let:params>
     <SessionsAnnotations sessionPos="{params.sessionPos}"/>
   </Route>
-  <Route path="/sessions/annotations/:sessionPos/resumen" let:params>
-    <SessionsResumen sessionPos="{params.sessionPos}"/>
+  <Route path="/sessions/annotations/:sessionPos/summary" let:params>
+    <SessionsSummary sessionPos="{params.sessionPos}"/>
   </Route>
   <Route path="/my/sessions">
     <MySessions />

@@ -10,6 +10,7 @@
 
  	export let sessionPos = 0
 
+  const you = localStorage.get("user")
   const sessions = localStorage.get("sessions") || []
   const session = sessions[sessionPos]
 
@@ -24,15 +25,27 @@
 
   let selectedArcher = null
   $: archer = session.users[selectedArcher]
+  $: totalArchers = session.users.length
 
   let openPartialScores = false
 
-  const calculateTotalScores = (targetScores) => targetScores
+  const calculateTotalScoreForTarget = (targetScores) => targetScores
     .reduce((total, score) => total + (score ? score : 0), 0)
 
   const calculatePartialScoreForUser = (scores) => scores
-    .reduce((total, targetScores) => total + calculateTotalScores(targetScores), 0)
+    .reduce((total, targetScores) => total + calculateTotalScoreForTarget(targetScores), 0)
 
+  const calculateSessionPartialScores = () => {
+    const data = []
+    for (const [index, user] of session.users.entries()) {
+      data.push({
+        username: user.username,
+        score: calculatePartialScoreForUser(session.scores[index]),
+      })
+    }
+    data.sort((a, b) => b.score - a.score)
+    return data
+  }
   const hasAnnotations = (targetScores) => !targetScores
     .every((score) => score === null)
 
@@ -56,7 +69,19 @@
     sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
 
-    closeBottomSheetTargetScores()
+
+    if (selectedArcher + 1 < totalArchers) {  // Go to next archer
+      console.log("Go to next archer", selectedArcher, currentTarget)
+      openBottomSheetTargetScores(selectedArcher + 1)
+    } else if (currentTarget + 1 < totalTargets) {
+      console.log("Go to next target", selectedArcher, currentTarget)
+      currentTarget++
+      openBottomSheetTargetScores(0)
+    } else {
+      console.log("Finish", selectedArcher, currentTarget)
+      closeBottomSheetTargetScores()
+      finishSession()
+    }
   }
 
   const finishSession = () => {
@@ -96,7 +121,9 @@
     <div class="archers-list">
       {#each session.users as user, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
-        <h2 class="name">{user.username}</h2>
+        <h2 class="name">
+          {user.username}{#if user.username === you.username}{" (You)"}{/if}
+        </h2>
         <div class="action">
           {#if !hasAnnotations(session.scores[u][currentTarget])}
             Annotate
@@ -116,7 +143,7 @@
             {#if hasAnnotations(session.scores[u][currentTarget])}
               T&nbsp;
               <span class="score">
-                {calculateTotalScores(session.scores[u][currentTarget])}
+                {calculateTotalScoreForTarget(session.scores[u][currentTarget])}
               </span>
             {/if}
           </div>
@@ -125,7 +152,7 @@
       {/each}
     </div>
     <div class="actions">
-      <Button type="secondary" disabled={true}>
+      <Button theme="secondary" disabled={true}>
         Target picture
       </Button>
       {#if currentTargetDisplay < totalTargets }
@@ -146,7 +173,9 @@
 <div class="bottom-sheet target-scores">
   <div class="header">
     <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
-    <h1 class="name">{archer.username}</h1>
+    <h1 class="name">
+      {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
+    </h1>
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
     <div class="arrows">
@@ -183,11 +212,17 @@
       </div>
     </div>
     <div class="actions">
-      <Button type="secondary" on:click={closeBottomSheetTargetScores}>
+      <Button theme="secondary" on:click={closeBottomSheetTargetScores}>
         Cancel
       </Button>
-      <Button>
+      <Button type="submit">
+        {#if selectedArcher + 1 < totalArchers} <!-- Go to next archer -->
         Next archer
+        {:else if currentTarget + 1 < totalTargets} <!-- Go to next target -->
+        Next target
+        {:else} <!-- Finish session -->
+        Finish
+        {/if}
       </Button>
     </div>
   </form>
@@ -203,11 +238,13 @@
     <h1 class="name">Partial Scores</h1>
   </div>
   <div class="main">
-    {#each session.users as user, u}
+    {#each calculateSessionPartialScores() as user, u}
     <div class="archer">
       <span class="number">{u+1}.</span>
-      <span class="name">{user.username}</span>
-      <span class="score">{calculatePartialScoreForUser(session.scores[u])}</span>
+      <span class="name">
+        {user.username}{#if user.username === you.username}{" (You)"}{/if}
+      </span>
+      <span class="score">{user.score}</span>
     </div>
     {/each}
   </div>

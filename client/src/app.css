@@ -47,7 +47,7 @@ html, body {
   align-content: center;
 
   /* body */
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Manrope', serif;
   font-weight: 400;
   font-variant: normal;
   font-size: 1rem;
@@ -63,7 +63,8 @@ h1 {
   font-family: 'DM Serif Display', serif;
   font-weight: 400;
   font-variant: normal;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
 }
 
 /* Heading 2 */
@@ -71,8 +72,8 @@ h2 {
   font-family: 'DM Serif Display', serif;
   font-weight: 400;
   font-variant: normal;
-  font-size: 1.125rem;
-  line-height: 1.35rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
 }
 
 /****************************

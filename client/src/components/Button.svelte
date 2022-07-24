@@ -1,10 +1,12 @@
 <script>
   import { createEventDispatcher } from 'svelte'
 
-  /* types: 'primary' (default) | 'secondary' */
-  export let type = "primary"
+  /* type: 'button' (default) | 'submit' | 'reset' */
+  export let type = "button"
   /* disabled: bool */
   export let disabled = false
+  /* theme: 'primary' (default) | 'secondary' | 'link' */
+  export let theme = "primary"
 
 	const dispatch = createEventDispatcher()
 
@@ -13,7 +15,7 @@
   }
 </script>
 
-<button class={type} disabled={disabled} on:click={handleOnClick}>
+<button class={theme} type={type} disabled={disabled} on:click={handleOnClick}>
   <slot></slot>
 </button>
 
@@ -34,25 +36,40 @@
     &[disabled]{
       border-color: var(--color-gray);
     }
-  }
 
-  .primary {
-    background:  var(--color-black);
-    color:  var(--color-white);
+    &.primary {
+      background:  var(--color-black);
+      color:  var(--color-white);
 
-    &:disabled,
-    &[disabled]{
-      background: var(--color-gray);
+      &:disabled,
+      &[disabled]{
+        background: var(--color-gray);
+      }
     }
-  }
 
-  .secondary {
-    background: var(--color-white);
-    color: var(--color-black);
+    &.secondary {
+      background: var(--color-white);
+      color: var(--color-black);
 
-    &:disabled,
-    &[disabled]{
-      color: var(--color-gray);
+      &:disabled,
+      &[disabled]{
+        color: var(--color-gray);
+      }
+    }
+
+    &.link {
+      border: none;
+      background: none;
+      height: auto;
+      width: auto;
+      padding: 0;
+      text-decoration: underline;
+      color: var(--color-black);
+
+      &:disabled,
+      &[disabled]{
+        color: var(--color-gray);
+      }
     }
   }
 </style>

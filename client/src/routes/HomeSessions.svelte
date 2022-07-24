@@ -12,7 +12,7 @@
 <div class="sessions">
   <h1>Session</h1>
   <img src="{img}" alt="bows">
-  <Button type="secondary" disabled={true}>
+  <Button theme="secondary" disabled={true}>
     join session
   </Button>
   <Button

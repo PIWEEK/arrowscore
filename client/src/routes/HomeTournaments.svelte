@@ -6,7 +6,7 @@
 <div class="tournaments">
   <h1>Tournament</h1>
   <img src="{img}" alt="arrows">
-  <Button type="secondary" disabled={true}>join tournament</Button>
+  <Button theme="secondary" disabled={true}>join tournament</Button>
   <Button disabled={true}>create tournament</Button>
 </div>
 

@@ -6,14 +6,27 @@
 
  	export let sessionPos = 0
 
+  const you = localStorage.get("user")
   const sessions = localStorage.get("sessions") || []
   const session = sessions[sessionPos]
 
-  const calculateTotalScores = (targetScores) => targetScores
+  const _calculateTotalScoreForTarget = (targetScores) => targetScores
     .reduce((total, score) => total + (score ? score : 0), 0)
 
-  const calculatePartialScoreForUser = (scores) => scores
-    .reduce((total, targetScores) => total + calculateTotalScores(targetScores), 0)
+  const _calculateTotalScoreForUser = (scores) => scores
+    .reduce((total, targetScores) => total + _calculateTotalScoreForTarget(targetScores), 0)
+
+  const calculateSessionSummary = () => {
+    const data = []
+    for (const [index, user] of session.users.entries()) {
+      data.push({
+        username: user.username,
+        score: _calculateTotalScoreForUser(session.scores[index]),
+      })
+    }
+    data.sort((a, b) => b.score - a.score)
+    return data
+  }
 </script>
 
 <div class="sessions-summary">
@@ -23,18 +36,20 @@
   <main>
     <h2 class="subtitle">Total Score</h2>
     <div class="archers-list">
-      {#each session.users as user, u}
+      {#each calculateSessionSummary() as user, u}
       <div class="archer">
         <span class="number">{u+1}.</span>
-        <span class="name">{user.username}</span>
-        <span class="score winner">
-          {calculatePartialScoreForUser(session.scores[u])}
+        <span class="name">
+          {user.username}{#if user.username === you.username}{" (You)"}{/if}
+        </span>
+        <span class="score" class:winner={u === 0}>
+          {user.score}
         </span>
       </div>
       {/each}
     </div>
     <div class="actions">
-      <Button type="secondary" disabled={true}>
+      <Button theme="secondary" disabled={true}>
         Share
       </Button>
       <Button on:click={() => { navigate("/home/sessions")}}>

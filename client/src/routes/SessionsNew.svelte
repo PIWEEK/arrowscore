@@ -5,6 +5,7 @@
   import Button from "../components/Button.svelte"
   import { localStorage } from "../services/storages"
   import { range } from "../utils"
+  import ProfileIcon from "../assets/svgs/icon-profile.svg"
   import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
   import CheckIcon from "../assets/svgs/icon-check.svg"
 
@@ -29,17 +30,34 @@
     place: ""
   }
 
+  let newArcher = ""
+
   const _openNextStep = () => {
     let nextStep = Object.entries(steps).find((s) => !s[1])
     openStep = nextStep ? nextStep[0] : 0
-    console.log("! Open step", openStep)
   }
 
-  const selectSolo = (event) => {
+  const selectSolo = () => {
     data.archers = [user]
     steps[1] = true
     _openNextStep()
   }
+
+  const selectGroup = () => {
+    data.archers = [user]
+    steps[1] = true
+  }
+
+  const addArcher = () => {
+    data.archers = [...data.archers, {username: newArcher}]
+    newArcher = ""
+  }
+
+  const removeArcher = (index) => {
+    data.archers.splice(index, 1)
+    data.archers = data.archers
+  }
+
 
   const selectScoreSystem = (event) => {
     data.scoreSystem = parseInt(event.currentTarget.value)
@@ -49,16 +67,16 @@
     _openNextStep()
   }
 
-  const navigateToScoreSystems = (event) => {
+  const navigateToScoreSystems = () => {
     navigate("/home/score-systems")
   }
 
-  const selectName = (event) => {
+  const selectName = () => {
     steps[3] = true
     _openNextStep()
   }
 
-  const selectPlace = (event) => {
+  const selectPlace = () => {
     steps[4] = true
     _openNextStep()
   }
@@ -99,37 +117,52 @@
             <div class="edit" class:show={steps[1] && openStep != 1}>
               <a on:click|stopPropagation={() => { openStep=1 }}>Edit</a>
             </div>
-            <div class="values">{data.archers? "Solo": ""}</div>
+            <div class="values">
+              {data.archers.length === 0? "" : data.archers.length == 1? "Solo" : `Group (${data.archers.length})` }</div>
           </div>
           {#if openStep == 1}
           <div class="fields">
+            {#if data.archers.length == 0}
             <div class="archer-options">
-              <Button type="secondary"}
+              <Button theme="secondary"}
                 on:click={selectSolo}>
                 Solo
               </Button>
-              <Button type="secondary" disabled={true}>
+              <Button theme="secondary"
+                on:click={selectGroup}>
                 Group
               </Button>
             </div>
-            <!-- TODO Group
-            <ul class="archers">
-              <li>
-                <ProfileIcon class="icon" height="30" width="30" />
-                <span>Yami</span>
-                <a>Remove</a>
+            {:else}
+            <ul class="archers-list">
+              {#each data.archers as archer, i}
+              <li class="archer">
+                <ProfileIcon class="icon" height="16" width="16" />
+                <span>{archer.Name || archer.username}</span>
+                {#if i == 0}
+                <span>(You)</span>
+                {:else}
+                <a class="remove"
+                  on:click|preventDefault={() => removeArcher(i)}>
+                  Remove
+                </a>
+                {/if}
               </li>
-            <ul/>
+              {/each}
+            </ul>
             <input
               type="text"
               name="archer"
               placeholder="Email, username or name"
               bind:value={newArcher} />
-            <Button type="secondary" disabled={newArcher == ""}
+            <Button theme="secondary" disabled={newArcher == ""}
               on:click={addArcher}>
-              Ok, continue
+              Add archer
               </Button>
-            -->
+            <Button on:click={_openNextStep}>
+              Ok, continue
+            </Button>
+            {/if}
           </div>
           {/if}
         </div>
@@ -167,7 +200,7 @@
               <div class="empty">
                 You need to create one score system first.
               </div>
-              <Button type="secondary"
+              <Button theme="secondary"
                 on:click={navigateToScoreSystems}>
                 Create a score system
               </Button>
@@ -193,7 +226,7 @@
               name="name"
               placeholder="Enter a name"
               bind:value={data.name} />
-            <Button type="secondary" disabled={data.name == ""}
+            <Button theme="secondary" disabled={data.name == ""}
               on:click={selectName}>
               Ok, continue
             </Button>
@@ -217,7 +250,7 @@
               name="place"
               placeholder="Enter a place"
               bind:value={data.place} />
-            <Button type="secondary" disabled={data.place == ""}
+            <Button theme="secondary" disabled={data.place == ""}
               on:click={selectPlace}>
               Ok, continue
             </Button>
@@ -226,7 +259,7 @@
         </div>
       </div>
       <div class="actions">
-        <Button disabled={!isComplete}>
+        <Button type="submit" disabled={!isComplete}>
           Create session
         </Button>
       </div>
@@ -296,10 +329,12 @@ form {
 
     & > .number {
       grid-area: number;
+      font-family: 'DM Serif Display', serif;
       font-size: 1.3rem;
     }
     & > .title {
       grid-area: title;
+      font-family: 'DM Serif Display', serif;
       text-align: left;
       width: 100%;
       font-size: 1.1rem;
@@ -373,6 +408,33 @@ form {
     display: flex;
     flex-direction: row;
     gap: .5rem;
+  }
+
+  & .archers-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    gap: .8rem;
+
+    & .archer {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      width: 100%;
+      gap: .5rem;
+
+      & span {
+        font-weight: 600;
+      }
+
+      & .remove {
+        margin-left: auto;
+        color: red;
+      }
+    }
   }
 
   & .score-systems-selector {

@@ -23,7 +23,7 @@
       navigate("/home/sessions")
     }
     else {
-      showError = true;
+      showError = true
     }
   }
 </script>
@@ -60,7 +60,7 @@
           bind:value={data.password} />
       </div>
 
-      <Button disabled={data.identifier === "" || data.password === ""}>
+      <Button type="submit" disabled={data.identifier === "" || data.password === ""}>
         Let's go
       </Button>
     </form>

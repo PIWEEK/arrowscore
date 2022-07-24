@@ -30,7 +30,6 @@
   const _openNextStep = () => {
     let nextStep = Object.entries(steps).find((s) => !s[1])
     openStep = nextStep ? nextStep[0] : 0
-    console.log("! Open step", openStep)
   }
 
   const selectTotalArrows = (event) => {
@@ -126,7 +125,7 @@
               min=1
               placeholder="Enter a number"
               bind:value={data.totalRounds} />
-            <Button type="secondary" disabled={data.totalRounds <= 0}
+            <Button theme="secondary" disabled={data.totalRounds <= 0}
               on:click={selectTotalRounds}>
               Ok, continue
             </Button>
@@ -158,7 +157,7 @@
               </label>
               {/each}
             </div>
-            <Button type="secondary" disabled={data.validScores.length == 0}
+            <Button theme="secondary" disabled={data.validScores.length == 0}
               on:click={selectValidScores}>
               Ok, continue
             </Button>
@@ -182,7 +181,7 @@
               name="name"
               placeholder="Type a name"
               bind:value={data.name} />
-            <Button type="secondary" disabled={data.name == ""}
+            <Button theme="secondary" disabled={data.name == ""}
               on:click={selectName}>
               Ok, continue
             </Button>
@@ -191,7 +190,7 @@
         </div>
       </div>
       <div class="actions">
-        <Button disabled={!isComplete}>
+        <Button type="submit" disabled={!isComplete}>
           Create score system
         </Button>
       </div>
@@ -255,10 +254,12 @@ form {
 
     & > .number {
       grid-area: number;
+      font-family: 'DM Serif Display', serif;
       font-size: 1.3rem;
     }
     & > .title {
       grid-area: title;
+      font-family: 'DM Serif Display', serif;
       text-align: left;
       width: 100%;
       font-size: 1.1rem;

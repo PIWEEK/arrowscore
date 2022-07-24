@@ -23,14 +23,14 @@
     name="name"
     placeholder="Enter code" />
     <Button
-      type="secondary"
+      theme="secondary"
       on:click|once={navigateToNewAdvanceScoreSystem}
       disabled={true}>
       download
     </Button>
   </div> -->
   <Button
-    type="secondary"
+    theme="secondary"
     on:click|once={navigateToNewAdvanceScoreSystem}
     disabled={true}>
     create advanced

@@ -102,22 +102,24 @@
     </div>
   </div>
 
-  <Button
-    type="secondary"
-    on:click|once={navigateToChangePassword}
-    disabled={true}>
-    Change password
-  </Button>
-  <div class="btn-row">
+  <div class="actions">
     <Button
-      on:click|once={syncData}>
-      Initiate sync
+      theme="secondary"
+      on:click|once={navigateToChangePassword}
+      disabled={true}>
+      Change password
     </Button>
-    <Button
-      type="secondary"
-      on:click|once={logout}>
-      Logout
-    </Button>
+    <div class="btn-row">
+      <Button
+        on:click|once={syncData}>
+        Initiate sync
+      </Button>
+      <Button
+        theme="secondary"
+        on:click|once={logout}>
+        Logout
+      </Button>
+    </div>
   </div>
 </div>
 
@@ -134,14 +136,6 @@
 
   & h1 {
     font-size: 2rem;
-  }
-
-  & .btn-row {
-    border-top: 1px solid var(--color-gray-light);
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    padding-top: 1rem;
   }
 
   & .menu {
@@ -166,6 +160,24 @@
           stroke: var(--color-gray);
         }
       }
+    }
+  }
+
+  & .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: auto;
+
+    & .btn-row {
+      border-top: 1px solid var(--color-gray-light);
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      padding-top: 1rem;
     }
   }
 }

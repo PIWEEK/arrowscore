@@ -26,7 +26,7 @@
       Create account
     </Button>
     <Button
-      type="secondary"
+      theme="secondary"
       on:click|once={navigateToLogin}>
       Log in
     </Button>

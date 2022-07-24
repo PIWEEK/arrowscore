@@ -71,14 +71,11 @@
 
 
     if (selectedArcher + 1 < totalArchers) {  // Go to next archer
-      console.log("Go to next archer", selectedArcher, currentTarget)
       openBottomSheetTargetScores(selectedArcher + 1)
-    } else if (currentTarget + 1 < totalTargets) {
-      console.log("Go to next target", selectedArcher, currentTarget)
+    } else if (currentTarget + 1 < totalTargets) {  // Go to next target
       currentTarget++
       openBottomSheetTargetScores(0)
-    } else {
-      console.log("Finish", selectedArcher, currentTarget)
+    } else {  // Finish
       closeBottomSheetTargetScores()
       finishSession()
     }

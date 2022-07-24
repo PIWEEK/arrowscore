@@ -422,7 +422,7 @@ form {
     & .archer {
       display: flex;
       flex-direction: row;
-      justify-content: start;
+      justify-content: flex-start;
       width: 100%;
       gap: .5rem;
 

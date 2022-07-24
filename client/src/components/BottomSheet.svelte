@@ -1,21 +1,31 @@
-<div
-  bind:this={backdrop}
-  class="backdrop"
-  smooth={!startY}
-  {open}
-  on:click={close} />
-<div
-  class="root shadow"
-  bind:this={dialog}
-  {fullscreen}
-  smooth={!startY}
-  on:touchstart={touchStart}
-  on:touchmove={touchMove}
-  on:touchend={touchEnd}>
-  <slot />
-</div>
-
 <script>
+  /*
+   * Component based on https://github.com/kroniapp/svelte-swipeable-sheets
+   *
+   * MIT License
+   *
+   * Copyright (c) 2020 Kronia
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining a copy
+   * of this software and associated documentation files (the "Software"), to deal
+   * in the Software without restriction, including without limitation the rights
+   * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   * copies of the Software, and to permit persons to whom the Software is
+   * furnished to do so, subject to the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be included in all
+   * copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   * SOFTWARE.
+   *
+   */
+
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -81,6 +91,23 @@
     backdrop.style.setProperty('--o', open ? backdropOpacity : 0);
   }
 </script>
+
+<div
+  bind:this={backdrop}
+  class="backdrop"
+  smooth={!startY}
+  {open}
+  on:click={close} />
+<div
+  class="root shadow"
+  bind:this={dialog}
+  {fullscreen}
+  smooth={!startY}
+  on:touchstart={touchStart}
+  on:touchmove={touchMove}
+  on:touchend={touchEnd}>
+  <slot />
+</div>
 
 <style>
   .root {

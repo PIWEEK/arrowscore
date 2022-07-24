@@ -1,5 +1,6 @@
 <script>
   import { navigate } from "svelte-navigator"
+  import ScreenWakeLock from "../components/ScreenWakeLock.svelte";
   import SectionHeader from "../components/SectionHeader.svelte"
   import Button from "../components/Button.svelte"
   import { localStorage } from "../services/storages"
@@ -90,6 +91,7 @@
 
 </script>
 
+<ScreenWakeLock />
 <div class="sessions-annotations">
   <SectionHeader>
     <h1 slot="title">{session.name}</h1>
@@ -403,7 +405,7 @@
       & .score-values {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: flex-start;
         gap: .8rem;
         font-family: 'Manrope', serif;
         font-weight: 400;
@@ -412,7 +414,7 @@
         & .values {
           display: flex;
           flex-direction: row;
-          justify-content: start;
+          justify-content: flex-start;
           flex-wrap: wrap;
           gap: .8rem;
 

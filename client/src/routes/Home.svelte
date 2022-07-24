@@ -41,16 +41,16 @@
   </main>
   <nav>
     <NavLink to="/home/sessions">
-      <SessionIcon class="icon" height="30" width="30" />
+      <SessionIcon class="icon" height="31" width="30" />
     </NavLink>
     <NavLink to="/home/score-systems">
-      <ScoreSystemsIcon class="icon" height="30" width="30" />
+      <ScoreSystemsIcon class="icon" height="31" width="31" />
     </NavLink>
     <NavLink to="/home/tournaments">
-      <TournamentsIcon class="icon" height="30" width="30" />
+      <TournamentsIcon class="icon" height="31" width="31" />
     </NavLink>
     <NavLink to="/home/settings">
-      <SettingsIcon class="icon" height="30" width="30" />
+      <SettingsIcon class="icon" height="31" width="31" />
     </NavLink>
   </nav>
 </div>

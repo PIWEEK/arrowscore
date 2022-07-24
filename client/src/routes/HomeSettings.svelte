@@ -23,16 +23,15 @@
 
     // seed for the future download with code
     const {data} = await apiClient(
-        "GET", "score-systems?filters[author][username][$eq]=arrowscore",
-        )
+      "GET",
+      "score-systems?filters[author][username][$eq]=arrowscore",
+    )
     console.log(data)
 
 
     let existingLocalScoreSystems = []
     for (const i of localStorage.get("scoreSystems")){
       existingLocalScoreSystems.push(i["apiid"])
-    
-
     }
     console.log(existingLocalScoreSystems)
 
@@ -42,7 +41,6 @@
         console.log("YEAH!")
       }
     }
-    
 
     for (const scoreSystem of unsyncScoreSystems) {
       const {data} = await apiClient(
@@ -55,6 +53,7 @@
     console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
   }
+
   const getSSWithCODE = async () => {
     // Sync score Systems
     const localScoreSystems = localStorage.get("scoreSystems") || []
@@ -72,8 +71,6 @@
     console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
   }
-
-  let code = ""
 
   const logout = () => {
     //localStorage.clear()
@@ -95,11 +92,11 @@
       <ScoreSystemsIcon class="icon" height="20" width="20" />
       My Score Systems
     </div>
-    <div class="menu-item" on:click={() => navigate("/my/tournaments")}>
+    <div class="menu-item disabled">
       <TournamentsIcon class="icon" height="20" width="20" />
       My Tournaments
     </div>
-    <div class="menu-item" on:click={() => navigate("/my/contacts")}>
+    <div class="menu-item disabled">
       <SettingsIcon class="icon" height="20" width="20" />
       My Contacts
     </div>
@@ -155,12 +152,20 @@
 
     & .menu-item {
       display: flex;
-      font-family: 'Manrope', serif;
       flex-direction: row;
       align-items: center;
       padding: 20px 0;
       gap: 15px;
       border-bottom: 1px solid var(--color-gray-light);
+
+      &.disabled {
+        color: var(--color-gray);
+
+        & :global(svg) {
+          fill: var(--color-gray);
+          stroke: var(--color-gray);
+        }
+      }
     }
   }
 }

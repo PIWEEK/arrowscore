@@ -4,21 +4,55 @@
   import SessionsIcon from "../assets/svgs/icon-session.svg"
   import { localStorage } from "../services/storages"
 
-  const sessions = localStorage.get("sessions") || []
+  const finishedSessions = localStorage.get("sessions").filter(f).reverse() || []
+  const unfinishedSessions = localStorage.get("sessions").filter(uf) || []
+
+
+  function f(item){
+    return item.finished
+  }
+  function uf(item){
+    return ! item.finished
+  }
+
+
 </script>
 
 <div class="my-sessions">
   <SectionHeader theme="light">
     <h1 slot="title">My Sessions</h1>
   </SectionHeader>
-  <main class="menu">
-    {#each sessions as session, i}
+  <main class="menu">    {#each unfinishedSessions as session, i}
+    {#if ! session.finished}
     <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${i}`)}>
       <SessionsIcon class="icon" height="20" width="20" />
-      {session.name}
+      {session.name} ({session.scoreSystem[0].name})
     </div>
+    {:else}
+    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${i}`)}>
+      <SessionsIcon class="icon" height="20" width="20" />
+      F {session.name} ({session.scoreSystem[0].name})
+    </div>
+
+    {/if}
+    {/each}
+
+    {#each finishedSessions as session, i}
+    {#if ! session.finished}
+    <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${i}`)}>
+      <SessionsIcon class="icon" height="20" width="20" />
+      {session.name} ({session.scoreSystem[0].name})
+    </div>
+    {:else}
+    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${i}`)}>
+      <SessionsIcon class="icon" height="20" width="20" />
+      F {session.name} ({session.scoreSystem[0].name})
+    </div>
+
+    {/if}
     {/each}
   </main>
+
 </div>
 <style lang="postcss">
 .my-sessions {

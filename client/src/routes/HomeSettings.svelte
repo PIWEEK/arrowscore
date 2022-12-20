@@ -18,6 +18,8 @@
   const syncData = async () => {
     // Sync score Systems
     const localScoreSystems = localStorage.get("scoreSystems") || []
+    const localSessions = localStorage.get("sessions") || []
+
     const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
     const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
 
@@ -30,7 +32,7 @@
 
 
     let existingLocalScoreSystems = []
-    for (const i of localStorage.get("scoreSystems")){
+    for (const i of localScoreSystems){
       existingLocalScoreSystems.push(i["apiid"])
     }
     console.log(existingLocalScoreSystems)
@@ -39,6 +41,9 @@
       if (! existingLocalScoreSystems.includes(d.attributes["apiid"])){
         newScoreSystems.push(d.attributes)
         console.log("YEAH!")
+      }
+      else {
+        console.log("Dup!")
       }
     }
 
@@ -76,6 +81,9 @@
     //localStorage.clear()
     localStorage.remove("token")
     localStorage.remove("user")
+    localStorage.remove("scoreSystems")
+    localStorage.remove("sessions")
+
     navigate("/auth")
   }
 </script>

@@ -16,56 +16,30 @@
     1: false,
     2: false,
     3: false,
-    4: false,
   }
   let openStep = 1;
 
-  $: isComplete = steps[1] && steps[2] && steps[3] && steps[4]
+  $: isComplete = steps[1] && steps[2] && steps[3]
 
   let data = {
-    archers: [],
     scoreSystem: null,
     selectedScoreSystem: null,
     name: "",
-    place: "",
+    description: "",
     apiid: 0
   }
-
-  let newArcher = ""
 
   const _openNextStep = () => {
     let nextStep = Object.entries(steps).find((s) => !s[1])
     openStep = nextStep ? nextStep[0] : 0
   }
 
-  const selectSolo = () => {
-    data.archers = [user]
-    steps[1] = true
-    _openNextStep()
-  }
-
-  const selectGroup = () => {
-    data.archers = [user]
-    steps[1] = true
-  }
-
-  const addArcher = () => {
-    data.archers = [...data.archers, {username: newArcher}]
-    newArcher = ""
-  }
-
-  const removeArcher = (index) => {
-    data.archers.splice(index, 1)
-    data.archers = data.archers
-  }
-
-
   const selectScoreSystem = (event) => {
     data.scoreSystem = parseInt(event.currentTarget.value)
     //console.log("scoresystem chosen"+data.scoreSystem)
     data.selectedScoreSystem = scoreSystems[data.scoreSystem]
 
-    steps[2] = true
+    steps[1] = true
     _openNextStep()
   }
 
@@ -74,115 +48,57 @@
   }
 
   const selectName = () => {
+    steps[2] = true
+    _openNextStep()
+  }
+
+  const selectDescription = () => {
     steps[3] = true
     _openNextStep()
   }
 
-  const selectPlace = () => {
-    steps[4] = true
-    _openNextStep()
-  }
-
   const onSubmit = () => {
-    const newSession = { 
+    const newTournament = { 
       apiid: "0xL"+Date.now(),
       name: data.name,
-      place: data.place,
+      description: data.description,
       when: new Date().toISOString(),
       finished: false,
       firstsync: false,
       synced: false,
-      archers: data.archers,
-      score_system: {data: data.selectedScoreSystem},
-      scores: data.archers
-        .map(arc => data.selectedScoreSystem.attributes.targets  // archers
-          .map(tr => tr                               // targets
-            .map(arr => null)))                       // arrows
-    
+      ranking: {},
+      sessions: {},
+      score_system: {data: data.selectedScoreSystem},    
     }
-    const localSessions = localStorage.get("sessions") || []
-    localSessions.push(newSession)
-    localStorage.set("sessions", localSessions)
+    const localTournaments = localStorage.get("tournaments") || []
+    localTournaments.push(newTournament)
+    localStorage.set("tournaments", localTournaments)
     
-    navigate(`/sessions/annotations/${newSession.apiid}`)
+    navigate(`/home/tournaments`)
   }
+
 </script>
 
 
-<div class="sessions-new">
+<div class="tournaments-new">
   <SectionHeader>
-    <h1 slot="title">Create Session</h1>
+    <h1 slot="title">Create Tournament</h1>
   </SectionHeader>
   <main>
     <form on:submit|preventDefault={onSubmit}>
       <div class="steps">
+
+
         <div class="step step-1" class:open={openStep == 1}>
           <div class="summary">
             <div class="number">1.</div>
-            <div class="title">Archers</div>
+            <div class="title">Score system</div>
             <div class="edit" class:show={steps[1] && openStep != 1}>
               <a on:click|stopPropagation={() => { openStep=1 }}>Edit</a>
             </div>
-            <div class="values">
-              {data.archers.length === 0? "" : data.archers.length == 1? "Solo" : `Group (${data.archers.length})` }</div>
-          </div>
-          {#if openStep == 1}
-          <div class="fields">
-            {#if data.archers.length == 0}
-            <div class="archer-options">
-              <Button theme="secondary"}
-                on:click={selectSolo}>
-                Solo
-              </Button>
-              <Button theme="secondary"
-                on:click={selectGroup}>
-                Group
-              </Button>
-            </div>
-            {:else}
-            <ul class="archers-list">
-              {#each data.archers as archer, i}
-              <li class="archer">
-                <ProfileIcon class="icon" height="16" width="16" />
-                <span>{archer.name || archer.username}</span>
-                {#if i == 0}
-                <span>(You)</span>
-                {:else}
-                <a class="remove"
-                  on:click|preventDefault={() => removeArcher(i)}>
-                  Remove
-                </a>
-                {/if}
-              </li>
-              {/each}
-            </ul>
-            <input
-              type="text"
-              name="archer"
-              placeholder="Email, username or name"
-              bind:value={newArcher} />
-            <Button theme="secondary" disabled={newArcher == ""}
-              on:click={addArcher}>
-              Add archer
-              </Button>
-            <Button on:click={_openNextStep}>
-              Ok, continue
-            </Button>
-            {/if}
-          </div>
-          {/if}
-        </div>
-
-        <div class="step step-2" class:open={openStep == 2}>
-          <div class="summary">
-            <div class="number">2.</div>
-            <div class="title">Score system</div>
-            <div class="edit" class:show={steps[2] && openStep != 2}>
-              <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
-            </div>
             <div class="values">{data.selectedScoreSystem ? data.selectedScoreSystem.attributes.name : ""}</div>
           </div>
-          {#if openStep == 2}
+          {#if openStep == 1}
           <div class="fields">
             <div class="score-systems-selector">
               {#each scoreSystems as sc, i}
@@ -216,16 +132,16 @@
           {/if}
         </div>
 
-        <div class="step step-3" class:open={openStep == 3}>
+        <div class="step step-2" class:open={openStep == 2}>
           <div class="summary">
-            <div class="number">3.</div>
-            <div class="title">Session name</div>
-            <div class="edit" class:show={steps[3] && openStep != 3}>
-              <a on:click|stopPropagation={() => { openStep=3 }}>Edit</a>
+            <div class="number">2.</div>
+            <div class="title">Tournament name</div>
+            <div class="edit" class:show={steps[2] && openStep != 2}>
+              <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
             </div>
             <div class="values">{data.name}</div>
           </div>
-          {#if openStep == 3}
+          {#if openStep == 2}
           <div class="fields">
             <input
               type="text"
@@ -240,24 +156,24 @@
           {/if}
         </div>
 
-        <div class="step step-4" class:open={openStep == 4}>
+        <div class="step step-3" class:open={openStep == 3}>
           <div class="summary">
             <div class="number">4.</div>
-            <div class="title">Session place</div>
-            <div class="edit" class:show={steps[4] && openStep !=4}>
-              <a on:click|stopPropagation={() => { openStep=4 }}>Edit</a>
+            <div class="title">Description</div>
+            <div class="edit" class:show={steps[3] && openStep !=3}>
+              <a on:click|stopPropagation={() => { openStep=3 }}>Edit</a>
             </div>
-            <div class="values">{data.place}</div>
+            <div class="values">{data.description}</div>
           </div>
-          {#if openStep == 4}
+          {#if openStep == 3}
           <div class="fields">
-            <input
+            <textarea
               type="text"
-              name="place"
-              placeholder="Enter a place"
-              bind:value={data.place} />
-            <Button theme="secondary" disabled={data.place == ""}
-              on:click={selectPlace}>
+              name="description"
+              placeholder="Enter a description"
+              bind:value={data.description} />
+            <Button theme="secondary" disabled={data.description == ""}
+              on:click={selectDescription}>
               Ok, continue
             </Button>
           </div>
@@ -266,7 +182,7 @@
       </div>
       <div class="actions">
         <Button type="submit" disabled={!isComplete}>
-          Create session
+          Create tournament
         </Button>
       </div>
     </form>
@@ -274,7 +190,7 @@
 </div>
 
 <style lang="postcss">
-.sessions-new {
+.tournaments-new {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -409,39 +325,6 @@ form {
     }
   }
 
-  /* Specific fileds */
-  & .archer-options {
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-  }
-
-  & .archers-list {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: center;
-    gap: .8rem;
-
-    & .archer {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      width: 100%;
-      gap: .5rem;
-
-      & span {
-        font-weight: 600;
-      }
-
-      & .remove {
-        margin-left: auto;
-        color: red;
-      }
-    }
-  }
 
   & .score-systems-selector {
     display: flex;
@@ -461,6 +344,6 @@ form {
     }
   }
 }
-
+textarea { width: 100%; height: 200px; }
 
 </style>

@@ -12,7 +12,7 @@
 <div class="sessions">
   <h1>Session</h1>
   <img src="{img}" alt="bows">
-  <Button theme="secondary" disabled={true}>
+  <Button theme="secondary"  on:click={() => { navigate("/my/sessions")}} disabled={false}>
     join session
   </Button>
   <Button

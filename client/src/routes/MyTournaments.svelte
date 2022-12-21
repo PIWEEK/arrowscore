@@ -1,12 +1,12 @@
 <script>
   import { navigate } from "svelte-navigator"
   import SectionHeader from "../components/SectionHeader.svelte"
-  import SessionsIcon from "../assets/svgs/icon-session.svg"
+  import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
   import { localStorage } from "../services/storages"
 
-  const finishedSessions = localStorage.get("sessions").filter(f).reverse() || []
-  const unfinishedSessions = localStorage.get("sessions").filter(uf) || []
-  const Sessions = localStorage.get("sessions") || []
+  const finishedTournaments = localStorage.get("tournaments").filter(f).reverse() || []
+  const unfinishedTournaments = localStorage.get("tournaments").filter(uf) || []
+  const Tournaments = localStorage.get("tournaments") || []
 
 
   function f(item){
@@ -19,30 +19,30 @@
 
 </script>
 
-<div class="my-sessions">
+<div class="my-tournaments">
   <SectionHeader theme="light">
-    <h1 slot="title">My Sessions</h1>
+    <h1 slot="title">My Tournaments</h1>
   </SectionHeader>
   <main class="menu">    
-    {#each unfinishedSessions as session, i}
-    <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
-      <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.score_system.data.attributes.name})
+    {#each unfinishedTournaments as tournament, i}
+    <div class="menu-item" on:click={() => navigate(`/tournaments/edit/${tournament.apiid}`)}>
+      <TournamentsIcon class="icon" height="20" width="20" />
+      {tournament.name} ({tournament.score_system.data.attributes.name})
     </div>
     {/each}
     <div class="menu-separator"/>
 
-    {#each finishedSessions as session, i}
-    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${session.apiid}`)}>
-      <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.score_system.data.attributes.name})
+    {#each finishedTournaments as tournament, i}
+    <div class="menu-item" on:click={() => navigate(`/tournaments/finished/${tournament.apiid}`)}>
+      <TournamentsIcon class="icon" height="20" width="20" />
+      {tournament.name} ({tournament.score_system.data.attributes.name})
     </div>
     {/each}
   </main>
 
 </div>
 <style lang="postcss">
-.my-sessions {
+.my-tournaments {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

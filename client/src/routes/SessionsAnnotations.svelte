@@ -24,14 +24,9 @@
   $: totalTargets = session.scores[0].length
 
   let arrows = []
-  if (! session.synced){
-    $: arrows = session.score_system.attributes.targets[currentTarget]
+  $: arrows = session.score_system.data.attributes.targets[currentTarget]
 
-  }
-  else {
-    $: arrows = session.score_system.attributes.targets[currentTarget]
-
-  }
+  
   let currentArrow = 0
   $: arrowScores = arrows[currentArrow]
   let currentScores = []
@@ -248,7 +243,7 @@
 <div class="bottom-sheet partial-scores">
   <div class="header">
     <button class="close" on:click={() => openPartialScores = false}>+</button>
-    <h1 class="name">Scores ({session.score_system.attributes.name})</h1>
+    <h1 class="name">Scores ({session.score_system.data.attributes.name})</h1>
   </div>
   <div class="main">
     {#each calculateSessionPartialScores() as archer, u}
@@ -490,7 +485,7 @@
         display: block;
         text-align: center;
         line-height: 1.8rem;
-        min-width: 2.4rem;
+        min-width: 2.8rem;
         padding: 0 3px;
       }
     }

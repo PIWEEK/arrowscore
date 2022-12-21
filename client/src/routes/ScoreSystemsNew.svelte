@@ -58,6 +58,8 @@
       apiid: null,
       name: data.name,
       code: null,
+      firstsync: false,
+      synced: false,
       localcreatedAt: new Date().toISOString(),
       localupdatedAt: new Date().toISOString(),
       author: user.id,

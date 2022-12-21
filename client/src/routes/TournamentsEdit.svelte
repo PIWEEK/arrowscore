@@ -9,214 +9,38 @@
   import GoNextIcon from "../assets/svgs/go-next.svg"
   import BottomSheet from "../components/BottomSheet.svelte"
 
- 	export let sessionId = 0
+ 	export let tournamentId = 0
 
   const you = localStorage.get("user")
-  const sessions = localStorage.get("sessions") || []
+  const tournaments = localStorage.get("tournaments") || []
 
-  const session = sessions.find(obj => {
-    return obj.apiid == sessionId
+  const tournament = tournaments.find(obj => {
+    return obj.apiid == tournamentId
   })
 
-  let currentTarget = 0
-  $: currentTargetDisplay = currentTarget + 1
-  $: totalTargets = session.scores[0].length
-
-  $: arrows = session.score_system.data.attributes.targets[currentTarget]
-  let currentArrow = 0
-  $: arrowScores = arrows[currentArrow]
-  let currentScores = []
-
-  let selectedArcher = null
-  $: archer = session.archers[selectedArcher]
-  $: totalArchers = session.archers.length
-
-//  let openPartialScores = false
-
-  const calculateTotalScoreForTarget = (targetScores) => targetScores
-    .reduce((total, score) => total + (score ? score : 0), 0)
-
-  const calculatePartialScoreForUser = (scores) => scores
-    .reduce((total, targetScores) => total + calculateTotalScoreForTarget(targetScores), 0)
-
-  const calculateSessionPartialScores = () => {
-    const data = []
-    for (const [index, user] of session.archers.entries()) {
-      data.push({
-        username: user.username,
-        score: calculatePartialScoreForUser(session.scores[index]),
-      })
-    }
-    data.sort((a, b) => b.score - a.score)
-    return data
-  }
-  const hasAnnotations = (targetScores) => !targetScores
-    .every((score) => score === null)
-
-  const openBottomSheetTargetScores = (archerPos) => {
-    selectedArcher = archerPos
-    currentArrow = 0
-    currentScores = Object.assign([], session.scores[selectedArcher][currentTarget])
-  }
-
-  const closeBottomSheetTargetScores = () => {
-    selectedArcher = null
-    currentArrow = 0
-    currentScores = []
-  }
-
-  const saveScore = () => {
-    // Save score
-    session.scores[selectedArcher][currentTarget] = currentScores
-
-    // Persist data
-    // sessions[sessionPos] = session
-    localStorage.set("sessions", sessions)
-
-
-    if (selectedArcher + 1 < totalArchers) {  // Go to next archer
-      openBottomSheetTargetScores(selectedArcher + 1)
-    } else if (currentTarget + 1 < totalTargets) {  // Go to next target
-      currentTarget++
-      openBottomSheetTargetScores(0)
-    } else {  // Finish
-      closeBottomSheetTargetScores()
-      finishSession()
-    }
-  }
-
-  const finishSession = () => {
-    session.finished = true
-    // sessions[sessionPos] = session
-    localStorage.set("sessions", sessions)
-    navigate(`/sessions/annotations/${session.apiid}/summary`)
-  }
 
 </script>
 
 <ScreenWakeLock />
-<div class="sessions-annotations">
+<div class="tournaments-annotations">
   <SectionHeader>
-    <h1 slot="title">F {session.name}</h1>
-    <Button slot="action">
-
+    <h1 slot="title">{tournament.name}</h1>
+    <Button slot="action" on:click={() => openPartialScores = true}>
+      <StatsIcon class="icon" height="20" width="20" />
     </Button>
+
   </SectionHeader>
   <main>
     <div class="target-manager">
-      {#if currentTargetDisplay > 1}
-      <button class="back" on:click|stopPropagation={() => { currentTarget-- }}>
-        <GoBackIcon width="6" height="14" />
-        {currentTargetDisplay - 1}
-      </button>
-      {/if}
-      <div class="current">
-        {session.score_system.data.attributes.name}
-      </div>
-    </div>
-    
-    <div class="archers-list">
-
-
-
-
-      {#each calculateSessionPartialScores() as archer, u}
-      <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
-        <h2 class="name">
-          {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
-        </h2>
-        <div class="scores">
-          <div class="total">
-            {#if hasAnnotations(session.scores[u][currentTarget])}
-              T&nbsp;
-              <span class="score">
-                {archer.score}
-              </span>
-            {/if}
-          </div>
-        </div>
-      </div>
-      {/each}
     </div>
     <div class="actions">
-      {#if currentTargetDisplay < totalTargets }
-      <Button on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
-        Edit
-      </Button>
-      {:else}
-        <Button on:click={finishSession}>
-        Finish
-      </Button>
-      {/if}
     </div>
   </main>
 </div>
 
-<BottomSheet open={selectedArcher !== null} on:close={closeBottomSheetTargetScores}>
-{#if archer}
-<div class="bottom-sheet target-scores">
-  <div class="header">
-    <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
-    <h1 class="name">
-      {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
-    </h1>
-  </div>
-  <form class="main" on:submit|preventDefault={saveScore}>
-    <div class="arrows">
-      # Arrow
-      <div class="values">
-        {#each arrows as ar, i}
-        <input
-          type="radio"
-          name="num-arrow"
-          id="ar-{i}"
-          bind:group={currentArrow}
-          value={i}>
-        <label for="ar-{i}">
-         {i+1}
-        </label>
-        {/each}
-      </div>
-    </div>
-    <div class="score-values">
-      Score value
-      <div class="values">
-        {#each arrowScores as sc, i}
-        <input
-          type="radio"
-          name="score"
-          id="sc-{i}"
-          bind:group={currentScores[currentArrow]}
-          value={sc}>
-        <label for="sc-{i}">
-         {sc}
-        </label>
-        {/each}
-
-      </div>
-    </div>
-    <div class="actions">
-      <Button theme="secondary" on:click={closeBottomSheetTargetScores}>
-        Cancel
-      </Button>
-      <Button type="submit">
-        {#if selectedArcher + 1 < totalArchers} <!-- Go to next archer -->
-        Next archer
-        {:else if currentTarget + 1 < totalTargets} <!-- Go to next target -->
-        Next target
-        {:else} <!-- Finish session -->
-        Finish
-        {/if}
-      </Button>
-    </div>
-  </form>
-</div>
-{/if}
-</BottomSheet>
-
 
 <style lang="postcss">
-.sessions-annotations {
+.tournaments-annotations {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -316,8 +140,8 @@
       }
 
       & .total > .score {
-        background: var(--color-white);
-        color: var(--color-black);
+        background: var(--color-black);
+        color: var(--color-white);
       }
     }
   }
@@ -440,12 +264,10 @@
         display: block;
         text-align: center;
         line-height: 1.8rem;
-        min-width: 2.4rem;
+        min-width: 2.8rem;
         padding: 0 3px;
       }
     }
   }
-
-
 }
 </style>

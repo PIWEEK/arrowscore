@@ -20,8 +20,8 @@
     const localScoreSystems = localStorage.get("scoreSystems") || []
     const localSessions = localStorage.get("sessions") || []
 
-    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid === null)
-    const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid !== null)
+    const unsyncScoreSystems = localScoreSystems.filter(sc => ! sc.attributes.firstsync)
+    const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.firstsync)
 
     const unsyncSessions = localSessions.filter(s => ! s.synced)
     const newSessions = localSessions.filter(s => s.synced)
@@ -58,7 +58,8 @@
         "POST", "score-systems?populate=*",
         { data: scoreSystem.attributes }
       )
-      console.log(data)
+      console.log("return from POST SS"+data)
+      data.attributes.firstsync = true
       newScoreSystems.push(data)
     }
     console.log(newScoreSystems)
@@ -67,7 +68,8 @@
     
     for (const session of unsyncSessions) {
 
-      const ssName = session.score_system.attributes.name
+      if (! session.firstsync){
+      const ssName = session.score_system.data.attributes.name
 
       let selectedss = null
       for (const nss of newScoreSystems) {
@@ -75,38 +77,33 @@
         selectedss = nss
         }
       }
+      console.log("selectedss "+selectedss.attributes.name)
 
       session.score_system = selectedss.id
       session.synced = true
+      session.firstsync = true
+      console.log("stringify "+JSON.stringify(session))
       const {data} = await apiClient(
         "POST", "sessions?populate=*",
         { data: session }
       )
-      const scoresystemstripped = data.attributes.score_system.data
-      data.attributes.score_system = scoresystemstripped
+      data.attributes.id = data.id
       newSessions.push(data.attributes)
     }
+    else {
+      console.log("tenemos un firstsync!")
+      const {data} = await apiClient(
+        "PUT", "sessions/"+session.id+"?populate=*",
+        { data: {scores: session.scores} }
+      )
+      data.attributes.id = data.id
+      newSessions.push(data.attributes)
+    }
+  }
     localStorage.set("sessions", newSessions)
 
   }
 
-  const getSSWithCODE = async () => {
-    // Sync score Systems
-    const localScoreSystems = localStorage.get("scoreSystems") || []
-    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
-    const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
-
-    for (const scoreSystem of unsyncScoreSystems) {
-      const {data} = await apiClient(
-        "POST", "score-systems?populate=*",
-        { data: scoreSystem }
-      )
-      console.log(data)
-      newScoreSystems.push(data.attributes)
-    }
-    console.log(newScoreSystems)
-    localStorage.set("scoreSystems", newScoreSystems)
-  }
 
   const logout = () => {
     //localStorage.clear()
@@ -131,7 +128,7 @@
       <ScoreSystemsIcon class="icon" height="20" width="20" />
       My Score Systems
     </div>
-    <div class="menu-item disabled">
+    <div class="menu-item" on:click={() => navigate("/my/tournaments")}>
       <TournamentsIcon class="icon" height="20" width="20" />
       My Tournaments
     </div>

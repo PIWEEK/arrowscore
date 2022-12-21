@@ -41,7 +41,7 @@
 
   const calculateSessionPartialScores = () => {
     const data = []
-    for (const [index, user] of session.users.entries()) {
+    for (const [index, user] of session.archers.entries()) {
       data.push({
         username: user.username,
         score: calculatePartialScoreForUser(session.scores[index]),
@@ -117,7 +117,10 @@
     
     <div class="archers-list">
 
-      {#each session.archers as archer, u}
+
+
+
+      {#each calculateSessionPartialScores() as archer, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">
           {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
@@ -127,7 +130,7 @@
             {#if hasAnnotations(session.scores[u][currentTarget])}
               T&nbsp;
               <span class="score">
-                {calculateTotalScoreForTarget(session.scores[u][currentTarget])}
+                {archer.score}
               </span>
             {/if}
           </div>

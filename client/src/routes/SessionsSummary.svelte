@@ -56,7 +56,7 @@
         Share
       </Button>
       <Button on:click={() => { navigate("/my/sessions")}}>
-        Finish
+        Close
       </Button>
     </div>
   </main>

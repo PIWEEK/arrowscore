@@ -24,7 +24,7 @@
   $: totalTargets = session.scores[0].length
 
   let arrows = []
-  if (session.apiid.startsWith("0xL16")){
+  if (! session.synced){
     $: arrows = session.score_system.attributes.targets[currentTarget]
 
   }
@@ -77,7 +77,7 @@
   const saveScore = () => {
     // Save score
     session.scores[selectedArcher][currentTarget] = currentScores
-    session.apiid = "0xL"+Date.now() // we reset unsync status
+    session.synced = false// we reset unsync status
 
 
     // Persist data

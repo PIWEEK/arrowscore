@@ -23,8 +23,8 @@
     const unsyncScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid === null)
     const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid !== null)
 
-    const unsyncSessions = localSessions.filter(s => s.apiid.startsWith("0xL16"))
-    const newSessions = localSessions.filter(s => ! s.apiid.startsWith("0xL16"))
+    const unsyncSessions = localSessions.filter(s => ! s.synced)
+    const newSessions = localSessions.filter(s => s.synced)
 
     console.log("unsyncSessions"+unsyncSessions)
     console.log("newSessions"+newSessions)
@@ -66,18 +66,26 @@
 
     
     for (const session of unsyncSessions) {
-//      newScoreSystems.find(session)
-      session.score_system = 21
+
+      const ssName = session.score_system.attributes.name
+
+      let selectedss = null
+      for (const nss of newScoreSystems) {
+        if (nss.attributes.name == ssName){
+        selectedss = nss
+        }
+      }
+
+      session.score_system = selectedss.id
+      session.synced = true
       const {data} = await apiClient(
         "POST", "sessions?populate=*",
         { data: session }
       )
-      console.log(data)
       const scoresystemstripped = data.attributes.score_system.data
       data.attributes.score_system = scoresystemstripped
       newSessions.push(data.attributes)
     }
-    console.log(newSessions)
     localStorage.set("sessions", newSessions)
 
   }

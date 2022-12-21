@@ -90,6 +90,7 @@
       place: data.place,
       when: new Date().toISOString(),
       finished: false,
+      synced: false,
       archers: data.archers,
       score_system: data.selectedScoreSystem,
       scores: data.archers

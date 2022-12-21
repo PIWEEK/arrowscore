@@ -54,7 +54,7 @@
   }
 
   const onSubmit = () => {
-    const newScoreSystem = {
+    const newScoreSystem = { attributes:{
       apiid: null,
       name: data.name,
       code: null,
@@ -65,6 +65,7 @@
         .map(i => range(data.totalArrows)
             .map(j => Object.assign([], data.validScores)))
     }
+  }
     // Update the scoreSystems list in the local storage
     const scoreSystems = localStorage.get("scoreSystems") || []
     localStorage.set("scoreSystems", [...scoreSystems, newScoreSystem])

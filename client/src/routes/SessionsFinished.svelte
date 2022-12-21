@@ -9,24 +9,27 @@
   import GoNextIcon from "../assets/svgs/go-next.svg"
   import BottomSheet from "../components/BottomSheet.svelte"
 
- 	export let sessionPos = 0
+ 	export let sessionId = 0
 
   const you = localStorage.get("user")
   const sessions = localStorage.get("sessions") || []
-  const session = sessions[sessionPos]
+
+  const session = sessions.find(obj => {
+    return obj.apiid == sessionId
+  })
 
   let currentTarget = 0
   $: currentTargetDisplay = currentTarget + 1
   $: totalTargets = session.scores[0].length
 
-  $: arrows = session.scoreSystem[0].targets[currentTarget]
+  $: arrows = session.score_system.attributes.targets[currentTarget]
   let currentArrow = 0
   $: arrowScores = arrows[currentArrow]
   let currentScores = []
 
   let selectedArcher = null
-  $: archer = session.users[selectedArcher]
-  $: totalArchers = session.users.length
+  $: archer = session.archers[selectedArcher]
+  $: totalArchers = session.archers.length
 
 //  let openPartialScores = false
 
@@ -67,7 +70,7 @@
     session.scores[selectedArcher][currentTarget] = currentScores
 
     // Persist data
-    sessions[sessionPos] = session
+    // sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
 
 
@@ -84,9 +87,9 @@
 
   const finishSession = () => {
     session.finished = true
-    sessions[sessionPos] = session
+    // sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
-    navigate(`/sessions/annotations/${sessionPos}/summary`)
+    navigate(`/sessions/annotations/${session.apiid}/summary`)
   }
 
 </script>
@@ -108,16 +111,16 @@
       </button>
       {/if}
       <div class="current">
-        {session.scoreSystem[0].name}
+        {session.score_system.attributes.name}
       </div>
     </div>
     
     <div class="archers-list">
 
-      {#each session.users as user, u}
+      {#each session.archers as archer, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">
-          {user.username}{#if user.username === you.username}{" (You)"}{/if}
+          {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
         </h2>
         <div class="scores">
           <div class="total">
@@ -134,7 +137,7 @@
     </div>
     <div class="actions">
       {#if currentTargetDisplay < totalTargets }
-      <Button on:click={() => navigate(`/sessions/annotations/${sessionPos}`)}>
+      <Button on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
         Edit
       </Button>
       {:else}

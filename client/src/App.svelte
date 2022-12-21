@@ -34,14 +34,14 @@
   <Route path="/sessions/new">
     <SessionsNew />
   </Route>
-  <Route path="/sessions/annotations/:sessionPos" let:params>
-    <SessionsAnnotations sessionPos="{params.sessionPos}"/>
+  <Route path="/sessions/annotations/:sessionId" let:params>
+    <SessionsAnnotations sessionId="{params.sessionId}"/>
   </Route>
-  <Route path="/sessions/finished/:sessionPos" let:params>
-    <SessionsFinished sessionPos="{params.sessionPos}"/>
+  <Route path="/sessions/finished/:sessionId" let:params>
+    <SessionsFinished sessionId="{params.sessionId}"/>
   </Route>
-  <Route path="/sessions/annotations/:sessionPos/summary" let:params>
-    <SessionsSummary sessionPos="{params.sessionPos}"/>
+  <Route path="/sessions/annotations/:sessionId/summary" let:params>
+    <SessionsSummary sessionId="{params.sessionId}"/>
   </Route>
   <Route path="/my/sessions">
     <MySessions />

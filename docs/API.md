@@ -24,7 +24,7 @@ returns
         "blocked": false,
         "createdAt": "2022-07-18T17:32:39.824Z",
         "updatedAt": "2022-07-20T08:42:23.831Z",
-        "Name": "Pablo"
+        "name": "Pablo"
     }
 }
 

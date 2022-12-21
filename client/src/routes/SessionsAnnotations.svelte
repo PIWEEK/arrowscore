@@ -9,24 +9,36 @@
   import GoNextIcon from "../assets/svgs/go-next.svg"
   import BottomSheet from "../components/BottomSheet.svelte"
 
- 	export let sessionPos = 0
+ 	export let sessionId = 0
 
   const you = localStorage.get("user")
   const sessions = localStorage.get("sessions") || []
-  const session = sessions[sessionPos]
+
+  const session = sessions.find(obj => {
+    return obj.apiid == sessionId
+  })
+  console.log("session->"+session)
 
   let currentTarget = 0
   $: currentTargetDisplay = currentTarget + 1
   $: totalTargets = session.scores[0].length
 
-  $: arrows = session.scoreSystem[0].targets[currentTarget]
+  let arrows = []
+  if (session.apiid.startsWith("0xL16")){
+    $: arrows = session.score_system.attributes.targets[currentTarget]
+
+  }
+  else {
+    $: arrows = session.score_system.attributes.targets[currentTarget]
+
+  }
   let currentArrow = 0
   $: arrowScores = arrows[currentArrow]
   let currentScores = []
 
   let selectedArcher = null
-  $: archer = session.users[selectedArcher]
-  $: totalArchers = session.users.length
+  $: archer = session.archers[selectedArcher]
+  $: totalArchers = session.archers.length
 
   let openPartialScores = false
 
@@ -38,9 +50,9 @@
 
   const calculateSessionPartialScores = () => {
     const data = []
-    for (const [index, user] of session.users.entries()) {
+    for (const [index, archer] of session.archers.entries()) {
       data.push({
-        username: user.username,
+        username: archer.username,
         score: calculatePartialScoreForUser(session.scores[index]),
       })
     }
@@ -65,9 +77,11 @@
   const saveScore = () => {
     // Save score
     session.scores[selectedArcher][currentTarget] = currentScores
+    session.apiid = "0xL"+Date.now() // we reset unsync status
+
 
     // Persist data
-    sessions[sessionPos] = session
+    //sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
 
 
@@ -84,9 +98,9 @@
 
   const finishSession = () => {
     session.finished = true
-    sessions[sessionPos] = session
+    //sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
-    navigate(`/sessions/annotations/${sessionPos}/summary`)
+    navigate(`/sessions/annotations/${session.apiid}/summary`)
   }
 
 </script>
@@ -118,10 +132,10 @@
       {/if}
     </div>
     <div class="archers-list">
-      {#each session.users as user, u}
+      {#each session.archers as archer, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">
-          {user.username}{#if user.username === you.username}{" (You)"}{/if}
+          {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
         </h2>
         <div class="action">
           {#if !hasAnnotations(session.scores[u][currentTarget])}
@@ -234,16 +248,16 @@
 <div class="bottom-sheet partial-scores">
   <div class="header">
     <button class="close" on:click={() => openPartialScores = false}>+</button>
-    <h1 class="name">Partial Scores ({session.scoreSystem[0].name})</h1>
+    <h1 class="name">Scores ({session.score_system.attributes.name})</h1>
   </div>
   <div class="main">
-    {#each calculateSessionPartialScores() as user, u}
+    {#each calculateSessionPartialScores() as archer, u}
     <div class="archer">
       <span class="number">{u+1}.</span>
       <span class="name">
-        {user.username}{#if user.username === you.username}{" (You)"}{/if}
+        {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
       </span>
-      <span class="score">{user.score}</span>
+      <span class="score">{archer.score}</span>
     </div>
     {/each}
   </div>

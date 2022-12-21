@@ -20,26 +20,32 @@
     const localScoreSystems = localStorage.get("scoreSystems") || []
     const localSessions = localStorage.get("sessions") || []
 
-    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
-    const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
+    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid === null)
+    const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.apiid !== null)
+
+    const unsyncSessions = localSessions.filter(s => s.apiid.startsWith("0xL16"))
+    const newSessions = localSessions.filter(s => ! s.apiid.startsWith("0xL16"))
+
+    console.log("unsyncSessions"+unsyncSessions)
+    console.log("newSessions"+newSessions)
+
 
     // seed for the future download with code
     const {data} = await apiClient(
       "GET",
-      "score-systems?filters[author][username][$eq]=arrowscore",
+      "score-systems?populate=*&filters[author][username][$eq]=arrowscore",
     )
-    console.log(data)
+    console.log("official score systems "+data)
 
 
     let existingLocalScoreSystems = []
     for (const i of localScoreSystems){
-      existingLocalScoreSystems.push(i["apiid"])
+      existingLocalScoreSystems.push(i.attributes["apiid"])
     }
-    console.log(existingLocalScoreSystems)
 
     for (const d of data){
       if (! existingLocalScoreSystems.includes(d.attributes["apiid"])){
-        newScoreSystems.push(d.attributes)
+        newScoreSystems.push(d)
         console.log("YEAH!")
       }
       else {
@@ -50,13 +56,30 @@
     for (const scoreSystem of unsyncScoreSystems) {
       const {data} = await apiClient(
         "POST", "score-systems?populate=*",
-        { data: scoreSystem }
+        { data: scoreSystem.attributes }
       )
       console.log(data)
-      newScoreSystems.push(data.attributes)
+      newScoreSystems.push(data)
     }
     console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
+
+    
+    for (const session of unsyncSessions) {
+//      newScoreSystems.find(session)
+      session.score_system = 21
+      const {data} = await apiClient(
+        "POST", "sessions?populate=*",
+        { data: session }
+      )
+      console.log(data)
+      const scoresystemstripped = data.attributes.score_system.data
+      data.attributes.score_system = scoresystemstripped
+      newSessions.push(data.attributes)
+    }
+    console.log(newSessions)
+    localStorage.set("sessions", newSessions)
+
   }
 
   const getSSWithCODE = async () => {

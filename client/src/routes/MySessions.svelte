@@ -6,6 +6,7 @@
 
   const finishedSessions = localStorage.get("sessions").filter(f).reverse() || []
   const unfinishedSessions = localStorage.get("sessions").filter(uf) || []
+  const Sessions = localStorage.get("sessions") || []
 
 
   function f(item){
@@ -22,34 +23,20 @@
   <SectionHeader theme="light">
     <h1 slot="title">My Sessions</h1>
   </SectionHeader>
-  <main class="menu">    {#each unfinishedSessions as session, i}
-    {#if ! session.finished}
-    <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${i}`)}>
+  <main class="menu">    
+    {#each unfinishedSessions as session, i}
+    <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
       <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.scoreSystem[0].name})
+      {session.name} ({session.score_system.attributes.name})
     </div>
-    {:else}
-    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${i}`)}>
-      <SessionsIcon class="icon" height="20" width="20" />
-      F {session.name} ({session.scoreSystem[0].name})
-    </div>
-
-    {/if}
     {/each}
+    <div class="menu-separator"/>
 
     {#each finishedSessions as session, i}
-    {#if ! session.finished}
-    <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${i}`)}>
+    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${session.apiid}`)}>
       <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.scoreSystem[0].name})
+      {session.name} ({session.score_system.attributes.name})
     </div>
-    {:else}
-    <div class="menu-item" on:click={() => navigate(`/sessions/finished/${i}`)}>
-      <SessionsIcon class="icon" height="20" width="20" />
-      F {session.name} ({session.scoreSystem[0].name})
-    </div>
-
-    {/if}
     {/each}
   </main>
 
@@ -80,6 +67,17 @@
       flex-direction: row;
       align-items: center;
       padding: 20px 0;
+      gap: 15px;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-family: 'Manrope', serif;
+      font-size: 1rem;
+      line-height: 1.2rem;
+    }
+    & .menu-separator {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 1px 0;
       gap: 15px;
       border-bottom: 1px solid var(--color-gray-light);
       font-family: 'Manrope', serif;

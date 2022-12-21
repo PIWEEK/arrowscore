@@ -27,7 +27,8 @@
     scoreSystem: null,
     selectedScoreSystem: null,
     name: "",
-    place: ""
+    place: "",
+    apiid: 0
   }
 
   let newArcher = ""
@@ -61,6 +62,7 @@
 
   const selectScoreSystem = (event) => {
     data.scoreSystem = parseInt(event.currentTarget.value)
+    //console.log("scoresystem chosen"+data.scoreSystem)
     data.selectedScoreSystem = scoreSystems[data.scoreSystem]
 
     steps[2] = true
@@ -82,23 +84,25 @@
   }
 
   const onSubmit = () => {
-    const newSession = {
-      apiid: null,
+    const newSession = { 
+      apiid: "0xL"+Date.now(),
       name: data.name,
       place: data.place,
       when: new Date().toISOString(),
       finished: false,
-      users: data.archers,
-      scoreSystem: [data.selectedScoreSystem],
+      archers: data.archers,
+      score_system: data.selectedScoreSystem,
       scores: data.archers
-        .map(arc => data.selectedScoreSystem.targets  // archers
+        .map(arc => data.selectedScoreSystem.attributes.targets  // archers
           .map(tr => tr                               // targets
             .map(arr => null)))                       // arrows
+    
     }
     const localSessions = localStorage.get("sessions") || []
     localSessions.push(newSession)
     localStorage.set("sessions", localSessions)
-    navigate(`/sessions/annotations/${localSessions.length - 1}`)
+    
+    navigate(`/sessions/annotations/${newSession.apiid}`)
   }
 </script>
 
@@ -138,7 +142,7 @@
               {#each data.archers as archer, i}
               <li class="archer">
                 <ProfileIcon class="icon" height="16" width="16" />
-                <span>{archer.Name || archer.username}</span>
+                <span>{archer.name || archer.username}</span>
                 {#if i == 0}
                 <span>(You)</span>
                 {:else}
@@ -174,7 +178,7 @@
             <div class="edit" class:show={steps[2] && openStep != 2}>
               <a on:click|stopPropagation={() => { openStep=2 }}>Edit</a>
             </div>
-            <div class="values">{data.selectedScoreSystem ? data.selectedScoreSystem.name : ""}</div>
+            <div class="values">{data.selectedScoreSystem ? data.selectedScoreSystem.attributes.name : ""}</div>
           </div>
           {#if openStep == 2}
           <div class="fields">
@@ -188,12 +192,12 @@
                 {/if}
                 <input
                   type="radio"
-                  name="{sc.name}"
-                  id="sc-{sc.name}"
+                  name="{sc.attributes.name}"
+                  id="sc-{sc.attributes.name}"
                   on:change={selectScoreSystem}
                   value={i}>
-                <label for="sc-{sc.name}">
-                {sc.name}
+                <label for="sc-{sc.attributes.name}">
+                {sc.attributes.name}
                 </label>
               </div>
               {:else}

@@ -1,13 +1,22 @@
 <script>
-  import Button from '../components/Button.svelte'
+  import { navigate } from "svelte-navigator";
+  import Button from "../components/Button.svelte"
   import img from '../assets/imgs/img-tournament.png'
+
+  const navigateToNewTournament = () => {
+    navigate("/tournaments/new")
+  }
+
 </script>
 
 <div class="tournaments">
   <h1>Tournament</h1>
   <img src="{img}" alt="arrows">
   <Button theme="secondary" disabled={true}>join tournament</Button>
-  <Button disabled={true}>create tournament</Button>
+  <Button
+  on:click|once={navigateToNewTournament}>
+  create tournament
+</Button>
 </div>
 
 

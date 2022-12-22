@@ -17,16 +17,12 @@
   const session = sessions.find(obj => {
     return obj.apiid == sessionId
   })
-  console.log("session->"+session)
 
   let currentTarget = 0
   $: currentTargetDisplay = currentTarget + 1
   $: totalTargets = session.scores[0].length
 
-  let arrows = []
   $: arrows = session.score_system.data.attributes.targets[currentTarget]
-
-  
   let currentArrow = 0
   $: arrowScores = arrows[currentArrow]
   let currentScores = []
@@ -35,7 +31,7 @@
   $: archer = session.archers[selectedArcher]
   $: totalArchers = session.archers.length
 
-  let openPartialScores = false
+//  let openPartialScores = false
 
   const calculateTotalScoreForTarget = (targetScores) => targetScores
     .reduce((total, score) => total + (score ? score : 0), 0)
@@ -45,9 +41,9 @@
 
   const calculateSessionPartialScores = () => {
     const data = []
-    for (const [index, archer] of session.archers.entries()) {
+    for (const [index, user] of session.archers.entries()) {
       data.push({
-        username: archer.username,
+        username: user.username,
         score: calculatePartialScoreForUser(session.scores[index]),
       })
     }
@@ -72,11 +68,9 @@
   const saveScore = () => {
     // Save score
     session.scores[selectedArcher][currentTarget] = currentScores
-    session.synced = false// we reset unsync status
-
 
     // Persist data
-    //sessions[sessionPos] = session
+    // sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
 
 
@@ -93,7 +87,7 @@
 
   const finishSession = () => {
     session.finished = true
-    //sessions[sessionPos] = session
+    // sessions[sessionPos] = session
     localStorage.set("sessions", sessions)
     navigate(`/sessions/annotations/${session.apiid}/summary`)
   }
@@ -103,9 +97,9 @@
 <ScreenWakeLock />
 <div class="sessions-annotations">
   <SectionHeader>
-    <h1 slot="title">{session.name}</h1>
-    <Button slot="action" on:click={() => openPartialScores = true}>
-      <StatsIcon class="icon" height="20" width="20" />
+    <h1 slot="title">F {session.name}</h1>
+    <Button slot="action">
+
     </Button>
   </SectionHeader>
   <main>
@@ -117,41 +111,26 @@
       </button>
       {/if}
       <div class="current">
-        #{currentTargetDisplay} target/round
+        {session.score_system.data.attributes.name}
       </div>
-      {#if currentTargetDisplay < totalTargets }
-      <button class="next" on:click|stopPropagation={() => { currentTarget++ }}>
-        {currentTargetDisplay + 1}
-        <GoNextIcon width="6" height="14" />
-      </button>
-      {/if}
     </div>
+    
     <div class="archers-list">
-      {#each session.archers as archer, u}
+
+
+
+
+      {#each calculateSessionPartialScores() as archer, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">
           {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
         </h2>
-        <div class="action">
-          {#if !hasAnnotations(session.scores[u][currentTarget])}
-            Annotate
-          {:else}
-            Edit
-          {/if}
-        </div>
         <div class="scores">
-          {#each session.scores[u][currentTarget] as score, i}
-            {#if score !== null}
-            <div class="arrow">
-              #{i+1} <span class="score">{score}</span>
-            </div>
-            {/if}
-          {/each}
           <div class="total">
             {#if hasAnnotations(session.scores[u][currentTarget])}
               T&nbsp;
               <span class="score">
-                {calculateTotalScoreForTarget(session.scores[u][currentTarget])}
+                {archer.score}
               </span>
             {/if}
           </div>
@@ -160,12 +139,9 @@
       {/each}
     </div>
     <div class="actions">
-      <Button theme="secondary" disabled={true}>
-        Target picture
-      </Button>
       {#if currentTargetDisplay < totalTargets }
-      <Button on:click={() => { currentTarget++ }}>
-        Next target
+      <Button on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
+        Edit
       </Button>
       {:else}
         <Button on:click={finishSession}>
@@ -238,27 +214,6 @@
 {/if}
 </BottomSheet>
 
-<BottomSheet bind:open={openPartialScores}>
-{#if openPartialScores}
-<div class="bottom-sheet partial-scores">
-  <div class="header">
-    <button class="close" on:click={() => openPartialScores = false}>+</button>
-    <h1 class="name">Scores ({session.score_system.data.attributes.name})</h1>
-  </div>
-  <div class="main">
-    {#each calculateSessionPartialScores() as archer, u}
-    <div class="archer">
-      <span class="number">{u+1}.</span>
-      <span class="name">
-        {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
-      </span>
-      <span class="score">{archer.score}</span>
-    </div>
-    {/each}
-  </div>
-</div>
-{/if}
-</BottomSheet>
 
 <style lang="postcss">
 .sessions-annotations {
@@ -361,8 +316,8 @@
       }
 
       & .total > .score {
-        background: var(--color-black);
-        color: var(--color-white);
+        background: var(--color-white);
+        color: var(--color-black);
       }
     }
   }
@@ -485,10 +440,12 @@
         display: block;
         text-align: center;
         line-height: 1.8rem;
-        min-width: 2.8rem;
+        min-width: 2.4rem;
         padding: 0 3px;
       }
     }
   }
+
+
 }
 </style>

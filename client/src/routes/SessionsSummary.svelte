@@ -4,11 +4,14 @@
   import SectionHeader from "../components/SectionHeader.svelte"
   import Button from "../components/Button.svelte"
 
- 	export let sessionPos = 0
+ 	export let sessionId = 0
 
   const you = localStorage.get("user")
   const sessions = localStorage.get("sessions") || []
-  const session = sessions[sessionPos]
+  const session = sessions.find(obj => {
+    return obj.apiid == sessionId
+  })
+
 
   const _calculateTotalScoreForTarget = (targetScores) => targetScores
     .reduce((total, score) => total + (score ? score : 0), 0)
@@ -18,9 +21,9 @@
 
   const calculateSessionSummary = () => {
     const data = []
-    for (const [index, user] of session.users.entries()) {
+    for (const [index, archer] of session.archers.entries()) {
       data.push({
-        username: user.username,
+        username: archer.username,
         score: _calculateTotalScoreForUser(session.scores[index]),
       })
     }
@@ -52,8 +55,8 @@
       <Button theme="secondary" disabled={true}>
         Share
       </Button>
-      <Button on:click={() => { navigate("/home/sessions")}}>
-        Finish
+      <Button on:click={() => { navigate("/my/sessions")}}>
+        Close
       </Button>
     </div>
   </main>

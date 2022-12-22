@@ -18,64 +18,100 @@
   const syncData = async () => {
     // Sync score Systems
     const localScoreSystems = localStorage.get("scoreSystems") || []
-    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
-    const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
+    const localSessions = localStorage.get("sessions") || []
+
+    const unsyncScoreSystems = localScoreSystems.filter(sc => ! sc.attributes.firstsync)
+    const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.firstsync)
+
+    const unsyncSessions = localSessions.filter(s => ! s.synced)
+    const newSessions = localSessions.filter(s => s.synced)
+
+    console.log("unsyncSessions"+unsyncSessions)
+    console.log("newSessions"+newSessions)
+
 
     // seed for the future download with code
     const {data} = await apiClient(
       "GET",
-      "score-systems?filters[author][username][$eq]=arrowscore",
+      "score-systems?populate=*&filters[author][username][$eq]=arrowscore",
     )
-    console.log(data)
+    console.log("official score systems "+data)
 
 
     let existingLocalScoreSystems = []
-    for (const i of localStorage.get("scoreSystems")){
-      existingLocalScoreSystems.push(i["apiid"])
+    for (const i of localScoreSystems){
+      existingLocalScoreSystems.push(i.attributes["apiid"])
     }
-    console.log(existingLocalScoreSystems)
 
     for (const d of data){
       if (! existingLocalScoreSystems.includes(d.attributes["apiid"])){
-        newScoreSystems.push(d.attributes)
+        newScoreSystems.push(d)
         console.log("YEAH!")
+      }
+      else {
+        console.log("Dup!")
       }
     }
 
     for (const scoreSystem of unsyncScoreSystems) {
       const {data} = await apiClient(
         "POST", "score-systems?populate=*",
-        { data: scoreSystem }
+        { data: scoreSystem.attributes }
       )
-      console.log(data)
-      newScoreSystems.push(data.attributes)
+      console.log("return from POST SS"+data)
+      data.attributes.firstsync = true
+      newScoreSystems.push(data)
     }
     console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
-  }
 
-  const getSSWithCODE = async () => {
-    // Sync score Systems
-    const localScoreSystems = localStorage.get("scoreSystems") || []
-    const unsyncScoreSystems = localScoreSystems.filter(sc => sc.apiid === null)
-    const newScoreSystems = localScoreSystems.filter(sc => sc.apiid !== null)
+    
+    for (const session of unsyncSessions) {
 
-    for (const scoreSystem of unsyncScoreSystems) {
+      if (! session.firstsync){
+      const ssName = session.score_system.data.attributes.name
+
+      let selectedss = null
+      for (const nss of newScoreSystems) {
+        if (nss.attributes.name == ssName){
+        selectedss = nss
+        }
+      }
+      console.log("selectedss "+selectedss.attributes.name)
+
+      session.score_system = selectedss.id
+      session.synced = true
+      session.firstsync = true
+      console.log("stringify "+JSON.stringify(session))
       const {data} = await apiClient(
-        "POST", "score-systems?populate=*",
-        { data: scoreSystem }
+        "POST", "sessions?populate=*",
+        { data: session }
       )
-      console.log(data)
-      newScoreSystems.push(data.attributes)
+      data.attributes.id = data.id
+      newSessions.push(data.attributes)
     }
-    console.log(newScoreSystems)
-    localStorage.set("scoreSystems", newScoreSystems)
+    else {
+      console.log("tenemos un firstsync!")
+      const {data} = await apiClient(
+        "PUT", "sessions/"+session.id+"?populate=*",
+        { data: {scores: session.scores} }
+      )
+      data.attributes.id = data.id
+      newSessions.push(data.attributes)
+    }
   }
+    localStorage.set("sessions", newSessions)
+
+  }
+
 
   const logout = () => {
     //localStorage.clear()
     localStorage.remove("token")
     localStorage.remove("user")
+    localStorage.remove("scoreSystems")
+    localStorage.remove("sessions")
+
     navigate("/auth")
   }
 </script>
@@ -92,7 +128,7 @@
       <ScoreSystemsIcon class="icon" height="20" width="20" />
       My Score Systems
     </div>
-    <div class="menu-item disabled">
+    <div class="menu-item" on:click={() => navigate("/my/tournaments")}>
       <TournamentsIcon class="icon" height="20" width="20" />
       My Tournaments
     </div>

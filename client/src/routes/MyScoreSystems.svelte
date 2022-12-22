@@ -12,15 +12,15 @@
     <h1 slot="title">My Score Systems</h1>
   </SectionHeader>
   <main class="menu">
-    {#each scoreSystems as score, i}
+    {#each scoreSystems as ss, i}
     <!--
     <div class="menu-item" on:click={() => navigate(`/my/score-systems/${i}`)}>
     -->
     <div class="menu-item" >
       <ScoreSystemsIcon class="icon" height="20" width="20" />
-      {score.name}
-      {#if score.code}
-        <span class="code">CODE: {score.code}</span>
+      {ss.attributes.name}
+      {#if ss.attributes.code}
+        <span class="code">CODE: {ss.attributes.code}</span>
       {/if}
     </div>
     {/each}

@@ -7,10 +7,14 @@
   import Register from "./routes/Register.svelte"
   import Home from "./routes/Home.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
+  import TournamentsNew from "./routes/TournamentsNew.svelte"
   import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
+  import SessionsFinished from "./routes/SessionsFinished.svelte"
   import SessionsSummary from "./routes/SessionsSummary.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
   import MySessions from "./routes/MySessions.svelte"
+  import TournamentsEdit from "./routes/TournamentsEdit.svelte"
+  import MyTournaments from "./routes/MyTournaments.svelte"
   import MyScoreSystems from "./routes/MyScoreSystems.svelte"
 
   onMount(async () => {
@@ -33,15 +37,30 @@
   <Route path="/sessions/new">
     <SessionsNew />
   </Route>
-  <Route path="/sessions/annotations/:sessionPos" let:params>
-    <SessionsAnnotations sessionPos="{params.sessionPos}"/>
+  <Route path="/tournaments/new">
+    <TournamentsNew />
   </Route>
-  <Route path="/sessions/annotations/:sessionPos/summary" let:params>
-    <SessionsSummary sessionPos="{params.sessionPos}"/>
+
+  <Route path="/sessions/annotations/:sessionId" let:params>
+    <SessionsAnnotations sessionId="{params.sessionId}"/>
+  </Route>
+  <Route path="/sessions/finished/:sessionId" let:params>
+    <SessionsFinished sessionId="{params.sessionId}"/>
+  </Route>
+  <Route path="/sessions/annotations/:sessionId/summary" let:params>
+    <SessionsSummary sessionId="{params.sessionId}"/>
   </Route>
   <Route path="/my/sessions">
     <MySessions />
   </Route>
+  <Route path="/tournaments/edit/:tournamentId" let:params>
+    <TournamentsEdit tournamentId="{params.tournamentId}"/>
+  </Route>
+
+  <Route path="/my/tournaments">
+    <MyTournaments />
+  </Route>
+
   <Route path="/my/score-systems">
     <MyScoreSystems />
   </Route>

@@ -14,8 +14,11 @@
   import SessionsSummary from "./routes/SessionsSummary.svelte"
   import ScoreSystemsNew from "./routes/ScoreSystemsNew.svelte"
   import MySessions from "./routes/MySessions.svelte"
+  import MyTournamentSessions from "./routes/MyTournamentSessions.svelte"
   import TournamentsEdit from "./routes/TournamentsEdit.svelte"
   import MyTournaments from "./routes/MyTournaments.svelte"
+  import TournamentsOngoing from "./routes/TournamentsOngoing.svelte"
+
   import MyScoreSystems from "./routes/MyScoreSystems.svelte"
 
   onMount(async () => {
@@ -57,10 +60,16 @@
   <Route path="/my/sessions">
     <MySessions />
   </Route>
+  <Route path="/my/tournamentSessions">
+    <MyTournamentSessions />
+  </Route>
+
   <Route path="/tournaments/edit/:tournamentId" let:params>
     <TournamentsEdit tournamentId="{params.tournamentId}"/>
   </Route>
-
+  <Route path="/tournaments/ongoing/:tournamentId" let:params>
+    <TournamentsOngoing tournamentId="{params.tournamentId}"/>
+  </Route>
   <Route path="/my/tournaments">
     <MyTournaments />
   </Route>

@@ -4,18 +4,25 @@
   import SessionsIcon from "../assets/svgs/icon-session.svg"
   import { localStorage } from "../services/storages"
 
-  const finishedSessions = localStorage.get("sessions").filter(f).reverse() || []
-  const unfinishedSessions = localStorage.get("sessions").filter(uf) || []
+
+  const sessions = localStorage.get("sessions").filter(nt) || []
+
+
+  const finishedSessions = sessions.filter(f).reverse() || []
+  const unfinishedSessions = sessions.filter(uf) || []
   const Sessions = localStorage.get("sessions") || []
 
 
   function f(item){
-    return item.finished
-  }
-  function uf(item){
-    return ! item.finished
-  }
-
+      return item.finished
+    }  
+    function nt(item){
+      return (item.tournament.data == null)
+    }
+    function uf(item){
+      return ! item.finished
+    }
+  
 
 </script>
 

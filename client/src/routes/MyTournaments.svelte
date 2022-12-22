@@ -25,7 +25,7 @@
   </SectionHeader>
   <main class="menu">    
     {#each unfinishedTournaments as tournament, i}
-    <div class="menu-item" >
+    <div class="menu-item" on:click={() => navigate(`/tournaments/ongoing/${tournament.attributes.apiid}`)}>
       <TournamentsIcon class="icon" height="20" width="20" />
       {tournament.attributes.name} ({tournament.attributes.score_system.data.attributes.name})
       {#if tournament.attributes.code}
@@ -36,7 +36,7 @@
     <div class="menu-separator"/>
 
     {#each finishedTournaments as tournament, i}
-    <div class="menu-item" >
+    <div class="menu-item" on:click={() => navigate(`/tournaments/finished/${tournament.attributes.apiid}`)}>
       <TournamentsIcon class="icon" height="20" width="20" />
       {tournament.attributes.name} ({tournament.attributes.score_system.data.attributes.name})
       {#if tournament.attributes.code}

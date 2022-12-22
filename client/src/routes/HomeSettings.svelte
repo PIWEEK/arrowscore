@@ -7,6 +7,8 @@
   import SessionIcon from "../assets/svgs/icon-session.svg"
   import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
+  import TournamentSessionsIcon from "../assets/svgs/icon-tournamentsession.svg"
+
   import SettingsIcon from "../assets/svgs/icon-profile.svg"
 
 
@@ -187,12 +189,17 @@ localStorage.set("tournaments", newTournaments)
 
 
 <div class="settings">
-  <h1>Settings</h1>
+  <h1>My data</h1>
   <div class="menu">
     <div class="menu-item" on:click={() => navigate("/my/sessions")}>
       <SessionIcon class="icon" height="20" width="20" />
       My Sessions
     </div>
+    <div class="menu-item" on:click={() => navigate("/my/tournamentSessions")}>
+      <TournamentSessionsIcon class="icon" height="20" width="20" />
+      My Tournament Sessions
+    </div>
+
     <div class="menu-item" on:click={() => navigate("/my/score-systems")}>
       <ScoreSystemsIcon class="icon" height="20" width="20" />
       My Score Systems

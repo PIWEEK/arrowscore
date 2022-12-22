@@ -5,15 +5,18 @@
   import HomeSessions from "./HomeSessions.svelte"
   import HomeScoreSystmes from "./HomeScoreSystems.svelte"
   import HomeTournaments from "./HomeTournaments.svelte"
+  import HomeTournamentSessions from "./HomeTournamentSessions.svelte"
   import HomeSettings from "./HomeSettings.svelte"
 
   import ACLogo from "../assets/svgs/ac-icon-white.svg"
   import SessionIcon from "../assets/svgs/icon-session.svg"
-  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
-  import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
+  import TournamentIcon from "../assets/svgs/icon-tournament.svg"
+  import TournamentSessionIcon from "../assets/svgs/icon-tournamentsession.svg"
   import SettingsIcon from "../assets/svgs/icon-profile.svg"
 
   import { localStorage } from "../services/storages"
+  import HomeTournamentSession from "./HomeTournamentSessions.svelte";
 
   const user = localStorage.get("user")
 </script>
@@ -29,8 +32,8 @@
     <Route path="sessions">
       <HomeSessions />
     </Route>
-    <Route path="score-systems">
-      <HomeScoreSystmes />
+    <Route path="tournamentsessions">
+      <HomeTournamentSessions />
     </Route>
     <Route path="tournaments">
       <HomeTournaments />
@@ -43,11 +46,11 @@
     <NavLink to="/home/sessions">
       <SessionIcon class="icon" height="31" width="30" />
     </NavLink>
-    <NavLink to="/home/score-systems">
-      <ScoreSystemsIcon class="icon" height="31" width="31" />
+    <NavLink to="/home/tournamentsessions">
+      <TournamentSessionIcon class="icon" height="31" width="31" />
     </NavLink>
     <NavLink to="/home/tournaments">
-      <TournamentsIcon class="icon" height="31" width="31" />
+      <TournamentIcon class="icon" height="31" width="31" />
     </NavLink>
     <NavLink to="/home/settings">
       <SettingsIcon class="icon" height="31" width="31" />

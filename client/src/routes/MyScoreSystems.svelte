@@ -1,7 +1,9 @@
 <script>
   import { navigate } from "svelte-navigator"
+  import ScoreSystemDownloadOrCreate from "../components/ScoreSystemDownloadOrCreate.svelte"
+
   import SectionHeader from "../components/SectionHeader.svelte"
-  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import { localStorage } from "../services/storages"
 
   const scoreSystems = localStorage.get("scoreSystems") || []
@@ -24,8 +26,13 @@
       {/if}
     </div>
     {/each}
+    <div class="score-systems">
+      <ScoreSystemDownloadOrCreate/>
+      </div>
+  
   </main>
-</div>
+  </div>
+  
 <style lang="postcss">
 .my-score-systems {
   display: flex;
@@ -66,4 +73,54 @@
     }
   }
 }
+.score-systems{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+    padding: 5vh 0;
+  
+    & form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1.4rem;
+      width: 100%;
+  
+      & .field {
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+        width: 100%;
+  
+        & label {
+          font-family: 'Manrope', serif;
+          font-weight: 600;
+          font-size: 1.1rem;
+          padding-left: .5rem;
+        }
+      }
+    }
+  
+    & h1 {
+      font-size: 2rem;
+    }
+  
+    & .btn-row {
+      border-top: 0px solid var(--color-gray-light);
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+  }
+  
+  img {
+    flex-grow: 1;
+    height: 210px;
+    padding-bottom: 2.5rem;
+  }
 </style>

@@ -13,7 +13,7 @@
   <h1>Session</h1>
   <img src="{img}" alt="bows">
   <Button theme="secondary"  on:click={() => { navigate("/my/sessions")}} disabled={false}>
-    join session
+    rejoin session
   </Button>
   <Button
     on:click|once={navigateToNewSession}>

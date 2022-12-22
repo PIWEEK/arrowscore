@@ -37,8 +37,8 @@
   <Route path="/sessions/new">
     <SessionsNew />
   </Route>
-  <Route path="/tournaments/new">
-    <TournamentsNew />
+  <Route path="/tournamentsessions/new">
+    <TournamentSessionsNew />
   </Route>
 
   <Route path="/sessions/annotations/:sessionId" let:params>
@@ -60,7 +60,6 @@
   <Route path="/my/tournaments">
     <MyTournaments />
   </Route>
-
   <Route path="/my/score-systems">
     <MyScoreSystems />
   </Route>

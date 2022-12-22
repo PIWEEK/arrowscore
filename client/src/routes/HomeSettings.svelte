@@ -5,7 +5,7 @@
   import Button from "../components/Button.svelte"
 
   import SessionIcon from "../assets/svgs/icon-session.svg"
-  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
   import SettingsIcon from "../assets/svgs/icon-profile.svg"
 
@@ -19,6 +19,7 @@
     // Sync score Systems
     const localScoreSystems = localStorage.get("scoreSystems") || []
     const localSessions = localStorage.get("sessions") || []
+    const localTournaments = localStorage.get("tournaments") || []
 
     const unsyncScoreSystems = localScoreSystems.filter(sc => ! sc.attributes.firstsync)
     const newScoreSystems = localScoreSystems.filter(sc => sc.attributes.firstsync)
@@ -111,6 +112,7 @@
     localStorage.remove("user")
     localStorage.remove("scoreSystems")
     localStorage.remove("sessions")
+    localStorage.remove("tournaments")
 
     navigate("/auth")
   }

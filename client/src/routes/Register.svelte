@@ -25,6 +25,7 @@
       localStorage.set("user", res.user)
       localStorage.set("scoreSystems", [])
       localStorage.set("sessions", [])
+      localStorage.set("tournaments", [])
       navigate("/home/sessions")
     }
     else {

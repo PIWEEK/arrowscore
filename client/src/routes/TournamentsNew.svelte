@@ -6,7 +6,7 @@
   import { localStorage } from "../services/storages"
   import { range } from "../utils"
   import ProfileIcon from "../assets/svgs/icon-profile.svg"
-  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import CheckIcon from "../assets/svgs/icon-check.svg"
 
   const user = localStorage.get("user")

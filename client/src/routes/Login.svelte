@@ -20,6 +20,20 @@
       localStorage.set("token", res.jwt)
       localStorage.set("user", res.user)
 
+      const localScoreSystems = localStorage.get("scoreSystems") || []
+      const localSessions = localStorage.get("sessions") || []
+      const localTournaments = localStorage.get("tournaments") || []
+
+      if (localScoreSystems.length == 0){
+        localStorage.set("scoreSystems", [])
+      }
+      if (localSessions.length == 0){
+        localStorage.set("sessions", [])
+      }
+      if (localTournaments.length == 0){
+        localStorage.set("tournaments", [])
+      }
+
       navigate("/home/sessions")
     }
     else {

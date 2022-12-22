@@ -6,7 +6,7 @@
   import { localStorage } from "../services/storages"
   import { range } from "../utils"
   import ProfileIcon from "../assets/svgs/icon-profile.svg"
-  import ScoreSystemsIcon from "../assets/svgs/icon-score.svg"
+  import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import CheckIcon from "../assets/svgs/icon-check.svg"
 
   const user = localStorage.get("user")
@@ -93,6 +93,7 @@
       firstsync: false,
       synced: false,
       archers: data.archers,
+      tournament: {data: null},
       score_system: {data: data.selectedScoreSystem},
       scores: data.archers
         .map(arc => data.selectedScoreSystem.attributes.targets  // archers

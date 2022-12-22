@@ -67,6 +67,7 @@
       firstsync: false,
       synced: false,
       ranking: {},
+      scores: {},
       score_system: {data: data.selectedScoreSystem},    
     }
   }

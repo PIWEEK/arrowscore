@@ -25,17 +25,23 @@
   </SectionHeader>
   <main class="menu">    
     {#each unfinishedTournaments as tournament, i}
-    <div class="menu-item" on:click={() => navigate(`/tournaments/edit/${tournament.apiid}`)}>
+    <div class="menu-item" >
       <TournamentsIcon class="icon" height="20" width="20" />
-      {tournament.name} ({tournament.score_system.data.attributes.name})
+      {tournament.attributes.name} ({tournament.attributes.score_system.data.attributes.name})
+      {#if tournament.attributes.code}
+      <span class="code">CODE: {tournament.attributes.code}</span>
+      {/if}
     </div>
     {/each}
     <div class="menu-separator"/>
 
     {#each finishedTournaments as tournament, i}
-    <div class="menu-item" on:click={() => navigate(`/tournaments/finished/${tournament.apiid}`)}>
+    <div class="menu-item" >
       <TournamentsIcon class="icon" height="20" width="20" />
-      {tournament.name} ({tournament.score_system.data.attributes.name})
+      {tournament.attributes.name} ({tournament.attributes.score_system.data.attributes.name})
+      {#if tournament.attributes.code}
+      <span class="code">CODE: {tournament.attributes.code}</span>
+      {/if}
     </div>
     {/each}
   </main>
@@ -84,6 +90,13 @@
       font-size: 1rem;
       line-height: 1.2rem;
     }
+      & .code {
+        color: var(--color-gray);
+        font-size: .9rem;
+        margin-left: auto;
+      }
+
+    
   }
 }
 </style>

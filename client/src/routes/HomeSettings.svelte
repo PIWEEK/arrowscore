@@ -27,8 +27,11 @@
     const unsyncSessions = localSessions.filter(s => ! s.synced)
     const newSessions = localSessions.filter(s => s.synced)
 
-    const unsyncTournaments = localTournaments.filter(t => ! t.attributes.firstsync)
-    const newTournaments = localTournaments.filter(t => t.attributes.firstsync)
+    const unfirstsyncTournaments = localTournaments.filter(t => ! t.attributes.firstsync)
+    //const unsyncTournaments = localTournaments.filter(t => ! t.attributes.synced)
+    const unfinishedTournaments = localTournaments.filter(t => ! t.attributes.finished &&  t.attributes.firstsync)
+
+    const newTournaments = localTournaments.filter(t => t.attributes.finished)
 
 
 
@@ -70,9 +73,8 @@
     // Tournaments
 
 
-    for (const tournament of unsyncTournaments) {
+    for (const tournament of unfirstsyncTournaments) {
 
-      if (! tournament.firstsync){
       const ssName = tournament.attributes.score_system.data.attributes.name
 
       let selectedss = null
@@ -84,7 +86,7 @@
       console.log("selectedT "+selectedss.attributes.name)
 
       tournament.attributes.score_system = selectedss.id
-      tournament.attributes.synced = true
+      tournament.attributes.synced = false
       tournament.attributes.firstsync = true
       console.log("stringify "+JSON.stringify(tournament))
       const {data} = await apiClient(
@@ -94,51 +96,55 @@
       data.attributes.id = data.id
       newTournaments.push(data)
     }
-    else {
-      console.log("tenemos un tournament que ya existía")
-    }
-  }
-    localStorage.set("tournaments", newTournaments)
 
     
     // Sessions
     for (const session of unsyncSessions) {
 
+      // if first time we send data
       if (! session.firstsync){
-      const ssName = session.score_system.data.attributes.name
-      const tName = session.tournament.data.attributes.name || []
+        const ssName = session.score_system.data.attributes.name
+      
+        let selectedt = null
+      // check for a tournament session
+        if  (session.tournament.attributes != null) {
+          const tName = session.tournament.attributes.name 
 
-      let selectedss = null
-      let selectedt = null
-
-      for (const nss of newScoreSystems) {
-        if (nss.attributes.name == ssName){
-        selectedss = nss
+          for (const nt of unfinishedTournaments) { //TODO, check when tournament is finished to abort session update
+            if (nt.attributes.name == tName){
+            selectedt = nt
+            }
+            session.tournament = selectedt.id
+          }
+          console.log("selectedt "+selectedt.attributes.name)
         }
-      }
-      console.log("selectedss "+selectedss.attributes.name)
-
-      for (const nt of newTournaments) {
-        if (nt.attributes.name == tName){
-        selectedt = nt
+        else { // plain session
+          console.log("ELSE!!")
+          delete session.tournament
         }
-      }
-      console.log("selectedt "+selectedt.attributes.name)
 
+        let selectedss = null
 
-      session.score_system = selectedss.id
-      session.tournament = selectedt.id
+        for (const nss of newScoreSystems) {
+          if (nss.attributes.name == ssName){
+          selectedss = nss
+          }
+        }
+        console.log("selectedss "+selectedss.attributes.name)
 
-      session.synced = true
-      session.firstsync = true
-      console.log("stringify "+JSON.stringify(session))
+        session.score_system = selectedss.id
+        
 
-      const {data} = await apiClient(
-        "POST", "sessions?populate=*",
-        { data: session }
-      )
-      data.attributes.id = data.id
-      newSessions.push(data.attributes)
+        session.synced = true
+        session.firstsync = true
+        console.log("stringify "+JSON.stringify(session))
+
+        const {data} = await apiClient(
+          "POST", "sessions?populate=*",
+          { data: session }
+        )
+        data.attributes.id = data.id
+        newSessions.push(data.attributes)
     }
     else {
       console.log("Actualizamos Session")
@@ -150,6 +156,18 @@
       newSessions.push(data.attributes)
     }
   }
+  for (const tournament of unfinishedTournaments) {
+
+const {data} = await apiClient(
+  "GET", "tournaments/"+tournament.id+"?populate=*"
+)
+data.attributes.id = data.id
+newTournaments.push(data)
+}
+
+localStorage.set("tournaments", newTournaments)
+
+
     localStorage.set("sessions", newSessions)
 
   }

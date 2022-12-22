@@ -7,6 +7,7 @@
   import Register from "./routes/Register.svelte"
   import Home from "./routes/Home.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
+  import TournamentSessionsNew from "./routes/TournamentSessionsNew.svelte"
   import TournamentsNew from "./routes/TournamentsNew.svelte"
   import SessionsAnnotations from "./routes/SessionsAnnotations.svelte"
   import SessionsFinished from "./routes/SessionsFinished.svelte"
@@ -39,6 +40,9 @@
   </Route>
   <Route path="/tournamentsessions/new">
     <TournamentSessionsNew />
+  </Route>
+  <Route path="/tournaments/new">
+    <TournamentsNew />
   </Route>
 
   <Route path="/sessions/annotations/:sessionId" let:params>

@@ -58,7 +58,7 @@
   }
 
   const onSubmit = () => {
-    const newTournament = { 
+    const newTournament = { attributes: {
       apiid: "0xL"+Date.now(),
       name: data.name,
       description: data.description,
@@ -67,9 +67,9 @@
       firstsync: false,
       synced: false,
       ranking: {},
-      sessions: {},
       score_system: {data: data.selectedScoreSystem},    
     }
+  }
     const localTournaments = localStorage.get("tournaments") || []
     localTournaments.push(newTournament)
     localStorage.set("tournaments", localTournaments)

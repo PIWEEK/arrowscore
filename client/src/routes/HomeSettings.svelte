@@ -27,8 +27,9 @@
     const unsyncSessions = localSessions.filter(s => ! s.synced)
     const newSessions = localSessions.filter(s => s.synced)
 
-    console.log("unsyncSessions"+unsyncSessions)
-    console.log("newSessions"+newSessions)
+    const unsyncTournaments = localTournaments.filter(t => ! t.attributes.firstsync)
+    const newTournaments = localTournaments.filter(t => t.attributes.firstsync)
+
 
 
     // seed for the future download with code
@@ -36,8 +37,9 @@
       "GET",
       "score-systems?populate=*&filters[author][username][$eq]=arrowscore",
     )
-    console.log("official score systems "+data)
 
+
+    // ScoreSystems
 
     let existingLocalScoreSystems = []
     for (const i of localScoreSystems){
@@ -47,10 +49,10 @@
     for (const d of data){
       if (! existingLocalScoreSystems.includes(d.attributes["apiid"])){
         newScoreSystems.push(d)
-        console.log("YEAH!")
+        console.log("New SS!")
       }
       else {
-        console.log("Dup!")
+        console.log("Dup SS!")
       }
     }
 
@@ -63,14 +65,15 @@
       data.attributes.firstsync = true
       newScoreSystems.push(data)
     }
-    console.log(newScoreSystems)
     localStorage.set("scoreSystems", newScoreSystems)
 
-    
-    for (const session of unsyncSessions) {
+    // Tournaments
 
-      if (! session.firstsync){
-      const ssName = session.score_system.data.attributes.name
+
+    for (const tournament of unsyncTournaments) {
+
+      if (! tournament.firstsync){
+      const ssName = tournament.attributes.score_system.data.attributes.name
 
       let selectedss = null
       for (const nss of newScoreSystems) {
@@ -78,12 +81,58 @@
         selectedss = nss
         }
       }
+      console.log("selectedT "+selectedss.attributes.name)
+
+      tournament.attributes.score_system = selectedss.id
+      tournament.attributes.synced = true
+      tournament.attributes.firstsync = true
+      console.log("stringify "+JSON.stringify(tournament))
+      const {data} = await apiClient(
+        "POST", "tournaments?populate=*",
+        { data: tournament.attributes }
+      )
+      data.attributes.id = data.id
+      newTournaments.push(data)
+    }
+    else {
+      console.log("tenemos un tournament que ya existía")
+    }
+  }
+    localStorage.set("tournaments", newTournaments)
+
+    
+    // Sessions
+    for (const session of unsyncSessions) {
+
+      if (! session.firstsync){
+      const ssName = session.score_system.data.attributes.name
+      const tName = session.tournament.data.attributes.name || []
+
+      let selectedss = null
+      let selectedt = null
+
+      for (const nss of newScoreSystems) {
+        if (nss.attributes.name == ssName){
+        selectedss = nss
+        }
+      }
       console.log("selectedss "+selectedss.attributes.name)
 
+      for (const nt of newTournaments) {
+        if (nt.attributes.name == tName){
+        selectedt = nt
+        }
+      }
+      console.log("selectedt "+selectedt.attributes.name)
+
+
       session.score_system = selectedss.id
+      session.tournament = selectedt.id
+
       session.synced = true
       session.firstsync = true
       console.log("stringify "+JSON.stringify(session))
+
       const {data} = await apiClient(
         "POST", "sessions?populate=*",
         { data: session }
@@ -92,7 +141,7 @@
       newSessions.push(data.attributes)
     }
     else {
-      console.log("tenemos un firstsync!")
+      console.log("Actualizamos Session")
       const {data} = await apiClient(
         "PUT", "sessions/"+session.id+"?populate=*",
         { data: {scores: session.scores} }

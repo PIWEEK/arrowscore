@@ -32,7 +32,7 @@
     <Route path="sessions">
       <HomeSessions />
     </Route>
-    <Route path="tournamentsessions">
+    <Route path="tournamentSessions">
       <HomeTournamentSessions />
     </Route>
     <Route path="tournaments">
@@ -46,7 +46,7 @@
     <NavLink to="/home/sessions">
       <SessionIcon class="icon" height="31" width="30" />
     </NavLink>
-    <NavLink to="/home/tournamentsessions">
+    <NavLink to="/home/tournamentSessions">
       <TournamentSessionIcon class="icon" height="31" width="31" />
     </NavLink>
     <NavLink to="/home/tournaments">

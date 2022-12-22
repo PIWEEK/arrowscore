@@ -1,11 +1,15 @@
 <script>
   import { navigate } from "svelte-navigator"
+  import { onMount } from "svelte";
+
+  import TournamentDownloadOrCreate from "../components/TournamentDownloadOrCreate.svelte"
+
   import SectionHeader from "../components/SectionHeader.svelte"
   import TournamentsIcon from "../assets/svgs/icon-tournament.svg"
   import { localStorage } from "../services/storages"
 
   const finishedTournaments = localStorage.get("tournaments").filter(f).reverse() || []
-  const unfinishedTournaments = localStorage.get("tournaments").filter(uf) || []
+  let unfinishedTournaments = localStorage.get("tournaments").filter(uf) || []
   const Tournaments = localStorage.get("tournaments") || []
 
 
@@ -44,7 +48,11 @@
       {/if}
     </div>
     {/each}
-  </main>
+
+    <div class="tournaments">
+      <TournamentDownloadOrCreate/>
+      </div>
+    </main>
 
 </div>
 <style lang="postcss">
@@ -99,4 +107,48 @@
     
   }
 }
+.tournaments{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+    padding: 5vh 0;
+  
+    & form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1.4rem;
+      width: 100%;
+  
+      & .field {
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+        width: 100%;
+  
+        & label {
+          font-family: 'Manrope', serif;
+          font-weight: 600;
+          font-size: 1.1rem;
+          padding-left: .5rem;
+        }
+      }
+    }
+  
+    & h1 {
+      font-size: 2rem;
+    }
+  
+    & .btn-row {
+      border-top: 0px solid var(--color-gray-light);
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+  }
 </style>

@@ -12,7 +12,7 @@
   <div class="sessions">
     <h1>Tournament Session</h1>
     <img src="{img}" alt="bows">
-    <Button theme="secondary"  on:click={() => { navigate("/my/tournamentsessions")}} disabled={false}>
+    <Button theme="secondary"  on:click={() => { navigate("/my/tournamentSessions")}} disabled={false}>
       rejoin tournament session
     </Button>
     <Button

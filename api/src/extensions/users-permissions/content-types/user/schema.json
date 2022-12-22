@@ -75,8 +75,14 @@
       "target": "api::score-system.score-system",
       "mappedBy": "author"
     },
-    "Name": {
+    "name": {
       "type": "string"
+    },
+    "tournaments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tournament.tournament",
+      "mappedBy": "author"
     }
   }
 }

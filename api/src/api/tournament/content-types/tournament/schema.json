@@ -1,14 +1,14 @@
 {
   "kind": "collectionType",
-  "collectionName": "score_systems",
+  "collectionName": "tournaments",
   "info": {
-    "singularName": "score-system",
-    "pluralName": "score-systems",
-    "displayName": "ScoreSystem",
+    "singularName": "tournament",
+    "pluralName": "tournaments",
+    "displayName": "Tournament",
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -17,17 +17,15 @@
       "required": true
     },
     "code": {
-      "type": "string",
-      "required": false,
-      "unique": false
+      "type": "string"
     },
     "author": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "score_systems"
+      "inversedBy": "tournaments"
     },
-    "targets": {
+    "scores": {
       "type": "json",
       "required": true
     },
@@ -35,11 +33,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::session.session",
-      "mappedBy": "score_system"
+      "mappedBy": "tournament"
     },
     "apiid": {
-      "type": "uid",
-      "required": false
+      "type": "uid"
     },
     "synced": {
       "type": "boolean",
@@ -48,6 +45,24 @@
     "firstsync": {
       "type": "boolean",
       "default": true
+    },
+    "finished": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "score_system": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::score-system.score-system"
+    },
+    "when": {
+      "type": "date"
+    },
+    "archer_choices": {
+      "type": "json"
     }
   }
 }

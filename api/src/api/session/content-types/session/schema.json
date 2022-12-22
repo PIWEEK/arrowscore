@@ -41,6 +41,24 @@
     },
     "apiid": {
       "type": "uid"
+    },
+    "archers": {
+      "type": "json"
+    },
+    "synced": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
+    "firstsync": {
+      "type": "boolean",
+      "default": true
+    },
+    "tournament": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tournament.tournament",
+      "inversedBy": "sessions"
     }
   }
 }

@@ -9,9 +9,6 @@
       navigate("/tournaments/new")
     }
   
-    const reload = () => {
-      navigate("/my/tournaments")
-    }
   
     let code = null
   
@@ -37,7 +34,6 @@
           console.log("Dup!")
       }
       localStorage.set("tournaments", localTournaments)
-      reload()
     }
   
   </script>

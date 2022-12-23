@@ -59,7 +59,7 @@
       "target": "api::score-system.score-system"
     },
     "when": {
-      "type": "date"
+      "type": "datetime"
     },
     "archer_choices": {
       "type": "json"

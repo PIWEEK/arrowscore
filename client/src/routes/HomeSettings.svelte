@@ -110,8 +110,8 @@
       
         let selectedt = null
       // check for a tournament session
-        if  (session.tournament.attributes != null) {
-          const tName = session.tournament.attributes.name 
+        if  (session.tournament.data != null) {
+          const tName = session.tournament.data.attributes.name 
 
           for (const nt of unfinishedTournaments) { //TODO, check when tournament is finished to abort session update
             if (nt.attributes.name == tName){

@@ -90,7 +90,7 @@
         firstsync: false,
         synced: false,
         archers: data.archers,
-        tournament: data.selectedTournament,
+        tournament: {data: data.selectedTournament},
         score_system: data.selectedTournament.attributes.score_system,
         scores: data.archers
           .map(arc => data.selectedTournament.attributes.score_system.data.attributes.targets  // archers

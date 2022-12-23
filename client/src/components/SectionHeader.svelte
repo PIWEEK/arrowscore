@@ -8,12 +8,9 @@
 
 <header
   class="section-header {theme}">
-  <button
-    class="go-back"
-    title="Go back"
-    on:click={() => navigate(-1)}>
-    <IconArrow width="20" height="18" />
-  </button>
+  <div class="close-slot">
+  <button class="close" on:click={() => navigate("/home/settings")}>+</button>
+</div>
 
   <div class="title">
     <slot name="title"></slot>
@@ -51,6 +48,22 @@
     align-self: flex-end;
     width: 35px;
   }
+
+  & .close-slot {
+    background: black;
+  }
+
+  & .close {
+      border: none;
+      background: none;
+      color: white;
+      font-family: 'Manrope', serif;
+      text-align: right;
+      font-size: 30px;
+      line-height: 30px;
+      transform: rotate(45deg);
+    }
+
 
   & .go-back {
     border: none;

@@ -34,7 +34,7 @@
     {#each unfinishedSessions as session, i}
     <div class="menu-item" on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
       <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.score_system.data.attributes.name})
+      [u] {session.name} ({session.score_system.data.attributes.name})
     </div>
     {/each}
     <div class="menu-separator"/>
@@ -42,7 +42,7 @@
     {#each finishedSessions as session, i}
     <div class="menu-item" on:click={() => navigate(`/sessions/finished/${session.apiid}`)}>
       <SessionsIcon class="icon" height="20" width="20" />
-      {session.name} ({session.score_system.data.attributes.name})
+      [f] {session.name} ({session.score_system.data.attributes.name})
     </div>
     {/each}
   </main>

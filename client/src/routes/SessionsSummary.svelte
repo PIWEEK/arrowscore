@@ -55,7 +55,7 @@
       <Button theme="secondary" disabled={true}>
         Share
       </Button>
-      <Button on:click={() => { navigate("/my/sessions")}}>
+      <Button on:click={() => { navigate("/home/settings")}}>
         Close
       </Button>
     </div>

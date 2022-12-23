@@ -135,7 +135,7 @@
     top: 0px;
     width: 100vw;
     height: 100%;
-    background-color: #212121;
+    background-color: #e4e4e4;
     opacity: var(--o, 0);
     z-index: 6;
   }

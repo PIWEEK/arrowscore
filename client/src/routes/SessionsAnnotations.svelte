@@ -117,7 +117,7 @@
       </button>
       {/if}
       <div class="current">
-        #{currentTargetDisplay} target/round
+        #{currentTargetDisplay} of {totalTargets}
       </div>
       {#if currentTargetDisplay < totalTargets }
       <button class="next" on:click|stopPropagation={() => { currentTarget++ }}>
@@ -160,9 +160,6 @@
       {/each}
     </div>
     <div class="actions">
-      <Button theme="secondary" disabled={true}>
-        Target picture
-      </Button>
       {#if currentTargetDisplay < totalTargets }
       <Button on:click={() => { currentTarget++ }}>
         Next target
@@ -297,6 +294,7 @@
       font-weight: bolder;
       grid-area: current;
       text-align: center;
+      font-size: 24px;
     }
   }
 

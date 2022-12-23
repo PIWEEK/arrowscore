@@ -31,7 +31,7 @@
 
     const unfirstsyncTournaments = localTournaments.filter(t => ! t.attributes.firstsync)
     //const unsyncTournaments = localTournaments.filter(t => ! t.attributes.synced)
-    const unfinishedTournaments = localTournaments.filter(t => ! t.attributes.finished &&  t.attributes.firstsync)
+    const unfinishedTournaments = localTournaments.filter(t => (! t.attributes.finished) &&  (t.attributes.firstsync))
 
     const newTournaments = localTournaments.filter(t => t.attributes.finished)
 
@@ -62,12 +62,13 @@
     }
 
     for (const scoreSystem of unsyncScoreSystems) {
+      scoreSystem.attributes.firstsync = true
+      scoreSystem.attributes.synced = true
       const {data} = await apiClient(
         "POST", "score-systems?populate=*",
         { data: scoreSystem.attributes }
       )
       console.log("return from POST SS"+data)
-      data.attributes.firstsync = true
       newScoreSystems.push(data)
     }
     localStorage.set("scoreSystems", newScoreSystems)
@@ -88,7 +89,7 @@
       console.log("selectedT "+selectedss.attributes.name)
 
       tournament.attributes.score_system = selectedss.id
-      tournament.attributes.synced = false
+      tournament.attributes.synced = true
       tournament.attributes.firstsync = true
       console.log("stringify "+JSON.stringify(tournament))
       const {data} = await apiClient(
@@ -115,9 +116,13 @@
           for (const nt of unfinishedTournaments) { //TODO, check when tournament is finished to abort session update
             if (nt.attributes.name == tName){
             selectedt = nt
-            }
+            console.log("selectedt"+selectedt)
             session.tournament = selectedt.id
+            }
           }
+
+          //WAAAA y qué pasa si no se cumple el if
+
           console.log("selectedt "+selectedt.attributes.name)
         }
         else { // plain session
@@ -132,7 +137,6 @@
           selectedss = nss
           }
         }
-        console.log("selectedss "+selectedss.attributes.name)
 
         session.score_system = selectedss.id
         

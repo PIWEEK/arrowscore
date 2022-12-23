@@ -18,22 +18,35 @@
         "tournaments?populate=*&filters[code][$eq]="+code,
       )
       const localTournaments = localStorage.get("tournaments") || []
+      const localScoreSystems = localStorage.get("scoreSystems") || []
+
       console.log("downloaded T"+data[0].attributes.name)
   
       let existingLocalTournaments = []
+      let existingLocalScoreSystems = []
       
       for (const i of localTournaments){
         existingLocalTournaments.push(i.attributes["code"])
+      }
+      for (const i of localScoreSystems){
+        existingLocalScoreSystems.push(i.attributes["code"])
       }
       
       if (! existingLocalTournaments.includes(data[0].attributes.code)){
           localTournaments.push(data[0])
           console.log("YEAH!")
-        }
-      else {
+      }
+        else {
           console.log("Dup!")
       }
+
+      if (! existingLocalScoreSystems.includes(data[0].attributes.score_system.data.attributes.code)){
+          localScoreSystems.push(data[0].attributes.score_system.data)
+      }
+
       localStorage.set("tournaments", localTournaments)
+      localStorage.set("scoreSystems", localScoreSystems)
+
     }
   
   </script>

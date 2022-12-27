@@ -31,7 +31,7 @@
 </script>
 
 <Router>
-	<Route path="/home/*" component={Home} />
+	<Route path="/*" component={Home} />
   <Route path="/score-systems/new">
      <ScoreSystemsNew />
   </Route>

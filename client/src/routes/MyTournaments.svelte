@@ -114,7 +114,7 @@
     align-items: center;
     gap: 20px;
     height: 100%;
-    padding: 5vh 0;
+    padding: 8vh 0;
   
     & form {
       display: flex;

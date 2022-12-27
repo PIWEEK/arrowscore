@@ -46,6 +46,7 @@
 
       localStorage.set("tournaments", localTournaments)
       localStorage.set("scoreSystems", localScoreSystems)
+      location.reload()
 
     }
   

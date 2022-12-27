@@ -1,5 +1,6 @@
 <script>
     import { navigate } from "svelte-navigator";
+    import { get_root_for_style } from "svelte/internal";
     import { apiClient } from "../services/api"
     import { localStorage } from "../services/storages"
     import Button from './Button.svelte'
@@ -34,9 +35,7 @@
           console.log("Dup!")
       }
       localStorage.set("scoreSystems", localScoreSystems)
-  
-      
-  
+      location.reload()
     }
   
   </script>

@@ -5,14 +5,17 @@
   import SectionHeader from "../components/SectionHeader.svelte"
   import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import { localStorage } from "../services/storages"
+  import ScoreSystemsNew from "./ScoreSystemsNew.svelte";
 
-  const scoreSystems = localStorage.get("scoreSystems") || []
+  $: scoreSystems = localStorage.get("scoreSystems") || []
+
 </script>
-
 <div class="my-score-systems">
   <SectionHeader theme="light">
     <h1 slot="title">My Score Systems</h1>
-  </SectionHeader>
+  </SectionHeader>  
+  
+
   <main class="menu">
     {#each scoreSystems as ss, i}
     <!--
@@ -28,12 +31,16 @@
     {/each}
     <div class="score-systems">
       <ScoreSystemDownloadOrCreate/>
-      </div>
-  
+    </div>
+
   </main>
+
   </div>
-  
+
+
 <style lang="postcss">
+
+
 .my-score-systems {
   display: flex;
   flex-direction: column;
@@ -71,6 +78,11 @@
         margin-left: auto;
       }
     }
+    & .test {
+    height:70%;
+    overflow:auto;
+    }
+
   }
 }
 .score-systems{
@@ -80,7 +92,7 @@
     align-items: center;
     gap: 20px;
     height: 100%;
-    padding: 5vh 0;
+    padding: 8vh 0;
   
     & form {
       display: flex;

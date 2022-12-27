@@ -23,10 +23,7 @@
 
   onMount(async () => {
     const authToken = localStorage.get("token")
-    if (authToken) {
-      navigate("/home/sessions")
-    }
-    else {
+    if (! authToken) {
       navigate("/auth")
     }
 	})

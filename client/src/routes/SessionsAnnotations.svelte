@@ -37,6 +37,17 @@
 
   let openPartialScores = false
 
+  const checkNext = () => {
+
+    console.log("currentScores"+currentScores)
+    if (currentScores.indexOf(null) > -1) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
   const calculateTotalScoreForTarget = (targetScores) => targetScores
     .reduce((total, score) => total + (score ? score : 0), 0)
 
@@ -183,22 +194,6 @@
     </h1>
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
-    <div class="arrows">
-      # Arrow
-      <div class="values">
-        {#each arrows as ar, i}
-        <input
-          type="radio"
-          name="num-arrow"
-          id="ar-{i}"
-          bind:group={currentArrow}
-          value={i}>
-        <label for="ar-{i}">
-         {i+1}
-        </label>
-        {/each}
-      </div>
-    </div>
     <div class="score-values">
       Score value
       <div class="values">
@@ -216,11 +211,29 @@
 
       </div>
     </div>
+    <div class="arrows">
+      # Arrow
+      <div class="values">
+        {#each arrows as ar, i}
+        <input
+          type="radio"
+          name="num-arrow"
+          id="ar-{i}"
+          bind:group={currentArrow}
+          value={i}>
+        <label for="ar-{i}">
+         {i+1}
+        </label>
+        {/each}
+      </div>
+    </div>
+
     <div class="actions">
       <Button theme="secondary" on:click={closeBottomSheetTargetScores}>
         Cancel
       </Button>
-      <Button type="submit">
+      {#key currentScores}
+      <Button type="submit" disabled='{checkNext()}'>
         {#if selectedArcher + 1 < totalArchers} <!-- Go to next archer -->
         Next archer
         {:else if currentTarget + 1 < totalTargets} <!-- Go to next target -->
@@ -229,6 +242,8 @@
         Finish
         {/if}
       </Button>
+      {/key}
+    
     </div>
   </form>
 </div>

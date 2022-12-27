@@ -1,0 +1,16 @@
+1. mark as finished versus ongoing in listings
+2. visual cue for arrows that have been scored already
+3. "Next target" and similar actions disabled unless all scorings are met
+4. spinners for every async action/button
+5. automatic load of content upon fetch
+6. share session/tournament results
+7. sync upon login
+8. avoid reload for favico
+9. change order arrow/score?
+
+
+towards version 2
+
+1. add My Contacts
+2. add options to tournament (sex, age group, category, etc) so that archers are added with those in mind
+3. 

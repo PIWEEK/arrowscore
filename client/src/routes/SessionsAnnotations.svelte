@@ -141,11 +141,11 @@
       {#each session.archers as archer, u}
       <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
         <h2 class="name">
-          {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
+          {archer.username}
         </h2>
         <div class="action">
           {#if !hasAnnotations(session.scores[u][currentTarget])}
-            Annotate
+            Score
           {:else}
             Edit
           {/if}
@@ -190,8 +190,11 @@
   <div class="header">
     <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
     <h1 class="name">
-      {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
+      {archer.username}
+
     </h1>
+
+
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
     <div class="score-values">
@@ -262,7 +265,7 @@
     <div class="archer">
       <span class="number">{u+1}.</span>
       <span class="name">
-        {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
+        {archer.username}
       </span>
       <span class="score">{archer.score}</span>
     </div>
@@ -293,6 +296,8 @@
     align-items: center;
     border-bottom: 1px solid var(--color-black);
     padding: 0 20px;
+    font-size: large;
+    font-weight: 900;
 
     & .back { grid-area: back; }
     & .next { grid-area: next; }
@@ -333,7 +338,7 @@
     & .name {
       grid-area: name;
       margin: 0;
-      font-size: 1.3rem;
+      font-size: x-large;
       margin-top: .3rem;
     }
     & .action {
@@ -412,6 +417,7 @@
       text-align: center;
       margin: 0;
       margin-left: -20px;
+      font-size: x-larger;
     }
   }
 
@@ -485,14 +491,17 @@
       border-bottom: 1px solid var(--color-gray-light);
       gap: .4rem;
       padding: 20px;
+      font-weight: 600;
+      font-size: larger;
 
       & .number {
-        font-weight: 600;
+
       }
 
       & .name {
         display: block;
-        width: 100%
+        width: 100%;
+
       }
       & .score {
         align-self: end;

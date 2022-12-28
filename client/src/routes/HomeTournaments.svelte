@@ -12,6 +12,10 @@
 <div class="tournaments">
   <h1>Tournament</h1>
   <img src="{img}" alt="arrows">
+  <Button theme="secondary"  on:click={() => { navigate("/my/tournaments")}} disabled={false}>
+    my tournaments
+  </Button>
+
   <Button
   on:click|once={navigateToNewTournament}>
   create tournament

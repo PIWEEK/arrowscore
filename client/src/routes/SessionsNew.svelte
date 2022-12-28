@@ -447,7 +447,7 @@ form {
   & .score-systems-selector {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1.0rem;
 
     & input[type=radio] {
       display: none;
@@ -458,7 +458,8 @@ form {
       flex-direction: row;
       align-items: center;
       align-content: center;
-      gap: .5rem;
+      gap: 0.5rem;
+      font-size: large;
     }
   }
 }

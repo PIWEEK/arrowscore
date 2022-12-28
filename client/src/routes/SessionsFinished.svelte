@@ -39,12 +39,16 @@
   const calculatePartialScoreForUser = (scores) => scores
     .reduce((total, targetScores) => total + calculateTotalScoreForTarget(targetScores), 0)
 
+  const calculateAverageScoreForUser = (scores) => scores
+    .reduce((total, targetScores) => total + calculateTotalScoreForTarget(targetScores), 0)
+
   const calculateSessionPartialScores = () => {
     const data = []
     for (const [index, user] of session.archers.entries()) {
       data.push({
         username: user.username,
         score: calculatePartialScoreForUser(session.scores[index]),
+        average: (calculateAverageScoreForUser(session.scores[index])/totalTargets).toFixed(1),
       })
     }
     data.sort((a, b) => b.score - a.score)
@@ -111,33 +115,29 @@
       </button>
       {/if}
       <div class="current">
-        {session.score_system.data.attributes.name}
+        (Score system: {session.score_system.data.attributes.name})
       </div>
     </div>
     
     <div class="archers-list">
 
-
-
-
-      {#each calculateSessionPartialScores() as archer, u}
-      <div class="archer" on:click|stopPropagation={() => openBottomSheetTargetScores(u)}>
-        <h2 class="name">
-          {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
-        </h2>
-        <div class="scores">
-          <div class="total">
-            {#if hasAnnotations(session.scores[u][currentTarget])}
-              T&nbsp;
-              <span class="score">
-                {archer.score}
-              </span>
-            {/if}
+      <div class="score-sheet partial-scores">
+        {#each calculateSessionPartialScores() as archer, u}
+        <div class="archer">
+          <span class="name">
+            {u+1}. {archer.username}
+          </span>
+          <span class="score">{archer.score}</span>
+          <div>
+          <span class="average">Avg: {archer.average}</span>
           </div>
         </div>
-      </div>
-      {/each}
+
+        {/each}
+        </div>
+      
     </div>
+<!--
     <div class="actions">
       {#if currentTargetDisplay < totalTargets }
       <Button on:click={() => navigate(`/sessions/annotations/${session.apiid}`)}>
@@ -149,70 +149,10 @@
       </Button>
       {/if}
     </div>
+    -->
   </main>
 </div>
 
-<BottomSheet open={selectedArcher !== null} on:close={closeBottomSheetTargetScores}>
-{#if archer}
-<div class="bottom-sheet target-scores">
-  <div class="header">
-    <button class="close" on:click={closeBottomSheetTargetScores}>+</button>
-    <h1 class="name">
-      {archer.username}{#if archer.username === you.username}{" (You)"}{/if}
-    </h1>
-  </div>
-  <form class="main" on:submit|preventDefault={saveScore}>
-    <div class="arrows">
-      # Arrow
-      <div class="values">
-        {#each arrows as ar, i}
-        <input
-          type="radio"
-          name="num-arrow"
-          id="ar-{i}"
-          bind:group={currentArrow}
-          value={i}>
-        <label for="ar-{i}">
-         {i+1}
-        </label>
-        {/each}
-      </div>
-    </div>
-    <div class="score-values">
-      Score value
-      <div class="values">
-        {#each arrowScores as sc, i}
-        <input
-          type="radio"
-          name="score"
-          id="sc-{i}"
-          bind:group={currentScores[currentArrow]}
-          value={sc}>
-        <label for="sc-{i}">
-         {sc}
-        </label>
-        {/each}
-
-      </div>
-    </div>
-    <div class="actions">
-      <Button theme="secondary" on:click={closeBottomSheetTargetScores}>
-        Cancel
-      </Button>
-      <Button type="submit">
-        {#if selectedArcher + 1 < totalArchers} <!-- Go to next archer -->
-        Next archer
-        {:else if currentTarget + 1 < totalTargets} <!-- Go to next target -->
-        Next target
-        {:else} <!-- Finish session -->
-        Finish
-        {/if}
-      </Button>
-    </div>
-  </form>
-</div>
-{/if}
-</BottomSheet>
 
 
 <style lang="postcss">
@@ -276,7 +216,7 @@
       grid-area: name;
       margin: 0;
       font-size: 1.3rem;
-      margin-top: .3rem;
+      margin-top: .0rem;
     }
     & .action {
       grid-area: action;
@@ -285,7 +225,7 @@
       font-size: 14px;
       line-height: 17px;
       text-decoration: underline;
-      margin-top: .3rem;
+      margin-top: .0rem;
     }
     & .scores {
       grid-area: scores;
@@ -329,7 +269,7 @@
     margin-top: auto;
   }
 }
-.bottom-sheet{
+.score-sheet{
   & .header {
     display: flex;
     flex-direction: row;
@@ -353,6 +293,7 @@
       margin: 0;
       margin-left: -20px;
     }
+    & .number {}
   }
 
   &.target-scores {
@@ -427,7 +368,7 @@
       padding: 20px;
 
       & .number {
-        font-weight: 600;
+        font-weight: 300;
       }
 
       & .name {
@@ -439,10 +380,22 @@
         border: 1px solid var(--color-black);
         display: block;
         text-align: center;
-        line-height: 1.8rem;
+        line-height: 2rem;
         min-width: 2.4rem;
         padding: 0 3px;
+        font-size: x-large;
       }
+      & .average {
+        align-self: end;
+        border: 1px solid var(--color-black);
+        display: block;
+        text-align: center;
+        line-height: 2rem;
+        min-width: 4.4rem;
+        padding: 0 3px;
+        font-size: tiny;
+      }
+
     }
   }
 

@@ -3,6 +3,7 @@
   import Button from "../components/Button.svelte"
   import { localStorage } from "../services/storages"
   import { apiClient } from "../services/api"
+  import { syncData } from "../services/sync"
   import ACLogo from "../assets/svgs/ac-icon-white.svg"
   import backgroundImage from "../assets/imgs/bg-targets.png"
 
@@ -26,6 +27,7 @@
       localStorage.set("scoreSystems", [])
       localStorage.set("sessions", [])
       localStorage.set("tournaments", [])
+      syncData()
       navigate("/home/sessions")
     }
     else {

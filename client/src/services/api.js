@@ -1,3 +1,4 @@
+import { navigate } from "svelte-navigator"
 import { localStorage } from "../services/storages"
 
 const base = import.meta.env.VITE_API_URL
@@ -31,4 +32,15 @@ export const apiClient = (method, resource, data) => {
 	return fetch(`${base}/${resource}`, content)
     .then(response => response.json()) //review how data is sent back
     .catch(console.error)
+}
+
+export const logout = () => {
+  //localStorage.clear()
+  localStorage.remove("token")
+  localStorage.remove("user")
+  localStorage.remove("scoreSystems")
+  localStorage.remove("sessions")
+  localStorage.remove("tournaments")
+
+  navigate("/auth")
 }

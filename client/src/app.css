@@ -48,9 +48,9 @@ html, body {
 
   /* body */
   font-family: 'Manrope', serif;
-  font-weight: 400;
+  font-weight: 500;
   font-variant: normal;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.2rem;
   color: var(--color-back);
 }
@@ -61,7 +61,7 @@ html, body {
 /* Heading 1 */
 h1 {
   font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-weight: 500;
   font-variant: normal;
   font-size: 1.5rem;
   line-height: 1.8rem;

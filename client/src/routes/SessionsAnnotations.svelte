@@ -195,7 +195,7 @@
   </div>
   <form class="main" on:submit|preventDefault={saveScore}>
     <div class="score-values">
-      Score value
+      Score
       <div class="values">
         {#each arrowScores as sc, i}
         <input
@@ -212,7 +212,7 @@
       </div>
     </div>
     <div class="arrows">
-      # Arrow
+      Arrow
       <div class="values">
         {#each arrows as ar, i}
         <input
@@ -222,7 +222,7 @@
           bind:group={currentArrow}
           value={i}>
         <label for="ar-{i}">
-         {i+1}
+         #{i+1}
         </label>
         {/each}
       </div>
@@ -340,7 +340,7 @@
       grid-area: action;
       font-family: 'Manrope', serif;
       text-align: right;
-      font-size: 14px;
+      font-size: medium;
       line-height: 17px;
       text-decoration: underline;
       margin-top: .3rem;
@@ -354,6 +354,7 @@
       align-items: center;
       gap: .7rem;
       font-family: 'Manrope', serif;
+      font-weight: 900;
 
 
       & .arrow,
@@ -385,6 +386,7 @@
     gap: 20px;
     width: 100%;
     margin-top: auto;
+    
   }
 }
 .bottom-sheet{
@@ -430,8 +432,8 @@
         justify-content: flex-start;
         gap: .8rem;
         font-family: 'Manrope', serif;
-        font-weight: 400;
-        font-size: 18px;
+        font-weight: 900;
+        font-size: 22px;
 
         & .values {
           display: flex;
@@ -446,12 +448,12 @@
           }
           & label {
             font-family: 'Manrope', serif;
-            font-weight: 400;
+            font-weight: 900;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50px;
-            height: 40px;
+            width: 52px;
+            height: 50px;
             padding: 2px;
             border: 1px solid var(--color-black);
           }

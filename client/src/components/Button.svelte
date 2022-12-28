@@ -40,6 +40,7 @@
     &.primary {
       background:  var(--color-black);
       color:  var(--color-white);
+      font-size: large;
 
       &:disabled,
       &[disabled]{
@@ -50,6 +51,7 @@
     &.secondary {
       background: var(--color-white);
       color: var(--color-black);
+      font-size: large;
 
       &:disabled,
       &[disabled]{

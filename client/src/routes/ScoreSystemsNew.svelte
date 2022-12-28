@@ -180,6 +180,7 @@
           {#if openStep == 4}
           <div class="fields">
             <input
+              autocomplete="off"
               type="text"
               name="name"
               placeholder="Type a name"

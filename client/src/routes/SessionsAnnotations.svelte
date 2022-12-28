@@ -338,7 +338,7 @@
     & .name {
       grid-area: name;
       margin: 0;
-      font-size: x-large;
+      font-size: large;
       margin-top: .3rem;
     }
     & .action {
@@ -359,7 +359,7 @@
       align-items: center;
       gap: .7rem;
       font-family: 'Manrope', serif;
-      font-weight: 900;
+      font-weight: 200;
 
 
       & .arrow,

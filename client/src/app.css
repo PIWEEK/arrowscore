@@ -63,7 +63,7 @@ h1 {
   font-family: 'DM Serif Display', serif;
   font-weight: 500;
   font-variant: normal;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1.8rem;
 }
 
@@ -87,4 +87,5 @@ input {
   height: 50px;
   line-height: 2.3rem;
   padding: 2px 6px;
+  width: 100%;
 }

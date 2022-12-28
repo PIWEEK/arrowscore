@@ -158,6 +158,7 @@
               {/each}
             </ul>
             <input
+              autocomplete="off"
               type="text"
               name="archer"
               placeholder="Email, username or name"
@@ -229,6 +230,7 @@
           {#if openStep == 3}
           <div class="fields">
             <input
+              autocomplete="off"
               type="text"
               name="name"
               placeholder="Enter a name"
@@ -253,6 +255,7 @@
           {#if openStep == 4}
           <div class="fields">
             <input
+              autocomplete="off"
               type="text"
               name="place"
               placeholder="Enter a place"

@@ -52,6 +52,7 @@
       <div class="field">
         <label for="email">Name</label>
         <input
+          autocomplete="off"
           type="text"
           id="username"
           name="username"
@@ -62,6 +63,7 @@
       <div class="field">
         <label for="email">Email</label>
         <input
+          autocomplete="off"
           type="text"
           id="email"
           name="email"
@@ -71,6 +73,7 @@
       <div class="field">
         <label for="password">Password</label>
         <input
+          autocomplete="off"
           type="password"
           id="password"
           name="password"

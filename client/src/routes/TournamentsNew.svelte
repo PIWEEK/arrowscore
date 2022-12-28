@@ -145,6 +145,7 @@
           {#if openStep == 2}
           <div class="fields">
             <input
+              autocomplete="off"
               type="text"
               name="name"
               placeholder="Enter a name"
@@ -169,6 +170,7 @@
           {#if openStep == 3}
           <div class="fields">
             <textarea
+              autocomplete="off"
               type="text"
               name="description"
               placeholder="Enter a description"

@@ -44,6 +44,7 @@
    <div class="btn-row">
     <form on:submit|preventDefault={downloadServerScoreSystem}>
       <input
+      autocomplete="off"
       type="text"
       name="code"
       placeholder="Enter code" 

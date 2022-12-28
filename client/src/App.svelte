@@ -6,6 +6,7 @@
   import Login from "./routes/Login.svelte"
   import Register from "./routes/Register.svelte"
   import Home from "./routes/Home.svelte"
+  import HomeSettings from "./routes/HomeSettings.svelte"
   import SessionsNew from "./routes/SessionsNew.svelte"
   import TournamentSessionsNew from "./routes/TournamentSessionsNew.svelte"
   import TournamentsNew from "./routes/TournamentsNew.svelte"
@@ -31,7 +32,10 @@
 </script>
 
 <Router>
-	<Route path="/*" component={Home} />
+  <Route path="/" component={Home} />
+ 
+
+  <Route path="/home/*" component={Home} />
   <Route path="/score-systems/new">
      <ScoreSystemsNew />
   </Route>

@@ -101,7 +101,7 @@
 <ScreenWakeLock />
 <div class="sessions-annotations">
   <SectionHeader>
-    <h1 slot="title">F {session.name}</h1>
+    <h1 slot="title">(F) {session.name}</h1>
     <Button slot="action">
 
     </Button>
@@ -128,9 +128,6 @@
             {u+1}. {archer.username}
           </span>
           <span class="score">{archer.score}</span>
-          <div>
-          <span class="average">Avg: {archer.average}</span>
-          </div>
         </div>
 
         {/each}
@@ -359,7 +356,7 @@
   &.partial-scores {
     & .archer {
       font-family: 'Manrope', serif;
-      font-weight: 400;
+      font-weight: 500;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -381,9 +378,10 @@
         display: block;
         text-align: center;
         line-height: 2rem;
-        min-width: 2.4rem;
+        min-width: 4.1rem;
         padding: 0 3px;
         font-size: x-large;
+
       }
       & .average {
         align-self: end;

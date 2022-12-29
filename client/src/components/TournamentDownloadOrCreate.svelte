@@ -19,7 +19,7 @@
       syncInProgress = true
       const {data} = await apiClient(
         "GET",
-        "tournaments?populate=*&filters[code][$eq]="+code,
+        "tournaments?populate=*&filters[code][$eq]="+code.toUpperCase(),
       )
       const localTournaments = localStorage.get("tournaments") || []
       const localScoreSystems = localStorage.get("scoreSystems") || []

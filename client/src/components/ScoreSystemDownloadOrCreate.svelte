@@ -21,7 +21,7 @@
       syncInProgress = true
       const {data} = await apiClient(
         "GET",
-        "score-systems?populate=*&filters[code][$eq]="+code,
+        "score-systems?populate=*&filters[code][$eq]="+code.toUpperCase(),
       )
       const localScoreSystems = localStorage.get("scoreSystems") || []
       console.log("downloaded SS"+data[0].attributes.name)
@@ -95,7 +95,7 @@
             align-items: center;
             gap: 1.4rem;
             width: 100%;
-        
+
             & .field {
               display: flex;
               flex-direction: column;

@@ -86,6 +86,7 @@
         name: data.name,
         place: null,
         when: new Date().toISOString(),
+        lastTargetPos: 0,
         finished: false,
         firstsync: false,
         synced: false,

@@ -4,6 +4,9 @@
     import { apiClient } from "../services/api"
     import { localStorage } from "../services/storages"
     import Button from './Button.svelte'
+    import Fa from 'svelte-fa/src/fa.svelte'
+    import { faSync } from '@fortawesome/free-solid-svg-icons/index.js'
+
   
   
     const navigateToNewScoreSystem = () => {
@@ -11,9 +14,11 @@
     }
   
   
-    let code = null
+    let code = ""
+    let syncInProgress = false
   
     const downloadServerScoreSystem = async () => {
+        syncInProgress = true
       const {data} = await apiClient(
         "GET",
         "score-systems?populate=*&filters[code][$eq]="+code,
@@ -35,9 +40,13 @@
           console.log("Dup!")
       }
       localStorage.set("scoreSystems", localScoreSystems)
+      syncInProgress = false
       location.reload()
     }
   
+    
+
+
   </script>
   
   
@@ -49,12 +58,20 @@
       name="code"
       placeholder="Enter code" 
       bind:value={code} />
+      {#if syncInProgress}
+      <Button
+      theme="secondary">
+        <Fa icon={faSync} spin/>
+      </Button>
+      {:else}
       <Button
         theme="secondary"
-        on:click|once={downloadServerScoreSystem}
-        disabled={false}>
+        disabled={code.length != 4}
+        on:click|once={downloadServerScoreSystem}>
         download
       </Button>
+      {/if}
+
     </form>
     </div>
     <!-- <Button

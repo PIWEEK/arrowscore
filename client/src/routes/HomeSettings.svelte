@@ -12,6 +12,8 @@
   import TournamentSessionsIcon from "../assets/svgs/icon-tournamentsession.svg"
 
   import SettingsIcon from "../assets/svgs/icon-profile.svg"
+  import Fa from 'svelte-fa/src/fa.svelte'
+  import { faSync } from '@fortawesome/free-solid-svg-icons/index.js'
 
 
   const navigateToChangePassword = () => {
@@ -19,6 +21,13 @@
     // navigate("/score-systems/new")
   }
 
+  let syncInProgress = false
+
+  async function syncServerData() {
+    syncInProgress = true
+    await syncData()
+    syncInProgress = false
+  }
 
 </script>
 
@@ -57,10 +66,17 @@
       Change password
     </Button>
     <div class="btn-row">
+      {#if syncInProgress}
       <Button
-        on:click|once={syncData}>
-        Initiate sync
+        on:click|once={syncServerData}>
+        <Fa icon={faSync} spin/>
       </Button>
+      {:else}
+      <Button
+        on:click|once={syncServerData}>
+        Sync
+      </Button>
+      {/if}
       <Button
         theme="secondary"
         on:click|once={logout}>

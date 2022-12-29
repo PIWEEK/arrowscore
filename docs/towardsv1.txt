@@ -8,7 +8,7 @@
 8. avoid reload for favico. WONTFIX
 9. change order arrow/score? DONE!
 10. Add description to score system DONE!
-11. Refresh page (in sessions) protects as much of the context as possible
+11. Refresh page (in sessions) protects as much of the context as possible DONE!
 
 towards version 2
 

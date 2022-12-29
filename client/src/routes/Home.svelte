@@ -1,5 +1,5 @@
 <script>
-  import { Router, Route } from "svelte-navigator"
+  import { Router, Route, navigate } from "svelte-navigator"
   import NavLink from "../components/NavLink.svelte"
 
   import HomeSessions from "./HomeSessions.svelte"
@@ -14,11 +14,14 @@
   import TournamentIcon from "../assets/svgs/icon-tournament.svg"
   import TournamentSessionIcon from "../assets/svgs/icon-tournamentsession.svg"
   import SettingsIcon from "../assets/svgs/icon-profile.svg"
+  import ASLogo from "../assets/svgs/ac-icon-black.svg"
+
 
   import { localStorage } from "../services/storages"
   import HomeTournamentSession from "./HomeTournamentSessions.svelte";
 
   const user = localStorage.get("user")
+  navigate("/home/sessions")
 </script>
 
 <div class="home">

@@ -17,10 +17,13 @@
   const session = sessions.find(obj => {
     return obj.apiid == sessionId
   })
-  console.log("session->"+session)
 
   let currentTarget = 0
+  currentTarget = session.lastTargetPos
+  console.log("session->"+session)
+
   $: currentTargetDisplay = currentTarget + 1
+  $: session.lastTargetPos = currentTargetDisplay
   $: totalTargets = session.scores[0].length
 
   let arrows = []

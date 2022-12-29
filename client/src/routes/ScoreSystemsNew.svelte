@@ -15,6 +15,7 @@
     2: false,
     3: false,
     4: false,
+    5: false, //optional
   }
   let openStep = 1;
 
@@ -24,7 +25,8 @@
     totalArrows: 0,
     totalRounds: 0,
     validScores: [],
-    name: ""
+    name: "",
+    description: ""
   }
 
   const _openNextStep = () => {
@@ -53,10 +55,17 @@
     _openNextStep()
   }
 
+  const selectDescription = (event) => {
+    steps[5] = true
+    _openNextStep()
+  }
+
+
   const onSubmit = () => {
     const newScoreSystem = { attributes:{
       apiid: null,
       name: data.name,
+      description: data.description,
       code: null,
       firstsync: false,
       synced: false,
@@ -171,7 +180,7 @@
         <div class="step step-4" class:open={openStep == 4}>
           <div class="summary">
             <div class="number">4.</div>
-            <div class="title">System name</div>
+            <div class="title">Name</div>
             <div class="edit" class:show={steps[4] && openStep !=4}>
               <a on:click|stopPropagation={() => { openStep=4 }}>Edit</a>
             </div>
@@ -192,6 +201,31 @@
           </div>
           {/if}
         </div>
+        <div class="step step-5" class:open={openStep == 5}>
+          <div class="summary">
+            <div class="number">5.</div>
+            <div class="title">Description (optional)</div>
+            <div class="edit" class:show={steps[5] && openStep !=5}>
+              <a on:click|stopPropagation={() => { openStep=5 }}>Edit</a>
+            </div>
+            <div class="values">{data.description}</div>
+          </div>
+          {#if openStep == 5}
+          <div class="fields">
+            <input
+              autocomplete="off"
+              type="text"
+              name="description"
+              placeholder="Type a description"
+              bind:value={data.description} />
+            <Button theme="secondary"}
+              on:click={selectDescription}>
+              Ok, continue
+            </Button>
+          </div>
+          {/if}
+        </div>
+
       </div>
       <div class="actions">
         <Button type="submit" disabled={!isComplete}>

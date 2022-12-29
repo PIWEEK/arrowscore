@@ -27,7 +27,14 @@
       {#if ss.attributes.code}
         <span class="code">CODE: {ss.attributes.code}</span>
       {/if}
+      {#if ss.attributes.description}
+      <div class="item-description">{ss.attributes.description}</div>
+  
+      {/if}
+  
     </div>
+
+
     {/each}
     <div class="score-systems">
       <ScoreSystemDownloadOrCreate/>
@@ -63,6 +70,7 @@
 
     & .menu-item {
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row;
       align-items: center;
       padding: 20px 0;
@@ -77,6 +85,16 @@
         font-size: .9rem;
         margin-left: auto;
       }
+
+      & .item-description {
+      align-items: left;
+      padding: 5px 0;
+      gap: 10px;
+      font-family: 'Manrope', serif;
+      font-size: 0.8rem;
+      line-height: 1.0rem;
+    }
+
     }
     & .test {
     height:70%;

@@ -84,7 +84,7 @@
       await requestWakeLock()
     }
   }
-
+  
   /**
    * Automatically use lock on mount, if not specifiied
    * otherwise in props.

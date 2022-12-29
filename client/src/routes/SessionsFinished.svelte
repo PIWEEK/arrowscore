@@ -4,10 +4,7 @@
   import SectionHeader from "../components/SectionHeader.svelte"
   import Button from "../components/Button.svelte"
   import { localStorage } from "../services/storages"
-  import StatsIcon from "../assets/svgs/icon-stats.svg"
   import GoBackIcon from "../assets/svgs/go-back.svg"
-  import GoNextIcon from "../assets/svgs/go-next.svg"
-  import BottomSheet from "../components/BottomSheet.svelte"
 
  	export let sessionId = 0
 
@@ -103,7 +100,6 @@
   <SectionHeader>
     <h1 slot="title">(F) {session.name}</h1>
     <Button slot="action">
-
     </Button>
   </SectionHeader>
   <main>

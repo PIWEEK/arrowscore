@@ -8,6 +8,7 @@
   import ProfileIcon from "../assets/svgs/icon-profile.svg"
   import ScoreSystemsIcon from "../assets/svgs/icon-scoresystem.svg"
   import CheckIcon from "../assets/svgs/icon-check.svg"
+  import { null_to_empty } from "svelte/internal";
 
   const user = localStorage.get("user")
   const scoreSystems = localStorage.get("scoreSystems") || []
@@ -89,6 +90,7 @@
       name: data.name,
       place: data.place,
       when: new Date().toISOString(),
+      lastTargetPos: 0,
       finished: false,
       firstsync: false,
       synced: false,

@@ -1,16 +1,20 @@
 1. mark as finished versus ongoing in listings
 2. visual cue for arrows that have been scored already
-3. "Next target" and similar actions disabled unless all scorings are met
+3. "Next target" and similar actions disabled unless all scorings are met. DONE!
 4. spinners for every async action/button
-5. automatic load of content upon fetch
+5. automatic load of content upon fetch. DONE!
 6. share session/tournament results
-7. sync upon login
-8. avoid reload for favico
-9. change order arrow/score?
-
+7. sync upon login. DONE!
+8. avoid reload for favico. WONTFIX
+9. change order arrow/score? DONE!
+10. Add description to score system DONE!
+11. Refresh page (in sessions) protects as much of the context as possible
 
 towards version 2
 
 1. add My Contacts
 2. add options to tournament (sex, age group, category, etc) so that archers are added with those in mind
-3. 
+3. add Bow Setups
+4. Add Stats
+5. Add Advanced Score System wizard
+6. Trustworthy system to link sessions or tournament sessions with users (discard on sync or fungible code)

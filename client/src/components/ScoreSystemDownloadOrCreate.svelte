@@ -18,7 +18,7 @@
     let syncInProgress = false
   
     const downloadServerScoreSystem = async () => {
-        syncInProgress = true
+      syncInProgress = true
       const {data} = await apiClient(
         "GET",
         "score-systems?populate=*&filters[code][$eq]="+code,

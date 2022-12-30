@@ -1,7 +1,7 @@
 1. mark as finished versus ongoing in listings
-2. visual cue for arrows that have been scored already
+2. visual cue for arrows that have been scored already MAYBE!
 3. "Next target" and similar actions disabled unless all scorings are met. DONE!
-4. spinners for every async action/button
+4. spinners for every async action/button DONE!
 5. automatic load of content upon fetch. DONE!
 6. share session/tournament results
 7. sync upon login. DONE!
@@ -9,6 +9,7 @@
 9. change order arrow/score? DONE!
 10. Add description to score system DONE!
 11. Refresh page (in sessions) protects as much of the context as possible DONE!
+12. Mimic create tournament session to create session (styles, mandatory tournament creation, etc)
 
 towards version 2
 

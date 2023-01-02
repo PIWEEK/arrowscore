@@ -49,10 +49,10 @@
     </div>
     {/each}
 
-    <div class="tournaments">
-      <TournamentDownloadOrCreate/>
-      </div>
-    </main>
+  </main>
+  <div class="tournaments">
+    <TournamentDownloadOrCreate/>
+  </div>
 
 </div>
 <style lang="postcss">
@@ -61,6 +61,7 @@
   flex-direction: column;
   justify-content: flex-start;
   flex-grow: 1;
+  height: 100%;
 
   & h1 {
     line-height: 1rem;
@@ -70,11 +71,13 @@
   }
 
   & .menu {
+    border-top: 1px solid var(--color-gray-light);
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--color-gray-light);
+    height: 100%;
+    overflow-y: scroll;
+    padding: 60px 1.25rem 375px 1.25rem;
     width: 100%;
-    padding: 0 1.25rem;
 
     & .menu-item {
       display: flex;
@@ -108,13 +111,16 @@
   }
 }
 .tournaments{
+    background-color: white;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
     gap: 20px;
-    height: 100%;
-    padding: 8vh 0;
+    height: auto;
+    padding: 1.26rem;
   
     & form {
       display: flex;

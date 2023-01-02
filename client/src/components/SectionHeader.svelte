@@ -32,6 +32,10 @@
   padding: .25rem 1.25rem;
   gap: 1.25rem;
   height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   color: var(--color-white);
   background-color: var(--color-black);
